@@ -18,7 +18,7 @@
 
         /* SECCIÓN PRINCIPAL */
         .hero { 
-            background: url('https://i.imgur.com/7Z8X7Yh.jpeg') center/cover no-repeat; 
+            background: url('IMG-20260129-WA0014.jpg') center/cover no-repeat; 
             padding: 100px 20px; 
             text-align: center; 
             color: #ffffff; 
@@ -38,10 +38,13 @@
         #servicios h2 { color: #004e89; text-align: center; margin-bottom: 30px; }
         .services-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
         .service-card { border: 1px solid #bdd5ea; border-radius: 10px; overflow: hidden; }
-        .service-card img { width: 100%; height: 200px; object-fit: cover; }
+        .service-gallery { display: flex; gap: 5px; }
+        .service-gallery img { width: 33.33%; height: 180px; object-fit: cover; }
+        .double-gallery img { width: 50%; height: 180px; object-fit: cover; }
         .service-card .card-content { padding: 20px; }
         .service-card h3 { color: #004e89; margin-bottom: 10px; }
         .service-card p { line-height: 1.5; }
+        .extra-img { width: 100%; height: auto; margin-top: 10px; object-fit: cover; }
 
         /* CONTACTO */
         #contacto { 
@@ -79,7 +82,7 @@
 </head>
 <body>
     <header>
-        <img src="https://i.imgur.com/5KjX2Lb.png" alt="Logo PSE Construction" class="logo-img">
+        <img src="IMG-20260128-WA0095.jpg" alt="Logo PSE Construction" class="logo-img">
         <p>Construcción y Remodelación Profesional en Wisconsin</p>
         <nav>
             <a href="#inicio">Inicio</a>
@@ -96,25 +99,44 @@
     <section id="servicios">
         <h2>Nuestros Servicios</h2>
         <div class="services-container">
+            <!-- CONSTRUCCIÓN RESIDENCIAL -->
             <div class="service-card">
-                <img src="https://i.imgur.com/8TkP2aD.jpeg" alt="Construcción Residencial">
+                <div class="double-gallery">
+                    <img src="descarga.jpeg" alt="Construcción Residencial 1">
+                    <img src="descarga (1).jpeg" alt="Construcción Residencial 2">
+                </div>
                 <div class="card-content">
                     <h3>Construcción Residencial</h3>
                     <p>Proyectos completos de viviendas unifamiliares, apartamentos y edificios, adaptados a normativas locales y estándares de calidad.</p>
                 </div>
             </div>
+
+            <!-- REMODELACIONES -->
             <div class="service-card">
-                <img src="https://i.imgur.com/9RjX8bN.jpeg" alt="Remodelaciones">
+                <div class="service-gallery">
+                    <img src="descarga (2).jpeg" alt="Remodelaciones 1">
+                    <img src="descarga (3).jpeg" alt="Remodelaciones 2">
+                    <img src="imágenes (2).jpeg" alt="Remodelaciones 3">
+                </div>
                 <div class="card-content">
                     <h3>Remodelaciones</h3>
                     <p>Renovación de hogares, oficinas y locales comerciales, con acabados premium ajustados a tus necesidades y presupuesto.</p>
                 </div>
             </div>
+
+            <!-- MATERIALES Y MANTENIMIENTO -->
             <div class="service-card">
-                <img src="https://i.imgur.com/7XpQ3cD.jpeg" alt="Materiales y Mantenimiento">
+                <div class="service-gallery">
+                    <img src="IMG-20260129-WA0013.jpg" alt="Materiales 1">
+                    <img src="IMG-20260129-WA0012.jpg" alt="Materiales 2">
+                    <img src="IMG-20260129-WA0010.jpg" alt="Materiales 3">
+                </div>
                 <div class="card-content">
                     <h3>Materiales y Mantenimiento</h3>
-                    <p>Venta de materiales de alta calidad y programas de mantenimiento preventivo y correctivo para todo tipo de obras.</p>
+                    <p>Venta de materiales de alta calidad (cemento, acero, madera, cerámicas) y programas de mantenimiento preventivo y correctivo para todo tipo de obras.</p>
+                    <img src="IMG-20260129-WA0005.jpg" alt="Materiales 4" class="extra-img">
+                    <img src="IMG-20260129-WA0001.jpg" alt="Materiales 5" class="extra-img">
+                    <img src="IMG-20260129-WA0016.jpg" alt="Materiales 6" class="extra-img">
                 </div>
             </div>
         </div>
