@@ -85,6 +85,7 @@
         nav { 
             display: flex;
             gap: 20px;
+            align-items: center;
         }
         
         nav a { 
@@ -102,6 +103,36 @@
         nav a:hover, nav a.active { 
             background-color: rgba(255, 255, 255, 0.1);
             color: var(--secondary-color);
+        }
+        
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 10px;
+        }
+        
+        .language-btn {
+            background: transparent;
+            border: 1px solid var(--white);
+            color: var(--white);
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .language-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .language-btn.active {
+            background: var(--secondary-color);
+            border-color: var(--secondary-color);
         }
         
         .menu-toggle {
@@ -516,6 +547,12 @@
                 display: flex;
             }
             
+            .language-switcher {
+                margin-left: 0;
+                margin-top: 10px;
+                justify-content: center;
+            }
+            
             .hero h1 { font-size: 2rem; }
             .hero p { font-size: 1.1rem; }
             .services-container { grid-template-columns: 1fr; }
@@ -547,27 +584,54 @@
         </button>
         
         <nav id="mainNav">
-            <a href="#inicio" class="active"><i class="fas fa-home"></i> Inicio</a>
-            <a href="#servicios"><i class="fas fa-hammer"></i> Servicios</a>
-            <a href="#contacto"><i class="fas fa-phone-alt"></i> Contacto</a>
+            <a href="#inicio" class="active" data-es="Inicio" data-en="Home">
+                <i class="fas fa-home"></i> <span class="nav-text">Inicio</span>
+            </a>
+            <a href="#servicios" data-es="Servicios" data-en="Services">
+                <i class="fas fa-hammer"></i> <span class="nav-text">Servicios</span>
+            </a>
+            <a href="#contacto" data-es="Contacto" data-en="Contact">
+                <i class="fas fa-phone-alt"></i> <span class="nav-text">Contacto</span>
+            </a>
+            
+            <div class="language-switcher">
+                <button class="language-btn active" id="langEs" data-lang="es">
+                    <i class="fas fa-language"></i> ES
+                </button>
+                <button class="language-btn" id="langEn" data-lang="en">
+                    <i class="fas fa-language"></i> EN
+                </button>
+            </div>
         </nav>
     </div>
 </header>
 
 <section class="hero" id="inicio">
     <div class="hero-content">
-        <h1>Construimos <span>Calidad</span>, Confianza y Resultados</h1>
-        <p>Liderada por el CEO Edecio Socorro, PSE Construction Company LLC ofrece servicios completos de construcción y remodelación en Fitchburg, Wisconsin. Más de 10 años de experiencia garantizando satisfacción y excelencia.</p>
+        <h1 data-es="Construimos <span>Calidad</span>, Confianza y Resultados" 
+            data-en="We Build <span>Quality</span>, Trust and Results">
+            Construimos <span>Calidad</span>, Confianza y Resultados
+        </h1>
+        <p data-es="Liderada por el CEO Edecio Socorro, PSE Construction Company LLC ofrece servicios completos de construcción y remodelación en Fitchburg, Wisconsin. Más de 10 años de experiencia garantizando satisfacción y excelencia."
+           data-en="Led by CEO Edecio Socorro, PSE Construction Company LLC offers complete construction and remodeling services in Fitchburg, Wisconsin. Over 10 years of experience guaranteeing satisfaction and excellence.">
+            Liderada por el CEO Edecio Socorro, PSE Construction Company LLC ofrece servicios completos de construcción y remodelación en Fitchburg, Wisconsin. Más de 10 años de experiencia garantizando satisfacción y excelencia.
+        </p>
         
         <div class="hero-btns">
-            <a href="#servicios" class="btn btn-primary"><i class="fas fa-hard-hat"></i> Nuestros Servicios</a>
-            <a href="#contacto" class="btn btn-secondary"><i class="fas fa-phone"></i> Contáctanos</a>
+            <a href="#servicios" class="btn btn-primary" data-es="Nuestros Servicios" data-en="Our Services">
+                <i class="fas fa-hard-hat"></i> <span>Nuestros Servicios</span>
+            </a>
+            <a href="#contacto" class="btn btn-secondary" data-es="Contáctanos" data-en="Contact Us">
+                <i class="fas fa-phone"></i> <span>Contáctanos</span>
+            </a>
         </div>
     </div>
 </section>
 
 <section id="servicios">
-    <h2 class="section-title">Nuestros Servicios</h2>
+    <h2 class="section-title" data-es="Nuestros Servicios" data-en="Our Services">
+        Nuestros Servicios
+    </h2>
     <div class="services-container">
 
         <!-- CONSTRUCCIÓN RESIDENCIAL -->
@@ -577,14 +641,37 @@
                 <img src="descarga (1).jpeg" alt="Construcción Residencial 2">
             </div>
             <div class="card-content">
-                <h3><i class="fas fa-home"></i> Construcción Residencial</h3>
-                <p>Proyectos completos de viviendas unifamiliares, apartamentos y edificios, adaptados a normativas locales y estándares de calidad superior.</p>
+                <h3><i class="fas fa-home"></i> 
+                    <span data-es="Construcción Residencial" data-en="Residential Construction">
+                        Construcción Residencial
+                    </span>
+                </h3>
+                <p data-es="Proyectos completos de viviendas unifamiliares, apartamentos y edificios, adaptados a normativas locales y estándares de calidad superior."
+                   data-en="Complete projects for single-family homes, apartments and buildings, adapted to local regulations and superior quality standards.">
+                    Proyectos completos de viviendas unifamiliares, apartamentos y edificios, adaptados a normativas locales y estándares de calidad superior.
+                </p>
                 
                 <ul class="service-features">
-                    <li><i class="fas fa-check-circle"></i> Diseño personalizado</li>
-                    <li><i class="fas fa-check-circle"></i> Cumplimiento normativo</li>
-                    <li><i class="fas fa-check-circle"></i> Materiales de primera calidad</li>
-                    <li><i class="fas fa-check-circle"></i> Entrega puntual</li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Diseño personalizado" data-en="Custom design">
+                            Diseño personalizado
+                        </span>
+                    </li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Cumplimiento normativo" data-en="Regulatory compliance">
+                            Cumplimiento normativo
+                        </span>
+                    </li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Materiales de primera calidad" data-en="First quality materials">
+                            Materiales de primera calidad
+                        </span>
+                    </li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Entrega puntual" data-en="On-time delivery">
+                            Entrega puntual
+                        </span>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -595,14 +682,37 @@
                 <img src="1.png" alt="Remodelaciones">
             </div>
             <div class="card-content">
-                <h3><i class="fas fa-paint-roller"></i> Remodelaciones</h3>
-                <p>Renovación de hogares, oficinas y locales comerciales, con acabados modernos, funcionales y de alta calidad que transforman espacios.</p>
+                <h3><i class="fas fa-paint-roller"></i> 
+                    <span data-es="Remodelaciones" data-en="Remodeling">
+                        Remodelaciones
+                    </span>
+                </h3>
+                <p data-es="Renovación de hogares, oficinas y locales comerciales, con acabados modernos, funcionales y de alta calidad que transforman espacios."
+                   data-en="Renovation of homes, offices and commercial spaces, with modern, functional and high-quality finishes that transform spaces.">
+                    Renovación de hogares, oficinas y locales comerciales, con acabados modernos, funcionales y de alta calidad que transforman espacios.
+                </p>
                 
                 <ul class="service-features">
-                    <li><i class="fas fa-check-circle"></i> Cocinas y baños</li>
-                    <li><i class="fas fa-check-circle"></i> Ampliaciones de espacios</li>
-                    <li><i class="fas fa-check-circle"></i> Renovación integral</li>
-                    <li><i class="fas fa-check-circle"></i> Diseño interior</li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Cocinas y baños" data-en="Kitchens and bathrooms">
+                            Cocinas y baños
+                        </span>
+                    </li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Ampliaciones de espacios" data-en="Space expansions">
+                            Ampliaciones de espacios
+                        </span>
+                    </li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Renovación integral" data-en="Complete renovation">
+                            Renovación integral
+                        </span>
+                    </li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Diseño interior" data-en="Interior design">
+                            Diseño interior
+                        </span>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -613,14 +723,37 @@
                 <img src="IMG-20260129-WA0013.jpg" alt="Materiales de construcción">
             </div>
             <div class="card-content">
-                <h3><i class="fas fa-tools"></i> Materiales y Mantenimiento</h3>
-                <p>Venta de materiales de alta calidad y programas de mantenimiento preventivo y correctivo para todo tipo de obras y estructuras.</p>
+                <h3><i class="fas fa-tools"></i> 
+                    <span data-es="Materiales y Mantenimiento" data-en="Materials and Maintenance">
+                        Materiales y Mantenimiento
+                    </span>
+                </h3>
+                <p data-es="Venta de materiales de alta calidad y programas de mantenimiento preventivo y correctivo para todo tipo de obras y estructuras."
+                   data-en="Sale of high quality materials and preventive and corrective maintenance programs for all types of works and structures.">
+                    Venta de materiales de alta calidad y programas de mantenimiento preventivo y correctivo para todo tipo de obras y estructuras.
+                </p>
                 
                 <ul class="service-features">
-                    <li><i class="fas fa-check-circle"></i> Materiales premium</li>
-                    <li><i class="fas fa-check-circle"></i> Mantenimiento preventivo</li>
-                    <li><i class="fas fa-check-circle"></i> Reparaciones especializadas</li>
-                    <li><i class="fas fa-check-circle"></i> Asesoría técnica</li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Materiales premium" data-en="Premium materials">
+                            Materiales premium
+                        </span>
+                    </li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Mantenimiento preventivo" data-en="Preventive maintenance">
+                            Mantenimiento preventivo
+                        </span>
+                    </li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Reparaciones especializadas" data-en="Specialized repairs">
+                            Reparaciones especializadas
+                        </span>
+                    </li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Asesoría técnica" data-en="Technical advice">
+                            Asesoría técnica
+                        </span>
+                    </li>
                 </ul>
                 
                 <div class="extra-images">
@@ -634,7 +767,9 @@
 </section>
 
 <section id="contacto">
-    <h2 class="section-title">Contáctanos</h2>
+    <h2 class="section-title" data-es="Contáctanos" data-en="Contact Us">
+        Contáctanos
+    </h2>
     
     <div class="contact-container">
         <div>
@@ -642,7 +777,7 @@
                 <div class="contact-item">
                     <i class="fas fa-map-marker-alt"></i>
                     <div>
-                        <strong>Dirección:</strong><br>
+                        <strong data-es="Dirección:" data-en="Address:">Dirección:</strong><br>
                         2953 Fish Hatchery Rd, Fitchburg, WI 53713
                     </div>
                 </div>
@@ -650,7 +785,7 @@
                 <div class="contact-item">
                     <i class="fas fa-phone"></i>
                     <div>
-                        <strong>Teléfono / WhatsApp:</strong><br>
+                        <strong data-es="Teléfono / WhatsApp:" data-en="Phone / WhatsApp:">Teléfono / WhatsApp:</strong><br>
                         +1 (470) 593-5592
                     </div>
                 </div>
@@ -666,15 +801,22 @@
                 <div class="contact-item">
                     <i class="fas fa-clock"></i>
                     <div>
-                        <strong>Horario de atención:</strong><br>
-                        Lunes a Viernes: 8:00 AM - 6:00 PM<br>
-                        Sábados: 9:00 AM - 2:00 PM
+                        <strong data-es="Horario de atención:" data-en="Business Hours:">Horario de atención:</strong><br>
+                        <span data-es="Lunes a Viernes: 8:00 AM - 6:00 PM" 
+                              data-en="Monday to Friday: 8:00 AM - 6:00 PM">
+                            Lunes a Viernes: 8:00 AM - 6:00 PM
+                        </span><br>
+                        <span data-es="Sábados: 9:00 AM - 2:00 PM" 
+                              data-en="Saturdays: 9:00 AM - 2:00 PM">
+                            Sábados: 9:00 AM - 2:00 PM
+                        </span>
                     </div>
                 </div>
             </div>
             
-            <a href="https://wa.me/14705935592" target="_blank" class="whatsapp-btn">
-                <i class="fab fa-whatsapp"></i> Cotiza Ahora por WhatsApp
+            <a href="https://wa.me/14705935592" target="_blank" class="whatsapp-btn" 
+               data-es="Cotiza Ahora por WhatsApp" data-en="Get Quote on WhatsApp">
+                <i class="fab fa-whatsapp"></i> <span>Cotiza Ahora por WhatsApp</span>
             </a>
         </div>
         
@@ -688,7 +830,10 @@
     <div class="footer-content">
         <div>
             <img src="IMG-20260128-WA0095.jpg" alt="Logo PSE Construction" class="footer-logo">
-            <p>Construcción y Remodelación Profesional en Wisconsin. Calidad, confianza y resultados garantizados.</p>
+            <p data-es="Construcción y Remodelación Profesional en Wisconsin. Calidad, confianza y resultados garantizados."
+               data-en="Professional Construction and Remodeling in Wisconsin. Quality, trust and guaranteed results.">
+                Construcción y Remodelación Profesional en Wisconsin. Calidad, confianza y resultados garantizados.
+            </p>
             
             <div class="social-links">
                 <a href="https://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -699,32 +844,128 @@
         </div>
         
         <div>
-            <h3 class="footer-title">Enlaces Rápidos</h3>
+            <h3 class="footer-title" data-es="Enlaces Rápidos" data-en="Quick Links">
+                Enlaces Rápidos
+            </h3>
             <ul class="footer-links">
-                <li><a href="#inicio"><i class="fas fa-chevron-right"></i> Inicio</a></li>
-                <li><a href="#servicios"><i class="fas fa-chevron-right"></i> Servicios</a></li>
-                <li><a href="#contacto"><i class="fas fa-chevron-right"></i> Contacto</a></li>
+                <li><a href="#inicio"><i class="fas fa-chevron-right"></i> 
+                    <span data-es="Inicio" data-en="Home">Inicio</span>
+                </a></li>
+                <li><a href="#servicios"><i class="fas fa-chevron-right"></i> 
+                    <span data-es="Servicios" data-en="Services">Servicios</span>
+                </a></li>
+                <li><a href="#contacto"><i class="fas fa-chevron-right"></i> 
+                    <span data-es="Contacto" data-en="Contact">Contacto</span>
+                </a></li>
             </ul>
         </div>
         
         <div>
-            <h3 class="footer-title">Servicios</h3>
+            <h3 class="footer-title" data-es="Servicios" data-en="Services">
+                Servicios
+            </h3>
             <ul class="footer-links">
-                <li><a href="#servicios"><i class="fas fa-chevron-right"></i> Construcción Residencial</a></li>
-                <li><a href="#servicios"><i class="fas fa-chevron-right"></i> Remodelaciones</a></li>
-                <li><a href="#servicios"><i class="fas fa-chevron-right"></i> Materiales y Mantenimiento</a></li>
+                <li><a href="#servicios"><i class="fas fa-chevron-right"></i> 
+                    <span data-es="Construcción Residencial" data-en="Residential Construction">
+                        Construcción Residencial
+                    </span>
+                </a></li>
+                <li><a href="#servicios"><i class="fas fa-chevron-right"></i> 
+                    <span data-es="Remodelaciones" data-en="Remodeling">
+                        Remodelaciones
+                    </span>
+                </a></li>
+                <li><a href="#servicios"><i class="fas fa-chevron-right"></i> 
+                    <span data-es="Materiales y Mantenimiento" data-en="Materials and Maintenance">
+                        Materiales y Mantenimiento
+                    </span>
+                </a></li>
             </ul>
         </div>
     </div>
     
     <div class="copyright">
-        <p>© 2024 PSE Construction Company LLC · Todos los Derechos Reservados</p>
+        <p>© 2024 PSE Construction Company LLC · 
+            <span data-es="Todos los Derechos Reservados" data-en="All Rights Reserved">
+                Todos los Derechos Reservados
+            </span>
+        </p>
         <p>Fitchburg, Wisconsin</p>
     </div>
 </footer>
 
 <script>
-    // Menú móvil
+    // ========== CONFIGURACIÓN DE IDIOMAS ==========
+    const translations = {
+        // Títulos y textos principales
+        'pageTitle': {
+            es: 'PSE Construction LLC - Construcción y Remodelación Profesional en Wisconsin',
+            en: 'PSE Construction LLC - Professional Construction and Remodeling in Wisconsin'
+        },
+        'metaDescription': {
+            es: 'Construcción y remodelación profesional en Fitchburg, Wisconsin. Liderados por el CEO Edecio Socorro. Calidad, confianza y resultados garantizados.',
+            en: 'Professional construction and remodeling in Fitchburg, Wisconsin. Led by CEO Edecio Socorro. Quality, trust and guaranteed results.'
+        }
+    };
+
+    // ========== FUNCIONALIDAD DE CAMBIO DE IDIOMA ==========
+    let currentLanguage = 'es'; // Idioma por defecto
+
+    // Elementos de cambio de idioma
+    const langEsBtn = document.getElementById('langEs');
+    const langEnBtn = document.getElementById('langEn');
+
+    // Función para cambiar el idioma
+    function changeLanguage(lang) {
+        currentLanguage = lang;
+        
+        // Actualizar botones de idioma
+        langEsBtn.classList.toggle('active', lang === 'es');
+        langEnBtn.classList.toggle('active', lang === 'en');
+        
+        // Cambiar atributo lang del HTML
+        document.documentElement.lang = lang;
+        
+        // Cambiar título de la página
+        document.title = translations.pageTitle[lang];
+        
+        // Cambiar meta description
+        const metaDescription = document.querySelector('meta[name="description"]');
+        metaDescription.setAttribute('content', translations.metaDescription[lang]);
+        
+        // Cambiar todos los elementos con data-es y data-en
+        document.querySelectorAll('[data-es], [data-en]').forEach(element => {
+            const text = element.getAttribute(`data-${lang}`);
+            if (text) {
+                // Para elementos con HTML interno (como el span en h1)
+                if (element.hasAttribute('data-es') && element.hasAttribute('data-en')) {
+                    // Si tiene atributos data-es y data-en, reemplazar contenido
+                    if (element.tagName === 'H1') {
+                        // Para h1 con span
+                        element.innerHTML = text;
+                    } else if (element.tagName === 'A' || element.tagName === 'BUTTON') {
+                        // Para enlaces y botones, cambiar el texto dentro del span
+                        const span = element.querySelector('span');
+                        if (span) {
+                            span.textContent = text;
+                        } else {
+                            element.textContent = text;
+                        }
+                    } else {
+                        element.textContent = text;
+                    }
+                }
+            }
+        });
+        
+        // Guardar preferencia en localStorage
+        localStorage.setItem('preferredLanguage', lang);
+        
+        // Actualizar navegación activa
+        updateActiveNav();
+    }
+
+    // ========== MENÚ MÓVIL ==========
     const menuToggle = document.getElementById('menuToggle');
     const mainNav = document.getElementById('mainNav');
     
@@ -745,12 +986,12 @@
             }
         });
     });
-    
-    // Resaltar enlace activo al hacer scroll
-    const sections = document.querySelectorAll('section');
-    const navItems = document.querySelectorAll('nav a');
-    
-    window.addEventListener('scroll', () => {
+
+    // ========== NAVEGACIÓN ACTIVA ==========
+    function updateActiveNav() {
+        const sections = document.querySelectorAll('section');
+        const navItems = document.querySelectorAll('nav a');
+        
         let current = '';
         
         sections.forEach(section => {
@@ -768,9 +1009,9 @@
                 item.classList.add('active');
             }
         });
-    });
-    
-    // Animación al hacer scroll
+    }
+
+    // ========== ANIMACIONES AL SCROLL ==========
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -792,8 +1033,33 @@
         el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
         observer.observe(el);
     });
+
+    // ========== EVENT LISTENERS ==========
+    // Cambiar idioma al hacer clic en los botones
+    langEsBtn.addEventListener('click', () => changeLanguage('es'));
+    langEnBtn.addEventListener('click', () => changeLanguage('en'));
+
+    // Navegación activa al hacer scroll
+    window.addEventListener('scroll', updateActiveNav);
+
+    // ========== INICIALIZACIÓN ==========
+    // Cargar idioma preferido de localStorage
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedLanguage = localStorage.getItem('preferredLanguage');
+        if (savedLanguage && (savedLanguage === 'es' || savedLanguage === 'en')) {
+            changeLanguage(savedLanguage);
+        }
+        
+        // Detectar idioma del navegador (opcional)
+        const browserLang = navigator.language || navigator.userLanguage;
+        if (!savedLanguage && browserLang.startsWith('en')) {
+            changeLanguage('en');
+        }
+        
+        // Inicializar navegación activa
+        updateActiveNav();
+    });
 </script>
 
 </body>
 </html>
-
