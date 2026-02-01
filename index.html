@@ -11,9 +11,6 @@
             --primary-color: #2c3e50;
             --secondary-color: #f39c12;
             --accent-color: #25d366;
-            --stripe-color: #635bff;
-            --paypal-color: #003087;
-            --cash-color: #27ae60;
             --light-color: #ecf0f1;
             --dark-color: #333333;
             --text-color: #555555;
@@ -39,6 +36,63 @@
             color: var(--dark-color);
             line-height: 1.6;
             overflow-x: hidden;
+        }
+
+        /* MODAL PARA AMPLIAR IMÁGENES */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 5px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: -10px;
+            color: white;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .image-caption {
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 1.2rem;
+            background: rgba(0,0,0,0.7);
+            border-radius: 0 0 5px 5px;
         }
 
         /* HEADER */
@@ -337,6 +391,7 @@
             transition: var(--transition);
             background: var(--white);
             position: relative;
+            cursor: pointer;
         }
         
         .project-item:hover {
@@ -444,6 +499,7 @@
             height: 300px; 
             overflow: hidden;
             position: relative;
+            cursor: pointer;
         }
         
         .service-gallery img { 
@@ -587,6 +643,7 @@
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid var(--secondary-color);
+            cursor: pointer;
         }
         
         .author-info h4 {
@@ -599,113 +656,7 @@
             font-size: 0.9rem;
         }
         
-        /* PAYMENT SECTION */
-        #pagos {
-            max-width: 1200px;
-            margin: 100px auto;
-            padding: 0 20px;
-        }
-        
-        .payment-methods {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .payment-card {
-            background: var(--white);
-            border-radius: var(--radius);
-            padding: 30px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            text-align: center;
-            border-top: 5px solid var(--primary-color);
-        }
-        
-        .payment-card.stripe {
-            border-top-color: var(--stripe-color);
-        }
-        
-        .payment-card.paypal {
-            border-top-color: var(--paypal-color);
-        }
-        
-        .payment-card.cash {
-            border-top-color: var(--cash-color);
-        }
-        
-        .payment-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-        
-        .payment-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-        
-        .payment-card.stripe .payment-icon {
-            color: var(--stripe-color);
-        }
-        
-        .payment-card.paypal .payment-icon {
-            color: var(--paypal-color);
-        }
-        
-        .payment-card.cash .payment-icon {
-            color: var(--cash-color);
-        }
-        
-        .payment-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-        
-        .payment-card p {
-            color: var(--text-color);
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-        
-        .payment-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: var(--secondary-color);
-            color: var(--white);
-            padding: 12px 25px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: var(--transition);
-            width: 100%;
-            margin-top: 15px;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        
-        .payment-btn:hover {
-            background: #e67e22;
-            transform: translateY(-3px);
-        }
-        
-        .payment-btn.stripe {
-            background: var(--stripe-color);
-        }
-        
-        .payment-btn.paypal {
-            background: var(--paypal-color);
-        }
-        
-        .payment-btn.cash {
-            background: var(--cash-color);
-        }
-        
-        /* CONTACT SECTION */
+        /* SECCIÓN DE CONTACTO (REEMPLAZA PAGOS) */
         #contacto { 
             max-width: 1200px; 
             margin: 100px auto; 
@@ -945,8 +896,9 @@
             .services-container { grid-template-columns: 1fr; }
             .section-title { font-size: 2rem; }
             .contact-container { grid-template-columns: 1fr; }
-            .payment-methods { grid-template-columns: 1fr; }
             .projects-grid { grid-template-columns: 1fr; }
+            .modal-content { max-width: 95%; }
+            .close-modal { top: -50px; right: 0; }
         }
         
         @media (max-width: 576px) {
@@ -958,10 +910,20 @@
             .service-card .card-content { padding: 20px; }
             .hero-btns { flex-direction: column; align-items: center; }
             .hero-stats { flex-direction: column; gap: 20px; }
+            .service-images { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
+
+<!-- MODAL PARA AMPLIAR IMÁGENES -->
+<div class="image-modal" id="imageModal">
+    <div class="modal-content">
+        <button class="close-modal" id="closeModal">&times;</button>
+        <img id="modalImage" src="" alt="Imagen ampliada">
+        <div class="image-caption" id="modalCaption"></div>
+    </div>
+</div>
 
 <header>
     <div class="header-container">
@@ -986,9 +948,6 @@
             </a>
             <a href="#servicios" data-es="Servicios" data-en="Services">
                 <i class="fas fa-hammer"></i> <span class="nav-text">Servicios</span>
-            </a>
-            <a href="#pagos" data-es="Pagos" data-en="Payments">
-                <i class="fas fa-credit-card"></i> <span class="nav-text">Pagos</span>
             </a>
             <a href="#contacto" data-es="Contacto" data-en="Contact">
                 <i class="fas fa-phone-alt"></i> <span class="nav-text">Contacto</span>
@@ -1063,21 +1022,21 @@
                 Construcción Residencial
             </h3>
             <div class="projects-grid">
-                <div class="project-item">
+                <div class="project-item" onclick="openImageModal('https://images.unsplash.com/photo-1600585154340-043788447eb1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Casa Moderna Fitchburg')">
                     <img src="https://images.unsplash.com/photo-1600585154340-043788447eb1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Casa Moderna Fitchburg" class="project-img">
                     <div class="project-overlay">
                         <h4 data-es="Casa Moderna Fitchburg" data-en="Modern House Fitchburg">Casa Moderna Fitchburg</h4>
                         <p data-es="Vivienda unifamiliar completa" data-en="Complete single-family home">Vivienda unifamiliar completa</p>
                     </div>
                 </div>
-                <div class="project-item">
+                <div class="project-item" onclick="openImageModal('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Complejo Residencial')">
                     <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Edificio de Apartamentos" class="project-img">
                     <div class="project-overlay">
                         <h4 data-es="Complejo Residencial" data-en="Residential Complex">Complejo Residencial</h4>
                         <p data-es="12 unidades en Madison" data-en="12 units in Madison">12 unidades en Madison</p>
                     </div>
                 </div>
-                <div class="project-item">
+                <div class="project-item" onclick="openImageModal('https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Casa Familiar Wisconsin')">
                     <img src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Casa Tradicional Wisconsin" class="project-img">
                     <div class="project-overlay">
                         <h4 data-es="Casa Familiar Wisconsin" data-en="Family Home Wisconsin">Casa Familiar Wisconsin</h4>
@@ -1093,21 +1052,21 @@
                 Remodelaciones Completas
             </h3>
             <div class="projects-grid">
-                <div class="project-item">
+                <div class="project-item" onclick="openImageModal('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Cocina de Lujo')">
                     <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Remodelación de Cocina" class="project-img">
                     <div class="project-overlay">
                         <h4 data-es="Cocina de Lujo" data-en="Luxury Kitchen">Cocina de Lujo</h4>
                         <p data-es="Remodelación completa" data-en="Complete remodeling">Remodelación completa</p>
                     </div>
                 </div>
-                <div class="project-item">
+                <div class="project-item" onclick="openImageModal('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Baño Principal Premium')">
                     <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Baño Premium" class="project-img">
                     <div class="project-overlay">
                         <h4 data-es="Baño Principal Premium" data-en="Master Bathroom Premium">Baño Principal Premium</h4>
                         <p data-es="Mármol y acabados premium" data-en="Marble and premium finishes">Mármol y acabados premium</p>
                     </div>
                 </div>
-                <div class="project-item">
+                <div class="project-item" onclick="openImageModal('https://images.unsplash.com/photo-1600494440280-2bd4c2a8090c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Ampliación Residencial')">
                     <img src="https://images.unsplash.com/photo-1600494440280-2bd4c2a8090c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Expansión de Hogar" class="project-img">
                     <div class="project-overlay">
                         <h4 data-es="Ampliación Residencial" data-en="Home Expansion">Ampliación Residencial</h4>
@@ -1123,21 +1082,21 @@
                 Proyectos Comerciales
             </h3>
             <div class="projects-grid">
-                <div class="project-item">
+                <div class="project-item" onclick="openImageModal('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Tienda Retail')">
                     <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Local Comercial" class="project-img">
                     <div class="project-overlay">
                         <h4 data-es="Tienda Retail" data-en="Retail Store">Tienda Retail</h4>
                         <p data-es="Diseño comercial moderno" data-en="Modern commercial design">Diseño comercial moderno</p>
                     </div>
                 </div>
-                <div class="project-item">
+                <div class="project-item" onclick="openImageModal('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Oficinas Ejecutivas')">
                     <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Oficinas Corporativas" class="project-img">
                     <div class="project-overlay">
                         <h4 data-es="Oficinas Ejecutivas" data-en="Executive Offices">Oficinas Ejecutivas</h4>
                         <p data-es="Espacio de trabajo premium" data-en="Premium workspace">Espacio de trabajo premium</p>
                     </div>
                 </div>
-                <div class="project-item">
+                <div class="project-item" onclick="openImageModal('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Restaurante Gourmet')">
                     <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Restaurante" class="project-img">
                     <div class="project-overlay">
                         <h4 data-es="Restaurante Gourmet" data-en="Gourmet Restaurant">Restaurante Gourmet</h4>
@@ -1163,7 +1122,7 @@
     <div class="services-container">
         <!-- CONSTRUCCIÓN RESIDENCIAL DETALLADA -->
         <div class="service-card">
-            <div class="service-gallery">
+            <div class="service-gallery" onclick="openImageModal('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80', 'Construcción Residencial Integral')">
                 <div class="gallery-counter">
                     <i class="fas fa-camera"></i> 8+ Fotos
                 </div>
@@ -1204,16 +1163,16 @@
                 </ul>
                 
                 <div class="service-images">
-                    <img src="https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Cimentación profesional" class="service-image">
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w-400&q=80" alt="Estructura en madera" class="service-image">
-                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Acabados interiores" class="service-image">
+                    <img src="https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Cimentación profesional" class="service-image" onclick="openImageModal('https://images.unsplash.com/photo-1541140532154-b024d705b90a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Cimentación profesional')">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Estructura en madera" class="service-image" onclick="openImageModal('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Estructura en madera')">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Acabados interiores" class="service-image" onclick="openImageModal('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Acabados interiores')">
                 </div>
             </div>
         </div>
 
         <!-- REMODELACIONES COMPLETAS -->
         <div class="service-card">
-            <div class="service-gallery">
+            <div class="service-gallery" onclick="openImageModal('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80', 'Remodelaciones y Renovaciones')">
                 <div class="gallery-counter">
                     <i class="fas fa-camera"></i> 6+ Fotos
                 </div>
@@ -1254,16 +1213,16 @@
                 </ul>
                 
                 <div class="service-images">
-                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Cocina antes y después" class="service-image">
-                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Baño completamente renovado" class="service-image">
-                    <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Sala de estar remodelada" class="service-image">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Cocina antes y después" class="service-image" onclick="openImageModal('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Cocina de lujo remodelada')">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Baño completamente renovado" class="service-image" onclick="openImageModal('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Baño premium renovado')">
+                    <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Sala de estar remodelada" class="service-image" onclick="openImageModal('https://images.unsplash.com/photo-1616594039964-ae9021a400a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Sala de estar remodelada')">
                 </div>
             </div>
         </div>
 
         <!-- MATERIALES Y MANTENIMIENTO PROFESIONAL -->
         <div class="service-card">
-            <div class="service-gallery">
+            <div class="service-gallery" onclick="openImageModal('https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80', 'Materiales Premium y Mantenimiento')">
                 <div class="gallery-counter">
                     <i class="fas fa-camera"></i> 10+ Fotos
                 </div>
@@ -1304,9 +1263,9 @@
                 </ul>
                 
                 <div class="service-images">
-                    <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Maderas de construcción" class="service-image">
-                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Herramientas profesionales" class="service-image">
-                    <img src="https://images.unsplash.com/photo-1595429035839-c99c298ffdde?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Acabados premium" class="service-image">
+                    <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Maderas de construcción" class="service-image" onclick="openImageModal('https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Maderas de construcción premium')">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Herramientas profesionales" class="service-image" onclick="openImageModal('https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Herramientas profesionales')">
+                    <img src="https://images.unsplash.com/photo-1595429035839-c99c298ffdde?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Acabados premium" class="service-image" onclick="openImageModal('https://images.unsplash.com/photo-1595429035839-c99c298ffdde?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80', 'Acabados premium de calidad')">
                 </div>
             </div>
         </div>
@@ -1329,7 +1288,7 @@
                     PSE Construction transformó completamente nuestra casa. Su atención al detalle y profesionalismo durante los 10 meses de proyecto fueron excepcionales. ¡Recomendados 100%!
                 </p>
                 <div class="testimonial-author">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Familia Johnson" class="author-avatar">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Familia Johnson" class="author-avatar" onclick="openImageModal('https://randomuser.me/api/portraits/men/32.jpg', 'Familia Johnson - Cliente satisfecho')">
                     <div class="author-info">
                         <h4>Familia Johnson</h4>
                         <p data-es="Remodelación completa en Madison" data-en="Complete remodeling in Madison">
@@ -1345,7 +1304,7 @@
                     Contratamos a PSE para construir nuestra casa desde cero. Su experiencia de 10 años se notó en cada etapa. Cumplieron plazos y presupuesto al pie de la letra.
                 </p>
                 <div class="testimonial-author">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Robert Miller" class="author-avatar">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Robert Miller" class="author-avatar" onclick="openImageModal('https://randomuser.me/api/portraits/women/44.jpg', 'Robert Miller - Cliente satisfecho')">
                     <div class="author-info">
                         <h4>Robert Miller</h4>
                         <p data-es="Construcción residencial en Fitchburg" data-en="Residential construction in Fitchburg">
@@ -1361,7 +1320,7 @@
                     Como dueño de negocio, necesitaba remodelar mi local comercial. PSE entendió exactamente lo que necesitaba y entregó un trabajo impecable. Volveré a contratarlos.
                 </p>
                 <div class="testimonial-author">
-                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sarah Chen" class="author-avatar">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sarah Chen" class="author-avatar" onclick="openImageModal('https://randomuser.me/api/portraits/women/68.jpg', 'Sarah Chen - Cliente satisfecho')">
                     <div class="author-info">
                         <h4>Sarah Chen</h4>
                         <p data-es="Remodelación comercial en Milwaukee" data-en="Commercial remodeling in Milwaukee">
@@ -1370,72 +1329,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-
-<!-- SECCIÓN DE PAGOS -->
-<section id="pagos">
-    <h2 class="section-title" data-es="Métodos de Pago" data-en="Payment Methods">
-        Métodos de Pago
-    </h2>
-    
-    <p class="section-subtitle" data-es="Ofrecemos múltiples opciones de pago seguras y convenientes para nuestros clientes. Puedes pagar en línea o en persona."
-       data-en="We offer multiple secure and convenient payment options for our clients. You can pay online or in person.">
-        Ofrecemos múltiples opciones de pago seguras y convenientes para nuestros clientes. Puedes pagar en línea o en persona.
-    </p>
-    
-    <div class="payment-methods">
-        <!-- STRIPE -->
-        <div class="payment-card stripe">
-            <div class="payment-icon">
-                <i class="fab fa-stripe"></i>
-            </div>
-            <h3 data-es="Tarjeta de Crédito/Débito" data-en="Credit/Debit Card">
-                Tarjeta de Crédito/Débito
-            </h3>
-            <p data-es="Pago seguro con Stripe. Aceptamos Visa, Mastercard, American Express y Discover."
-               data-en="Secure payment with Stripe. We accept Visa, Mastercard, American Express and Discover.">
-                Pago seguro con Stripe. Aceptamos Visa, Mastercard, American Express y Discover.
-            </p>
-            <button class="payment-btn stripe" id="stripePayment">
-                <i class="fas fa-credit-card"></i> 
-                <span data-es="Pagar con Tarjeta" data-en="Pay with Card">Pagar con Tarjeta</span>
-            </button>
-        </div>
-        
-        <!-- PAYPAL -->
-        <div class="payment-card paypal">
-            <div class="payment-icon">
-                <i class="fab fa-paypal"></i>
-            </div>
-            <h3>PayPal</h3>
-            <p data-es="Pago rápido y seguro con tu cuenta PayPal. Ideal para pagos internacionales."
-               data-en="Fast and secure payment with your PayPal account. Ideal for international payments.">
-                Pago rápido y seguro con tu cuenta PayPal. Ideal para pagos internacionales.
-            </p>
-            <button class="payment-btn paypal" id="paypalPayment">
-                <i class="fab fa-paypal"></i> 
-                <span data-es="Pagar con PayPal" data-en="Pay with PayPal">Pagar con PayPal</span>
-            </button>
-        </div>
-        
-        <!-- EFECTIVO/TRANSFERENCIA -->
-        <div class="payment-card cash">
-            <div class="payment-icon">
-                <i class="fas fa-money-bill-wave"></i>
-            </div>
-            <h3 data-es="Efectivo/Transferencia" data-en="Cash/Transfer">
-                Efectivo/Transferencia
-            </h3>
-            <p data-es="Pago en efectivo, cheque o transferencia bancaria. Contacta con nosotros para coordinar."
-               data-en="Payment in cash, check or bank transfer. Contact us to coordinate.">
-                Pago en efectivo, cheque o transferencia bancaria. Contacta con nosotros para coordinar.
-            </p>
-            <button class="payment-btn cash" id="cashPayment">
-                <i class="fas fa-phone"></i> 
-                <span data-es="Coordinarr Pago" data-en="Coordinate Payment">Coordinarr Pago</span>
-            </button>
         </div>
     </div>
 </section>
@@ -1543,9 +1436,6 @@
                 <li><a href="#servicios"><i class="fas fa-chevron-right"></i> 
                     <span data-es="Servicios" data-en="Services">Servicios</span>
                 </a></li>
-                <li><a href="#pagos"><i class="fas fa-chevron-right"></i> 
-                    <span data-es="Pagos" data-en="Payments">Pagos</span>
-                </a></li>
                 <li><a href="#contacto"><i class="fas fa-chevron-right"></i> 
                     <span data-es="Contacto" data-en="Contact">Contacto</span>
                 </a></li>
@@ -1592,6 +1482,41 @@
 </footer>
 
 <script>
+    // ========== FUNCIÓN PARA AMPLIAR IMÁGENES ==========
+    function openImageModal(imageSrc, caption) {
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+        
+        modalImage.src = imageSrc;
+        modalCaption.textContent = caption;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Previene scroll del body
+    }
+
+    function closeImageModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto'; // Restaura scroll del body
+    }
+
+    // Cerrar modal con Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeImageModal();
+        }
+    });
+
+    // Cerrar modal haciendo clic fuera de la imagen
+    document.getElementById('imageModal').addEventListener('click', (e) => {
+        if (e.target === document.getElementById('imageModal')) {
+            closeImageModal();
+        }
+    });
+
+    // Configurar botón de cerrar
+    document.getElementById('closeModal').addEventListener('click', closeImageModal);
+
     // ========== CONFIGURACIÓN DE IDIOMAS ==========
     const translations = {
         'pageTitle': {
@@ -1645,33 +1570,6 @@
         localStorage.setItem('preferredLanguage', lang);
         updateActiveNav();
     }
-
-    // ========== SISTEMA DE PAGOS ==========
-    const stripePaymentBtn = document.getElementById('stripePayment');
-    const paypalPaymentBtn = document.getElementById('paypalPayment');
-    const cashPaymentBtn = document.getElementById('cashPayment');
-    
-    // Abrir WhatsApp para pago en efectivo
-    cashPaymentBtn.addEventListener('click', () => {
-        const message = encodeURIComponent(
-            currentLanguage === 'es' 
-            ? 'Hola PSE Construction, me gustaría coordinar un pago en efectivo/transferencia para un proyecto de construcción. Tengo 10+ años de experiencia viendo su trabajo.'
-            : 'Hello PSE Construction, I would like to coordinate a cash/transfer payment for a construction project. I have 10+ years of experience seeing your work.'
-        );
-        window.open(`https://wa.me/14705935592?text=${message}`, '_blank');
-    });
-    
-    // Para Stripe y PayPal (simulación)
-    stripePaymentBtn.addEventListener('click', () => {
-        alert(currentLanguage === 'es' 
-            ? 'Sistema de pago con tarjeta - En desarrollo\n\nPróximamente podrás pagar directamente desde aquí.\nMientras tanto, contáctanos por WhatsApp.'
-            : 'Card payment system - In development\n\nComing soon you will be able to pay directly from here.\nIn the meantime, contact us via WhatsApp.');
-    });
-    
-    paypalPaymentBtn.addEventListener('click', () => {
-        const paypalUrl = `https://www.paypal.com/paypalme/PSECONSTRUCTION`;
-        window.open(paypalUrl, '_blank');
-    });
 
     // ========== MENÚ MÓVIL ==========
     const menuToggle = document.getElementById('menuToggle');
@@ -1735,7 +1633,7 @@
     }, observerOptions);
     
     // Observar todos los elementos importantes
-    document.querySelectorAll('.service-card, .project-item, .payment-card, .testimonial-card, .contact-container > div').forEach(el => {
+    document.querySelectorAll('.service-card, .project-item, .testimonial-card, .contact-container > div').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         observer.observe(el);
