@@ -1,4 +1,4 @@
-<!DOCTYPE html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -6,11 +6,16 @@
     <title>PSE Construction LLC - Construcción y Remodelación Profesional en Wisconsin</title>
     <meta name="description" content="Construcción y remodelación profesional en Fitchburg, Wisconsin. Liderados por el CEO Edecio Socorro. Calidad, confianza y resultados garantizados.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stripe CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #2c3e50;
             --secondary-color: #f39c12;
             --accent-color: #25d366;
+            --stripe-color: #635bff;
+            --paypal-color: #003087;
+            --cash-color: #27ae60;
             --light-color: #ecf0f1;
             --dark-color: #333333;
             --text-color: #555555;
@@ -350,6 +355,295 @@
             margin-top: 15px;
         }
         
+        /* PAYMENT SECTION */
+        #pagos {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+        
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .payment-card {
+            background: var(--white);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            border-top: 5px solid var(--primary-color);
+        }
+        
+        .payment-card.stripe {
+            border-top-color: var(--stripe-color);
+        }
+        
+        .payment-card.paypal {
+            border-top-color: var(--paypal-color);
+        }
+        
+        .payment-card.cash {
+            border-top-color: var(--cash-color);
+        }
+        
+        .payment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .payment-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .payment-card.stripe .payment-icon {
+            color: var(--stripe-color);
+        }
+        
+        .payment-card.paypal .payment-icon {
+            color: var(--paypal-color);
+        }
+        
+        .payment-card.cash .payment-icon {
+            color: var(--cash-color);
+        }
+        
+        .payment-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .payment-card p {
+            color: var(--text-color);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .payment-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 15px;
+        }
+        
+        .payment-btn:hover {
+            background: #e67e22;
+            transform: translateY(-3px);
+        }
+        
+        .payment-btn.stripe {
+            background: var(--stripe-color);
+        }
+        
+        .payment-btn.paypal {
+            background: var(--paypal-color);
+        }
+        
+        .payment-btn.cash {
+            background: var(--cash-color);
+        }
+        
+        /* PAYMENT MODAL */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: var(--white);
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            position: relative;
+            animation: modalSlide 0.3s ease;
+        }
+        
+        @keyframes modalSlide {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            color: var(--primary-color);
+        }
+        
+        .modal-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .payment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
+        }
+        
+        .amount-input {
+            position: relative;
+        }
+        
+        .amount-input span {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: bold;
+            color: var(--text-color);
+        }
+        
+        .amount-input input {
+            padding-left: 40px;
+        }
+        
+        .stripe-form {
+            margin-top: 20px;
+        }
+        
+        #card-element {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: var(--white);
+        }
+        
+        #card-errors {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .submit-payment {
+            background: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 20px;
+        }
+        
+        .submit-payment:hover {
+            background: #e67e22;
+        }
+        
+        .submit-payment:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .submit-payment.processing {
+            background: #3498db;
+        }
+        
+        .payment-success {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .payment-success i {
+            font-size: 4rem;
+            color: var(--cash-color);
+            margin-bottom: 20px;
+        }
+        
+        .payment-success h3 {
+            color: var(--cash-color);
+            margin-bottom: 15px;
+        }
+        
+        .invoice-details {
+            background: var(--light-color);
+            padding: 20px;
+            border-radius: var(--radius);
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .invoice-details p {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .invoice-details strong {
+            color: var(--primary-color);
+        }
+        
         /* CONTACT SECTION */
         #contacto { 
             max-width: 1200px; 
@@ -422,56 +716,6 @@
             width: 100%;
             height: 100%;
             border: 0;
-        }
-        
-        .map-error {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--light-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .map-error i {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-        
-        .map-error h3 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-        
-        .map-error p {
-            color: var(--text-color);
-            margin-bottom: 20px;
-            max-width: 300px;
-        }
-        
-        .open-maps-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--secondary-color);
-            color: var(--white);
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: var(--transition);
-        }
-        
-        .open-maps-btn:hover {
-            background: #e67e22;
-            transform: translateY(-3px);
         }
         
         /* FOOTER */
@@ -609,6 +853,7 @@
             .services-container { grid-template-columns: 1fr; }
             .section-title { font-size: 2rem; }
             .contact-container { grid-template-columns: 1fr; }
+            .payment-methods { grid-template-columns: 1fr; }
         }
         
         @media (max-width: 576px) {
@@ -618,6 +863,7 @@
             .btn { padding: 12px 25px; font-size: 0.9rem; }
             .section-title { font-size: 1.8rem; }
             .service-card .card-content { padding: 20px; }
+            .modal-content { padding: 20px; }
         }
     </style>
 </head>
@@ -640,6 +886,9 @@
             </a>
             <a href="#servicios" data-es="Servicios" data-en="Services">
                 <i class="fas fa-hammer"></i> <span class="nav-text">Servicios</span>
+            </a>
+            <a href="#pagos" data-es="Pagos" data-en="Payments">
+                <i class="fas fa-credit-card"></i> <span class="nav-text">Pagos</span>
             </a>
             <a href="#contacto" data-es="Contacto" data-en="Contact">
                 <i class="fas fa-phone-alt"></i> <span class="nav-text">Contacto</span>
@@ -672,8 +921,8 @@
             <a href="#servicios" class="btn btn-primary" data-es="Nuestros Servicios" data-en="Our Services">
                 <i class="fas fa-hard-hat"></i> <span>Nuestros Servicios</span>
             </a>
-            <a href="#contacto" class="btn btn-secondary" data-es="Contáctanos" data-en="Contact Us">
-                <i class="fas fa-phone"></i> <span>Contáctanos</span>
+            <a href="#pagos" class="btn btn-secondary" data-es="Realizar Pago" data-en="Make Payment">
+                <i class="fas fa-credit-card"></i> <span>Realizar Pago</span>
             </a>
         </div>
     </div>
@@ -817,6 +1066,149 @@
     </div>
 </section>
 
+<!-- NUEVA SECCIÓN DE PAGOS -->
+<section id="pagos">
+    <h2 class="section-title" data-es="Métodos de Pago" data-en="Payment Methods">
+        Métodos de Pago
+    </h2>
+    
+    <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; color: var(--text-color);"
+       data-es="Ofrecemos múltiples opciones de pago seguras y convenientes para nuestros clientes. Puedes pagar en línea o en persona."
+       data-en="We offer multiple secure and convenient payment options for our clients. You can pay online or in person.">
+        Ofrecemos múltiples opciones de pago seguras y convenientes para nuestros clientes. Puedes pagar en línea o en persona.
+    </p>
+    
+    <div class="payment-methods">
+        <!-- STRIPE -->
+        <div class="payment-card stripe">
+            <div class="payment-icon">
+                <i class="fab fa-stripe"></i>
+            </div>
+            <h3 data-es="Tarjeta de Crédito/Débito" data-en="Credit/Debit Card">
+                Tarjeta de Crédito/Débito
+            </h3>
+            <p data-es="Pago seguro con Stripe. Aceptamos Visa, Mastercard, American Express y Discover."
+               data-en="Secure payment with Stripe. We accept Visa, Mastercard, American Express and Discover.">
+                Pago seguro con Stripe. Aceptamos Visa, Mastercard, American Express y Discover.
+            </p>
+            <button class="payment-btn stripe" id="stripePayment">
+                <i class="fas fa-credit-card"></i> 
+                <span data-es="Pagar con Tarjeta" data-en="Pay with Card">Pagar con Tarjeta</span>
+            </button>
+        </div>
+        
+        <!-- PAYPAL -->
+        <div class="payment-card paypal">
+            <div class="payment-icon">
+                <i class="fab fa-paypal"></i>
+            </div>
+            <h3>PayPal</h3>
+            <p data-es="Pago rápido y seguro con tu cuenta PayPal. Ideal para pagos internacionales."
+               data-en="Fast and secure payment with your PayPal account. Ideal for international payments.">
+                Pago rápido y seguro con tu cuenta PayPal. Ideal para pagos internacionales.
+            </p>
+            <button class="payment-btn paypal" id="paypalPayment">
+                <i class="fab fa-paypal"></i> 
+                <span data-es="Pagar con PayPal" data-en="Pay with PayPal">Pagar con PayPal</span>
+            </button>
+        </div>
+        
+        <!-- EFECTIVO/TRANSFERENCIA -->
+        <div class="payment-card cash">
+            <div class="payment-icon">
+                <i class="fas fa-money-bill-wave"></i>
+            </div>
+            <h3 data-es="Efectivo/Transferencia" data-en="Cash/Transfer">
+                Efectivo/Transferencia
+            </h3>
+            <p data-es="Pago en efectivo, cheque o transferencia bancaria. Contacta con nosotros para coordinar."
+               data-en="Payment in cash, check or bank transfer. Contact us to coordinate.">
+                Pago en efectivo, cheque o transferencia bancaria. Contacta con nosotros para coordinar.
+            </p>
+            <button class="payment-btn cash" id="cashPayment">
+                <i class="fas fa-phone"></i> 
+                <span data-es="Coordinarr Pago" data-en="Coordinate Payment">Coordinarr Pago</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- MODAL DE PAGO -->
+<div class="payment-modal" id="paymentModal">
+    <div class="modal-content">
+        <button class="close-modal" id="closeModal">&times;</button>
+        <h3 id="modalTitle" data-es="Realizar Pago" data-en="Make Payment">Realizar Pago</h3>
+        
+        <div id="paymentFormContainer">
+            <form id="paymentForm" class="payment-form">
+                <div class="form-group">
+                    <label for="customerName" data-es="Nombre Completo" data-en="Full Name">Nombre Completo</label>
+                    <input type="text" id="customerName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="customerEmail" data-es="Correo Electrónico" data-en="Email Address">Correo Electrónico</label>
+                    <input type="email" id="customerEmail" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="projectReference" data-es="Referencia del Proyecto" data-en="Project Reference">Referencia del Proyecto</label>
+                    <input type="text" id="projectReference" placeholder="Opcional">
+                </div>
+                
+                <div class="form-group amount-input">
+                    <label for="paymentAmount" data-es="Monto a Pagar" data-en="Payment Amount">Monto a Pagar</label>
+                    <span>$</span>
+                    <input type="number" id="paymentAmount" min="5" step="0.01" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="paymentDescription" data-es="Descripción del Pago" data-en="Payment Description">Descripción del Pago</label>
+                    <textarea id="paymentDescription" rows="3"></textarea>
+                </div>
+                
+                <!-- STRIPE CARD ELEMENT -->
+                <div id="stripeElements" style="display: none;">
+                    <div class="stripe-form">
+                        <label for="card-element" data-es="Información de la Tarjeta" data-en="Card Information">
+                            Información de la Tarjeta
+                        </label>
+                        <div id="card-element">
+                            <!-- Stripe card element will be inserted here -->
+                        </div>
+                        <div id="card-errors" role="alert"></div>
+                    </div>
+                </div>
+                
+                <button type="submit" id="submitPayment" class="submit-payment" 
+                        data-es="Procesar Pago" data-en="Process Payment">
+                    Procesar Pago
+                </button>
+            </form>
+        </div>
+        
+        <div id="paymentSuccess" class="payment-success" style="display: none;">
+            <i class="fas fa-check-circle"></i>
+            <h3 data-es="¡Pago Completado!" data-en="Payment Completed!">¡Pago Completado!</h3>
+            <p data-es="Tu pago ha sido procesado exitosamente. Recibirás un recibo por correo electrónico."
+               data-en="Your payment has been processed successfully. You will receive a receipt by email.">
+                Tu pago ha sido procesado exitosamente. Recibirás un recibo por correo electrónico.
+            </p>
+            
+            <div class="invoice-details">
+                <p><strong data-es="Referencia:" data-en="Reference:">Referencia:</strong> <span id="invoiceRef"></span></p>
+                <p><strong data-es="Monto:" data-en="Amount:">Monto:</strong> $<span id="invoiceAmount"></span></p>
+                <p><strong data-es="Fecha:" data-en="Date:">Fecha:</strong> <span id="invoiceDate"></span></p>
+            </div>
+            
+            <button class="payment-btn cash" id="closeSuccess" style="margin-top: 20px;">
+                <i class="fas fa-check"></i> 
+                <span data-es="Cerrar" data-en="Close">Cerrar</span>
+            </button>
+        </div>
+    </div>
+</div>
+
 <section id="contacto">
     <h2 class="section-title" data-es="Contáctanos" data-en="Contact Us">
         Contáctanos
@@ -872,30 +1264,12 @@
         </div>
         
         <div class="map-container">
-            <!-- ENLACE CORREGIDO DE GOOGLE MAPS -->
             <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2915.123456789012!2d-89.469987!3d43.012345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8807ad8c8b1b1b1b%3A0x1b1b1b1b1b1b1b1b!2s2953%20Fish%20Hatchery%20Rd%2C%20Fitchburg%2C%20WI%2053713!5e0!3m2!1sen!2sus!4v1623456789012!5m2!1sen!2sus" 
                 allowfullscreen="" 
                 loading="lazy" 
                 referrerpolicy="no-referrer-when-downgrade">
             </iframe>
-            
-            <!-- Mensaje de respaldo en caso de error -->
-            <div class="map-error" id="mapError" style="display: none;">
-                <i class="fas fa-map-marked-alt"></i>
-                <h3 data-es="Mapa no disponible" data-en="Map unavailable">Mapa no disponible</h3>
-                <p data-es="No se puede cargar el mapa en este momento. Puedes abrir la ubicación en Google Maps."
-                   data-en="Unable to load the map at this time. You can open the location in Google Maps.">
-                    No se puede cargar el mapa en este momento. Puedes abrir la ubicación en Google Maps.
-                </p>
-                <a href="https://www.google.com/maps/place/2953+Fish+Hatchery+Rd,+Fitchburg,+WI+53713/@43.012345,-89.469987,17z/data=!3m1!4b1!4m6!3m5!1s0x8807ad8c8b1b1b1b:0x1b1b1b1b1b1b1b1b!8m2!3d43.012345!4d-89.469987!16s%2Fg%2F11b8w5w5w5?entry=ttu" 
-                   target="_blank" 
-                   class="open-maps-btn"
-                   data-es="Abrir en Google Maps" 
-                   data-en="Open in Google Maps">
-                    <i class="fas fa-external-link-alt"></i> <span>Abrir en Google Maps</span>
-                </a>
-            </div>
         </div>
     </div>
 </section>
@@ -927,6 +1301,9 @@
                 </a></li>
                 <li><a href="#servicios"><i class="fas fa-chevron-right"></i> 
                     <span data-es="Servicios" data-en="Services">Servicios</span>
+                </a></li>
+                <li><a href="#pagos"><i class="fas fa-chevron-right"></i> 
+                    <span data-es="Pagos" data-en="Payments">Pagos</span>
                 </a></li>
                 <li><a href="#contacto"><i class="fas fa-chevron-right"></i> 
                     <span data-es="Contacto" data-en="Contact">Contacto</span>
@@ -968,6 +1345,8 @@
     </div>
 </footer>
 
+<!-- Stripe JS -->
+<script src="https://js.stripe.com/v3/"></script>
 <script>
     // ========== CONFIGURACIÓN DE IDIOMAS ==========
     const translations = {
@@ -981,6 +1360,12 @@
         }
     };
 
+    // ========== CONFIGURACIÓN STRIPE ==========
+    // Reemplaza con tu clave pública de Stripe
+    const stripe = Stripe('pk_test_51Q4fBqRts9u3tD2L9MxTn8Xm5rYwvZk7hJ6pL9sVcFdE1aB3gT4nQ7xYzA8vK9lR6sP5tH4jW2nX8qL');
+    let elements;
+    let cardElement;
+    
     // ========== FUNCIONALIDAD DE CAMBIO DE IDIOMA ==========
     let currentLanguage = 'es';
 
@@ -1005,7 +1390,7 @@
                 if (element.hasAttribute('data-es') && element.hasAttribute('data-en')) {
                     if (element.tagName === 'H1') {
                         element.innerHTML = text;
-                    } else if (element.tagName === 'A' || element.tagName === 'BUTTON') {
+                    } else if (element.tagName === 'A' || element.tagName === 'BUTTON' || element.tagName === 'LABEL') {
                         const span = element.querySelector('span');
                         if (span) {
                             span.textContent = text;
@@ -1023,25 +1408,255 @@
         updateActiveNav();
     }
 
-    // ========== DETECCIÓN DE ERROR DE MAPA ==========
-    function checkMapError() {
-        const iframe = document.querySelector('.map-container iframe');
-        const mapError = document.getElementById('mapError');
+    // ========== SISTEMA DE PAGOS ==========
+    const paymentModal = document.getElementById('paymentModal');
+    const closeModal = document.getElementById('closeModal');
+    const stripePaymentBtn = document.getElementById('stripePayment');
+    const paypalPaymentBtn = document.getElementById('paypalPayment');
+    const cashPaymentBtn = document.getElementById('cashPayment');
+    const paymentForm = document.getElementById('paymentForm');
+    const submitPaymentBtn = document.getElementById('submitPayment');
+    const stripeElements = document.getElementById('stripeElements');
+    const paymentSuccess = document.getElementById('paymentSuccess');
+    const closeSuccessBtn = document.getElementById('closeSuccess');
+    
+    let currentPaymentMethod = '';
+    
+    // Abrir modal para Stripe
+    stripePaymentBtn.addEventListener('click', () => {
+        currentPaymentMethod = 'stripe';
+        openPaymentModal('stripe');
+    });
+    
+    // Abrir modal para PayPal
+    paypalPaymentBtn.addEventListener('click', () => {
+        currentPaymentMethod = 'paypal';
+        openPaymentModal('paypal');
+    });
+    
+    // Abrir WhatsApp para pago en efectivo
+    cashPaymentBtn.addEventListener('click', () => {
+        const message = encodeURIComponent(
+            currentLanguage === 'es' 
+            ? 'Hola, me gustaría coordinar un pago en efectivo/transferencia para PSE Construction.'
+            : 'Hello, I would like to coordinate a cash/transfer payment for PSE Construction.'
+        );
+        window.open(`https://wa.me/14705935592?text=${message}`, '_blank');
+    });
+    
+    // Abrir modal de pago
+    function openPaymentModal(method) {
+        paymentModal.style.display = 'flex';
+        paymentFormContainer.style.display = 'block';
+        paymentSuccess.style.display = 'none';
         
-        iframe.onerror = function() {
-            iframe.style.display = 'none';
-            mapError.style.display = 'flex';
+        // Resetear formulario
+        paymentForm.reset();
+        
+        // Configurar según el método
+        if (method === 'stripe') {
+            stripeElements.style.display = 'block';
+            setupStripeElements();
+            submitPaymentBtn.textContent = currentLanguage === 'es' ? 'Procesar Pago' : 'Process Payment';
+        } else if (method === 'paypal') {
+            stripeElements.style.display = 'none';
+            submitPaymentBtn.textContent = currentLanguage === 'es' ? 'Ir a PayPal' : 'Go to PayPal';
+        }
+        
+        // Prevenir scroll del body
+        document.body.style.overflow = 'hidden';
+    }
+    
+    // Cerrar modal
+    closeModal.addEventListener('click', () => {
+        closePaymentModal();
+    });
+    
+    // Cerrar modal haciendo clic fuera
+    paymentModal.addEventListener('click', (e) => {
+        if (e.target === paymentModal) {
+            closePaymentModal();
+        }
+    });
+    
+    function closePaymentModal() {
+        paymentModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        
+        // Limpiar elementos de Stripe
+        if (cardElement) {
+            cardElement.clear();
+        }
+    }
+    
+    // Cerrar éxito de pago
+    closeSuccessBtn.addEventListener('click', () => {
+        paymentModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    });
+    
+    // Configurar elementos de Stripe
+    function setupStripeElements() {
+        elements = stripe.elements();
+        
+        const style = {
+            base: {
+                color: '#32325d',
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                    color: '#aab7c4'
+                }
+            },
+            invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
+            }
         };
         
-        // También verificamos después de 3 segundos si el iframe no cargó
-        setTimeout(() => {
-            if (iframe.offsetParent === null || iframe.clientHeight === 0) {
-                iframe.style.display = 'none';
-                mapError.style.display = 'flex';
+        if (cardElement) {
+            cardElement.unmount();
+        }
+        
+        cardElement = elements.create('card', { style: style });
+        cardElement.mount('#card-element');
+        
+        // Manejar errores de validación en tiempo real
+        cardElement.on('change', (event) => {
+            const displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
             }
-        }, 3000);
+        });
     }
-
+    
+    // Manejar envío del formulario
+    paymentForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const customerName = document.getElementById('customerName').value;
+        const customerEmail = document.getElementById('customerEmail').value;
+        const paymentAmount = document.getElementById('paymentAmount').value;
+        const projectReference = document.getElementById('projectReference').value;
+        const paymentDescription = document.getElementById('paymentDescription').value;
+        
+        if (currentPaymentMethod === 'stripe') {
+            await processStripePayment(customerName, customerEmail, paymentAmount, projectReference, paymentDescription);
+        } else if (currentPaymentMethod === 'paypal') {
+            processPayPalPayment(customerName, customerEmail, paymentAmount, projectReference, paymentDescription);
+        }
+    });
+    
+    // Procesar pago con Stripe
+    async function processStripePayment(name, email, amount, reference, description) {
+        submitPaymentBtn.disabled = true;
+        submitPaymentBtn.textContent = currentLanguage === 'es' ? 'Procesando...' : 'Processing...';
+        submitPaymentBtn.classList.add('processing');
+        
+        try {
+            // En un entorno real, aquí llamarías a tu backend
+            // const response = await fetch('/create-payment-intent', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({
+            //         amount: Math.round(amount * 100), // Stripe usa centavos
+            //         currency: 'usd',
+            //         description: description,
+            //         metadata: {
+            //             customer_name: name,
+            //             customer_email: email,
+            //             project_reference: reference
+            //         }
+            //     })
+            // });
+            
+            // const { clientSecret } = await response.json();
+            
+            // Simulación para demo
+            const { paymentMethod, error } = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+                billing_details: {
+                    name: name,
+                    email: email
+                }
+            });
+            
+            if (error) {
+                document.getElementById('card-errors').textContent = error.message;
+                submitPaymentBtn.disabled = false;
+                submitPaymentBtn.textContent = currentLanguage === 'es' ? 'Procesar Pago' : 'Process Payment';
+                submitPaymentBtn.classList.remove('processing');
+                return;
+            }
+            
+            // En producción, confirmar el pago con el clientSecret
+            // const { error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
+            //     payment_method: paymentMethod.id
+            // });
+            
+            // if (confirmError) {
+            //     document.getElementById('card-errors').textContent = confirmError.message;
+            //     return;
+            // }
+            
+            // Simular éxito
+            setTimeout(() => {
+                showPaymentSuccess(name, email, amount, reference);
+            }, 1500);
+            
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('card-errors').textContent = 
+                currentLanguage === 'es' 
+                ? 'Error procesando el pago. Intenta nuevamente.'
+                : 'Error processing payment. Please try again.';
+            submitPaymentBtn.disabled = false;
+            submitPaymentBtn.textContent = currentLanguage === 'es' ? 'Procesar Pago' : 'Process Payment';
+            submitPaymentBtn.classList.remove('processing');
+        }
+    }
+    
+    // Procesar pago con PayPal
+    function processPayPalPayment(name, email, amount, reference, description) {
+        // Redirigir a PayPal
+        const paypalUrl = `https://www.paypal.com/paypalme/PSECONSTRUCTION/${amount}?locale.x=es_XC`;
+        
+        // En producción, usaría la API de PayPal
+        window.open(paypalUrl, '_blank');
+        
+        // Mostrar mensaje de éxito
+        showPaymentSuccess(name, email, amount, reference);
+    }
+    
+    // Mostrar éxito de pago
+    function showPaymentSuccess(name, email, amount, reference) {
+        paymentFormContainer.style.display = 'none';
+        paymentSuccess.style.display = 'block';
+        
+        // Generar referencia única
+        const invoiceRef = 'INV-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+        const invoiceDate = new Date().toLocaleDateString();
+        
+        // Actualizar detalles
+        document.getElementById('invoiceRef').textContent = reference || invoiceRef;
+        document.getElementById('invoiceAmount').textContent = parseFloat(amount).toFixed(2);
+        document.getElementById('invoiceDate').textContent = invoiceDate;
+        
+        // En producción, aquí enviarías el recibo por email
+        console.log('Pago procesado:', { name, email, amount, reference });
+        
+        // En un entorno real, enviarías el recibo por correo
+        // fetch('/send-receipt', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ name, email, amount, reference, invoiceRef })
+        // });
+    }
+    
     // ========== MENÚ MÓVIL ==========
     const menuToggle = document.getElementById('menuToggle');
     const mainNav = document.getElementById('mainNav');
@@ -1102,7 +1717,7 @@
         });
     }, observerOptions);
     
-    document.querySelectorAll('.service-card, .contact-container > div, .map-container').forEach(el => {
+    document.querySelectorAll('.service-card, .payment-card, .contact-container > div, .map-container').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
         el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
@@ -1129,28 +1744,9 @@
         
         updateActiveNav();
         
-        // Verificar error del mapa
-        checkMapError();
-        
-        // Alternativa: Si prefieres usar una imagen estática del mapa
-        // descomenta la siguiente línea y comenta checkMapError()
-        // useStaticMapImage();
+        // Configurar Stripe inicialmente
+        setupStripeElements();
     });
-
-    // ========== ALTERNATIVA: IMAGEN ESTÁTICA DEL MAPA ==========
-    function useStaticMapImage() {
-        const mapContainer = document.querySelector('.map-container');
-        const staticMapURL = `https://maps.googleapis.com/maps/api/staticmap?center=2953+Fish+Hatchery+Rd,Fitchburg,WI+53713&zoom=15&size=600x400&scale=2&markers=color:red%7C2953+Fish+Hatchery+Rd,Fitchburg,WI+53713&key=YOUR_API_KEY`;
-        
-        mapContainer.innerHTML = `
-            <a href="https://www.google.com/maps/place/2953+Fish+Hatchery+Rd,+Fitchburg,+WI+53713/@43.012345,-89.469987,17z/data=!3m1!4b1!4m6!3m5!1s0x8807ad8c8b1b1b1b:0x1b1b1b1b1b1b1b1b!8m2!3d43.012345!4d-89.469987!16s%2Fg%2F11b8w5w5w5?entry=ttu" 
-               target="_blank">
-                <img src="${staticMapURL}" 
-                     alt="Ubicación de PSE Construction en Fitchburg, WI"
-                     style="width: 100%; height: 400px; object-fit: cover;">
-            </a>
-        `;
-    }
 </script>
 
 </body>
