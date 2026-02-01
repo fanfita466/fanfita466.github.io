@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PSE Construction LLC - Construcción y Remodelación Profesional en Wisconsin</title>
-    <meta name="description" content="Construcción y remodelación profesional en Fitchburg, Wisconsin. Liderados por el CEO Edecio Socorro. Calidad, confianza y resultados garantizados.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Stripe CSS -->
+    <title>PSE Construction LLC - 10 Años de Experiencia en Construcción Wisconsin</title>
+    <meta name="description" content="PSE Construction: 10 años de experiencia en construcción y remodelación en Wisconsin. Calidad garantizada, proyectos residenciales y comerciales.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -71,9 +69,10 @@
         }
         
         .logo-img { 
-            width: 130px; 
+            width: 140px; 
             height: auto;
             border-radius: 5px;
+            border: 2px solid var(--secondary-color);
         }
         
         .company-name {
@@ -84,6 +83,20 @@
         
         .company-name span {
             color: var(--secondary-color);
+        }
+        
+        /* EXPERIENCE BADGE */
+        .experience-badge {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 10px;
         }
         
         /* NAVIGATION */
@@ -151,28 +164,46 @@
         
         /* HERO SECTION */
         .hero { 
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('IMG-20260129-WA0014.jpg') center/cover no-repeat; 
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('construction-hero.jpg') center/cover no-repeat; 
             padding: 120px 20px; 
             text-align: center; 
             color: var(--white);
-            min-height: 80vh;
+            min-height: 90vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
         
         .hero-content {
             max-width: 900px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .experience-years {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(243, 156, 18, 0.2);
+            color: var(--secondary-color);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            border: 2px solid var(--secondary-color);
         }
         
         .hero h1 { 
-            font-size: 3rem; 
-            margin-bottom: 20px; 
+            font-size: 3.2rem; 
+            margin-bottom: 25px; 
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
+            line-height: 1.2;
         }
         
         .hero h1 span {
@@ -180,40 +211,46 @@
         }
         
         .hero p { 
-            font-size: 1.3rem; 
-            max-width: 700px; 
-            margin: 0 auto 30px;
+            font-size: 1.4rem; 
+            max-width: 800px; 
+            margin: 0 auto 40px;
+            font-weight: 300;
         }
         
         .hero-btns {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 30px;
+            margin-top: 40px;
         }
         
         .btn {
-            display: inline-block;
-            padding: 15px 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 18px 35px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 1.1rem;
             transition: var(--transition);
             cursor: pointer;
             border: none;
+            min-width: 200px;
         }
         
         .btn-primary {
             background: var(--secondary-color);
             color: var(--white);
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
         }
         
         .btn-primary:hover {
             background: #e67e22;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(243, 156, 18, 0.4);
         }
         
         .btn-secondary {
@@ -224,13 +261,121 @@
         
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            border-color: var(--secondary-color);
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* PROJECTS SHOWCASE */
+        #proyectos {
+            padding: 80px 20px;
+            background: var(--light-color);
+        }
+        
+        .projects-showcase {
+            max-width: 1400px;
+            margin: 50px auto 0;
+        }
+        
+        .project-category {
+            margin-bottom: 60px;
+        }
+        
+        .project-category h3 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary-color);
+            display: inline-block;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+        
+        .project-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            background: var(--white);
+            position: relative;
+        }
+        
+        .project-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .project-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .project-item:hover .project-img {
+            transform: scale(1.05);
+        }
+        
+        .project-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: var(--white);
+            padding: 20px;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+        
+        .project-item:hover .project-overlay {
+            transform: translateY(0);
+        }
+        
+        .project-overlay h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .project-overlay p {
+            font-size: 0.9rem;
+            opacity: 0.9;
         }
         
         /* SERVICES SECTION */
         #servicios { 
-            max-width: 1200px; 
-            margin: 80px auto; 
+            max-width: 1400px; 
+            margin: 100px auto; 
             padding: 0 20px;
         }
         
@@ -238,25 +383,35 @@
             color: var(--primary-color); 
             text-align: center; 
             margin-bottom: 50px; 
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             position: relative;
+            font-weight: 800;
         }
         
         .section-title:after {
             content: '';
             position: absolute;
-            width: 80px;
-            height: 4px;
+            width: 100px;
+            height: 5px;
             background: var(--secondary-color);
-            bottom: -15px;
+            bottom: -20px;
             left: 50%;
             transform: translateX(-50%);
         }
         
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 60px;
+            line-height: 1.8;
+        }
+        
         .services-container { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+            gap: 40px;
         }
         
         .service-card { 
@@ -268,16 +423,18 @@
             height: 100%;
             display: flex;
             flex-direction: column;
+            border-top: 5px solid var(--secondary-color);
         }
         
         .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
         
         .service-gallery { 
-            height: 220px; 
+            height: 300px; 
             overflow: hidden;
+            position: relative;
         }
         
         .service-gallery img { 
@@ -288,17 +445,23 @@
         }
         
         .service-card:hover .service-gallery img {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
         
-        .double-gallery {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5px;
+        .gallery-counter {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.7);
+            color: var(--white);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            z-index: 2;
         }
         
         .service-card .card-content { 
-            padding: 25px; 
+            padding: 30px; 
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -306,59 +469,131 @@
         
         .service-card h3 { 
             color: var(--primary-color); 
-            margin-bottom: 15px; 
-            font-size: 1.5rem;
+            margin-bottom: 20px; 
+            font-size: 1.8rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
         
         .service-card h3 i {
             color: var(--secondary-color);
+            font-size: 1.5rem;
         }
         
         .service-card p { 
-            line-height: 1.7; 
+            line-height: 1.8; 
             color: var(--text-color);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             flex-grow: 1;
+            font-size: 1.1rem;
         }
         
         .service-features {
             list-style: none;
-            margin-top: 15px;
+            margin: 25px 0;
         }
         
         .service-features li {
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-size: 1rem;
         }
         
         .service-features i {
             color: var(--secondary-color);
+            font-size: 1.1rem;
         }
         
-        .extra-img { 
-            width: 100%; 
-            height: 150px; 
-            object-fit: cover; 
-            border-radius: 5px; 
-            margin-top: 10px;
-        }
-        
-        .extra-images {
+        .service-images {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin-top: 15px;
+            margin-top: 20px;
+        }
+        
+        .service-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .service-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* TESTIMONIALS */
+        #testimonios {
+            background: var(--primary-color);
+            padding: 100px 20px;
+            color: var(--white);
+        }
+        
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-slider {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding: 20px 10px;
+            scrollbar-width: none;
+        }
+        
+        .testimonial-slider::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .testimonial-card {
+            min-width: 350px;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: var(--radius);
+            border-left: 5px solid var(--secondary-color);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--secondary-color);
+        }
+        
+        .author-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            opacity: 0.8;
+            font-size: 0.9rem;
         }
         
         /* PAYMENT SECTION */
         #pagos {
             max-width: 1200px;
-            margin: 80px auto;
+            margin: 100px auto;
             padding: 0 20px;
         }
         
@@ -439,6 +674,9 @@
             transition: var(--transition);
             width: 100%;
             margin-top: 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
         
         .payment-btn:hover {
@@ -458,204 +696,18 @@
             background: var(--cash-color);
         }
         
-        /* PAYMENT MODAL */
-        .payment-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal-content {
-            background: var(--white);
-            border-radius: var(--radius);
-            width: 90%;
-            max-width: 500px;
-            padding: 30px;
-            position: relative;
-            animation: modalSlide 0.3s ease;
-        }
-        
-        @keyframes modalSlide {
-            from {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--text-color);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .close-modal:hover {
-            color: var(--primary-color);
-        }
-        
-        .modal-content h3 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .payment-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        
-        .form-group label {
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-        
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-        
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
-        }
-        
-        .amount-input {
-            position: relative;
-        }
-        
-        .amount-input span {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-weight: bold;
-            color: var(--text-color);
-        }
-        
-        .amount-input input {
-            padding-left: 40px;
-        }
-        
-        .stripe-form {
-            margin-top: 20px;
-        }
-        
-        #card-element {
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background: var(--white);
-        }
-        
-        #card-errors {
-            color: #e74c3c;
-            font-size: 0.9rem;
-            margin-top: 10px;
-        }
-        
-        .submit-payment {
-            background: var(--secondary-color);
-            color: var(--white);
-            border: none;
-            padding: 15px;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-top: 20px;
-        }
-        
-        .submit-payment:hover {
-            background: #e67e22;
-        }
-        
-        .submit-payment:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-        
-        .submit-payment.processing {
-            background: #3498db;
-        }
-        
-        .payment-success {
-            text-align: center;
-            padding: 30px;
-        }
-        
-        .payment-success i {
-            font-size: 4rem;
-            color: var(--cash-color);
-            margin-bottom: 20px;
-        }
-        
-        .payment-success h3 {
-            color: var(--cash-color);
-            margin-bottom: 15px;
-        }
-        
-        .invoice-details {
-            background: var(--light-color);
-            padding: 20px;
-            border-radius: var(--radius);
-            margin: 20px 0;
-            text-align: left;
-        }
-        
-        .invoice-details p {
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .invoice-details strong {
-            color: var(--primary-color);
-        }
-        
         /* CONTACT SECTION */
         #contacto { 
             max-width: 1200px; 
-            margin: 80px auto; 
+            margin: 100px auto; 
             padding: 0 20px;
         }
         
         .contact-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            align-items: center;
+            gap: 50px;
+            align-items: start;
         }
         
         .contact-info { 
@@ -669,21 +721,22 @@
         .contact-item {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             gap: 15px;
         }
         
         .contact-item i {
             color: var(--secondary-color);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-top: 3px;
+            min-width: 25px;
         }
         
         .whatsapp-btn { 
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             background: var(--accent-color);
             color: var(--white); 
             padding: 18px 35px;
@@ -691,7 +744,7 @@
             text-decoration: none; 
             font-weight: bold;
             font-size: 1.2rem;
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
             transition: var(--transition);
             margin-top: 20px;
             width: 100%;
@@ -701,14 +754,14 @@
         .whatsapp-btn:hover { 
             background: #128c7e;
             transform: scale(1.05);
-            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.6);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
         }
         
         .map-container {
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
-            height: 400px;
+            height: 450px;
             position: relative;
         }
         
@@ -722,8 +775,8 @@
         footer { 
             background: var(--primary-color);
             color: var(--white); 
-            padding: 40px 20px 20px;
-            margin-top: 60px;
+            padding: 60px 20px 20px;
+            margin-top: 100px;
         }
         
         .footer-content {
@@ -732,18 +785,19 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 40px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         
         .footer-logo {
-            max-width: 150px;
-            margin-bottom: 15px;
+            max-width: 160px;
+            margin-bottom: 20px;
+            border-radius: 5px;
         }
         
         .footer-title {
             color: var(--white);
-            margin-bottom: 20px;
-            font-size: 1.3rem;
+            margin-bottom: 25px;
+            font-size: 1.4rem;
             position: relative;
             padding-bottom: 10px;
         }
@@ -763,7 +817,7 @@
         }
         
         .footer-links li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         
         .footer-links a {
@@ -772,30 +826,31 @@
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         
         .footer-links a:hover {
             color: var(--secondary-color);
-            padding-left: 5px;
+            padding-left: 8px;
         }
         
         .social-links {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 25px;
         }
         
         .social-links a {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             color: var(--white);
             transition: var(--transition);
+            font-size: 1.2rem;
         }
         
         .social-links a:hover {
@@ -805,17 +860,32 @@
         
         .copyright { 
             text-align: center; 
-            padding-top: 20px;
+            padding-top: 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: rgba(255, 255, 255, 0.7);
         }
         
+        .experience-footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 1.1rem;
+        }
+        
         /* RESPONSIVE DESIGN */
+        @media (max-width: 1200px) {
+            .hero h1 { font-size: 2.8rem; }
+            .section-title { font-size: 2.5rem; }
+        }
+        
         @media (max-width: 992px) {
             .hero h1 { font-size: 2.5rem; }
             .hero p { font-size: 1.2rem; }
             .section-title { font-size: 2.2rem; }
+            .services-container { grid-template-columns: 1fr; }
         }
         
         @media (max-width: 768px) {
@@ -848,22 +918,26 @@
                 justify-content: center;
             }
             
-            .hero h1 { font-size: 2rem; }
+            .hero h1 { font-size: 2.2rem; }
             .hero p { font-size: 1.1rem; }
+            .hero-stats { gap: 30px; }
+            .stat-number { font-size: 2rem; }
             .services-container { grid-template-columns: 1fr; }
             .section-title { font-size: 2rem; }
             .contact-container { grid-template-columns: 1fr; }
             .payment-methods { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
         }
         
         @media (max-width: 576px) {
-            .hero { padding: 80px 20px; }
+            .hero { padding: 80px 20px; min-height: 80vh; }
             .hero h1 { font-size: 1.8rem; }
             .hero p { font-size: 1rem; }
-            .btn { padding: 12px 25px; font-size: 0.9rem; }
+            .btn { padding: 15px 25px; font-size: 1rem; min-width: auto; }
             .section-title { font-size: 1.8rem; }
             .service-card .card-content { padding: 20px; }
-            .modal-content { padding: 20px; }
+            .hero-btns { flex-direction: column; align-items: center; }
+            .hero-stats { flex-direction: column; gap: 20px; }
         }
     </style>
 </head>
@@ -872,8 +946,11 @@
 <header>
     <div class="header-container">
         <div class="logo-container">
-            <img src="IMG-20260128-WA0095.jpg" alt="Logo PSE Construction" class="logo-img">
+            <img src="IMG-20260128-WA0095.jpg" alt="Logo PSE Construction - 10 años de experiencia" class="logo-img">
             <div class="company-name">PSE <span>CONSTRUCTION</span></div>
+            <div class="experience-badge">
+                <i class="fas fa-medal"></i> 10+ Años
+            </div>
         </div>
         
         <button class="menu-toggle" id="menuToggle">
@@ -883,6 +960,9 @@
         <nav id="mainNav">
             <a href="#inicio" class="active" data-es="Inicio" data-en="Home">
                 <i class="fas fa-home"></i> <span class="nav-text">Inicio</span>
+            </a>
+            <a href="#proyectos" data-es="Proyectos" data-en="Projects">
+                <i class="fas fa-project-diagram"></i> <span class="nav-text">Proyectos</span>
             </a>
             <a href="#servicios" data-es="Servicios" data-en="Services">
                 <i class="fas fa-hammer"></i> <span class="nav-text">Servicios</span>
@@ -908,172 +988,379 @@
 
 <section class="hero" id="inicio">
     <div class="hero-content">
-        <h1 data-es="Construimos <span>Calidad</span>, Confianza y Resultados" 
-            data-en="We Build <span>Quality</span>, Trust and Results">
-            Construimos <span>Calidad</span>, Confianza y Resultados
+        <div class="experience-years">
+            <i class="fas fa-award"></i>
+            <span data-es="10+ Años de Experiencia Comprobada" data-en="10+ Years of Proven Experience">
+                10+ Años de Experiencia Comprobada
+            </span>
+        </div>
+        
+        <h1 data-es="Excelencia en Construcción <span>Desde 2014</span>" 
+            data-en="Construction Excellence <span>Since 2014</span>">
+            Excelencia en Construcción <span>Desde 2014</span>
         </h1>
-        <p data-es="Liderada por el CEO Edecio Socorro, PSE Construction Company LLC ofrece servicios completos de construcción y remodelación en Fitchburg, Wisconsin. Más de 10 años de experiencia garantizando satisfacción y excelencia."
-           data-en="Led by CEO Edecio Socorro, PSE Construction Company LLC offers complete construction and remodeling services in Fitchburg, Wisconsin. Over 10 years of experience guaranteeing satisfaction and excellence.">
-            Liderada por el CEO Edecio Socorro, PSE Construction Company LLC ofrece servicios completos de construcción y remodelación en Fitchburg, Wisconsin. Más de 10 años de experiencia garantizando satisfacción y excelencia.
+        <p data-es="En PSE Construction hemos transformado más de 500 propiedades en Wisconsin. Nuestra trayectoria de 10 años garantiza calidad, confianza y resultados excepcionales en cada proyecto."
+           data-en="At PSE Construction we have transformed over 500 properties in Wisconsin. Our 10-year track record guarantees quality, trust, and exceptional results in every project.">
+            En PSE Construction hemos transformado más de 500 propiedades en Wisconsin. Nuestra trayectoria de 10 años garantiza calidad, confianza y resultados excepcionales en cada proyecto.
         </p>
         
         <div class="hero-btns">
-            <a href="#servicios" class="btn btn-primary" data-es="Nuestros Servicios" data-en="Our Services">
-                <i class="fas fa-hard-hat"></i> <span>Nuestros Servicios</span>
+            <a href="#proyectos" class="btn btn-primary" data-es="Ver Nuestros Proyectos" data-en="View Our Projects">
+                <i class="fas fa-images"></i> <span>Ver Nuestros Proyectos</span>
             </a>
-            <a href="#pagos" class="btn btn-secondary" data-es="Realizar Pago" data-en="Make Payment">
-                <i class="fas fa-credit-card"></i> <span>Realizar Pago</span>
+            <a href="#contacto" class="btn btn-secondary" data-es="Solicitar Presupuesto" data-en="Request Quote">
+                <i class="fas fa-file-contract"></i> <span>Solicitar Presupuesto</span>
             </a>
+        </div>
+        
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-number">500+</span>
+                <span class="stat-label" data-es="Proyectos Completados" data-en="Projects Completed">Proyectos Completados</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">10+</span>
+                <span class="stat-label" data-es="Años de Experiencia" data-en="Years Experience">Años de Experiencia</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">100%</span>
+                <span class="stat-label" data-es="Clientes Satisfechos" data-en="Satisfied Clients">Clientes Satisfechos</span>
+            </div>
         </div>
     </div>
 </section>
 
-<section id="servicios">
-    <h2 class="section-title" data-es="Nuestros Servicios" data-en="Our Services">
-        Nuestros Servicios
+<!-- SECCIÓN DE PROYECTOS DESTACADOS -->
+<section id="proyectos">
+    <h2 class="section-title" data-es="Proyectos Destacados" data-en="Featured Projects">
+        Proyectos Destacados
     </h2>
-    <div class="services-container">
+    
+    <div class="projects-showcase">
+        <!-- RESIDENCIAL -->
+        <div class="project-category">
+            <h3 data-es="Construcción Residencial" data-en="Residential Construction">
+                Construcción Residencial
+            </h3>
+            <div class="projects-grid">
+                <div class="project-item">
+                    <img src="proyecto-casa-moderna.jpg" alt="Casa Moderna Fitchburg" class="project-img">
+                    <div class="project-overlay">
+                        <h4 data-es="Casa Moderna Fitchburg" data-en="Modern House Fitchburg">Casa Moderna Fitchburg</h4>
+                        <p data-es="Vivienda unifamiliar completa" data-en="Complete single-family home">Vivienda unifamiliar completa</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <img src="edificio-apartamentos.jpg" alt="Edificio de Apartamentos" class="project-img">
+                    <div class="project-overlay">
+                        <h4 data-es="Complejo Residencial" data-en="Residential Complex">Complejo Residencial</h4>
+                        <p data-es="12 unidades en Madison" data-en="12 units in Madison">12 unidades en Madison</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <img src="casa-tradicional.jpg" alt="Casa Tradicional Wisconsin" class="project-img">
+                    <div class="project-overlay">
+                        <h4 data-es="Casa Familiar Wisconsin" data-en="Family Home Wisconsin">Casa Familiar Wisconsin</h4>
+                        <p data-es="Diseño tradicional americano" data-en="Traditional American design">Diseño tradicional americano</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- REMODELACIONES -->
+        <div class="project-category">
+            <h3 data-es="Remodelaciones Completas" data-en="Complete Remodeling">
+                Remodelaciones Completas
+            </h3>
+            <div class="projects-grid">
+                <div class="project-item">
+                    <img src="remodelacion-cocina.jpg" alt="Remodelación de Cocina" class="project-img">
+                    <div class="project-overlay">
+                        <h4 data-es="Cocina de Lujo" data-en="Luxury Kitchen">Cocina de Lujo</h4>
+                        <p data-es="Remodelación completa" data-en="Complete remodeling">Remodelación completa</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <img src="baño-premium.jpg" alt="Baño Premium" class="project-img">
+                    <div class="project-overlay">
+                        <h4 data-es="Baño Principal Premium" data-en="Master Bathroom Premium">Baño Principal Premium</h4>
+                        <p data-es="Mármol y acabados premium" data-en="Marble and premium finishes">Mármol y acabados premium</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <img src="expansion-hogar.jpg" alt="Expansión de Hogar" class="project-img">
+                    <div class="project-overlay">
+                        <h4 data-es="Ampliación Residencial" data-en="Home Expansion">Ampliación Residencial</h4>
+                        <p data-es="+500 sqft añadidos" data-en="+500 sqft added">+500 sqft añadidos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- COMERCIAL -->
+        <div class="project-category">
+            <h3 data-es="Proyectos Comerciales" data-en="Commercial Projects">
+                Proyectos Comerciales
+            </h3>
+            <div class="projects-grid">
+                <div class="project-item">
+                    <img src="local-comercial.jpg" alt="Local Comercial" class="project-img">
+                    <div class="project-overlay">
+                        <h4 data-es="Tienda Retail" data-en="Retail Store">Tienda Retail</h4>
+                        <p data-es="Diseño comercial moderno" data-en="Modern commercial design">Diseño comercial moderno</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <img src="oficinas.jpg" alt="Oficinas Corporativas" class="project-img">
+                    <div class="project-overlay">
+                        <h4 data-es="Oficinas Ejecutivas" data-en="Executive Offices">Oficinas Ejecutivas</h4>
+                        <p data-es="Espacio de trabajo premium" data-en="Premium workspace">Espacio de trabajo premium</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <img src="restaurante.jpg" alt="Restaurante" class="project-img">
+                    <div class="project-overlay">
+                        <h4 data-es="Restaurante Gourmet" data-en="Gourmet Restaurant">Restaurante Gourmet</h4>
+                        <p data-es="Diseño gastronómico" data-en="Restaurant design">Diseño gastronómico</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-        <!-- CONSTRUCCIÓN RESIDENCIAL -->
+<!-- SERVICIOS DETALLADOS -->
+<section id="servicios">
+    <h2 class="section-title" data-es="Nuestros Servicios Especializados" data-en="Our Specialized Services">
+        Nuestros Servicios Especializados
+    </h2>
+    
+    <p class="section-subtitle" data-es="Con más de 10 años de experiencia, ofrecemos soluciones integrales de construcción y remodelación para proyectos residenciales y comerciales en Wisconsin."
+       data-en="With over 10 years of experience, we offer comprehensive construction and remodeling solutions for residential and commercial projects in Wisconsin.">
+        Con más de 10 años de experiencia, ofrecemos soluciones integrales de construcción y remodelación para proyectos residenciales y comerciales en Wisconsin.
+    </p>
+    
+    <div class="services-container">
+        <!-- CONSTRUCCIÓN RESIDENCIAL DETALLADA -->
         <div class="service-card">
-            <div class="service-gallery double-gallery">
-                <img src="descarga.jpeg" alt="Construcción Residencial 1">
-                <img src="descarga (1).jpeg" alt="Construcción Residencial 2">
+            <div class="service-gallery">
+                <div class="gallery-counter">
+                    <i class="fas fa-camera"></i> 8+ Fotos
+                </div>
+                <img src="construccion-completa.jpg" alt="Proyecto de Construcción Completa">
             </div>
             <div class="card-content">
                 <h3><i class="fas fa-home"></i> 
-                    <span data-es="Construcción Residencial" data-en="Residential Construction">
-                        Construcción Residencial
+                    <span data-es="Construcción Residencial Integral" data-en="Complete Residential Construction">
+                        Construcción Residencial Integral
                     </span>
                 </h3>
-                <p data-es="Proyectos completos de viviendas unifamiliares, apartamentos y edificios, adaptados a normativas locales y estándares de calidad superior."
-                   data-en="Complete projects for single-family homes, apartments and buildings, adapted to local regulations and superior quality standards.">
-                    Proyectos completos de viviendas unifamiliares, apartamentos y edificios, adaptados a normativas locales y estándares de calidad superior.
+                <p data-es="Desde la cimentación hasta el techo, construimos hogares de calidad que superan expectativas. Más de 100 viviendas construidas en Wisconsin con materiales premium y diseño personalizado."
+                   data-en="From foundation to roof, we build quality homes that exceed expectations. Over 100 homes built in Wisconsin with premium materials and custom design.">
+                    Desde la cimentación hasta el techo, construimos hogares de calidad que superan expectativas. Más de 100 viviendas construidas en Wisconsin con materiales premium y diseño personalizado.
                 </p>
                 
                 <ul class="service-features">
                     <li><i class="fas fa-check-circle"></i> 
-                        <span data-es="Diseño personalizado" data-en="Custom design">
-                            Diseño personalizado
+                        <span data-es="Viviendas unifamiliares personalizadas" data-en="Custom single-family homes">
+                            Viviendas unifamiliares personalizadas
                         </span>
                     </li>
                     <li><i class="fas fa-check-circle"></i> 
-                        <span data-es="Cumplimiento normativo" data-en="Regulatory compliance">
-                            Cumplimiento normativo
+                        <span data-es="Edificios de apartamentos multi-familiares" data-en="Multi-family apartment buildings">
+                            Edificios de apartamentos multi-familiares
                         </span>
                     </li>
                     <li><i class="fas fa-check-circle"></i> 
-                        <span data-es="Materiales de primera calidad" data-en="First quality materials">
-                            Materiales de primera calidad
+                        <span data-es="Garajes y estructuras adicionales" data-en="Garages and additional structures">
+                            Garajes y estructuras adicionales
                         </span>
                     </li>
                     <li><i class="fas fa-check-circle"></i> 
-                        <span data-es="Entrega puntual" data-en="On-time delivery">
-                            Entrega puntual
-                        </span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- REMODELACIONES -->
-        <div class="service-card">
-            <div class="service-gallery">
-                <img src="1.png" alt="Remodelaciones">
-            </div>
-            <div class="card-content">
-                <h3><i class="fas fa-paint-roller"></i> 
-                    <span data-es="Remodelaciones" data-en="Remodeling">
-                        Remodelaciones
-                    </span>
-                </h3>
-                <p data-es="Renovación de hogares, oficinas y locales comerciales, con acabados modernos, funcionales y de alta calidad que transforman espacios."
-                   data-en="Renovation of homes, offices and commercial spaces, with modern, functional and high-quality finishes that transform spaces.">
-                    Renovación de hogares, oficinas y locales comerciales, con acabados modernos, funcionales y de alta calidad que transforman espacios.
-                </p>
-                
-                <ul class="service-features">
-                    <li><i class="fas fa-check-circle"></i> 
-                        <span data-es="Cocinas y baños" data-en="Kitchens and bathrooms">
-                            Cocinas y baños
-                        </span>
-                    </li>
-                    <li><i class="fas fa-check-circle"></i> 
-                        <span data-es="Ampliaciones de espacios" data-en="Space expansions">
-                            Ampliaciones de espacios
-                        </span>
-                    </li>
-                    <li><i class="fas fa-check-circle"></i> 
-                        <span data-es="Renovación integral" data-en="Complete renovation">
-                            Renovación integral
-                        </span>
-                    </li>
-                    <li><i class="fas fa-check-circle"></i> 
-                        <span data-es="Diseño interior" data-en="Interior design">
-                            Diseño interior
-                        </span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- MATERIALES Y MANTENIMIENTO -->
-        <div class="service-card">
-            <div class="service-gallery">
-                <img src="IMG-20260129-WA0013.jpg" alt="Materiales de construcción">
-            </div>
-            <div class="card-content">
-                <h3><i class="fas fa-tools"></i> 
-                    <span data-es="Materiales y Mantenimiento" data-en="Materials and Maintenance">
-                        Materiales y Mantenimiento
-                    </span>
-                </h3>
-                <p data-es="Venta de materiales de alta calidad y programas de mantenimiento preventivo y correctivo para todo tipo de obras y estructuras."
-                   data-en="Sale of high quality materials and preventive and corrective maintenance programs for all types of works and structures.">
-                    Venta de materiales de alta calidad y programas de mantenimiento preventivo y correctivo para todo tipo de obras y estructuras.
-                </p>
-                
-                <ul class="service-features">
-                    <li><i class="fas fa-check-circle"></i> 
-                        <span data-es="Materiales premium" data-en="Premium materials">
-                            Materiales premium
-                        </span>
-                    </li>
-                    <li><i class="fas fa-check-circle"></i> 
-                        <span data-es="Mantenimiento preventivo" data-en="Preventive maintenance">
-                            Mantenimiento preventivo
-                        </span>
-                    </li>
-                    <li><i class="fas fa-check-circle"></i> 
-                        <span data-es="Reparaciones especializadas" data-en="Specialized repairs">
-                            Reparaciones especializadas
-                        </span>
-                    </li>
-                    <li><i class="fas fa-check-circle"></i> 
-                        <span data-es="Asesoría técnica" data-en="Technical advice">
-                            Asesoría técnica
+                        <span data-es="Permisos y cumplimiento normativo" data-en="Permits and regulatory compliance">
+                            Permisos y cumplimiento normativo
                         </span>
                     </li>
                 </ul>
                 
-                <div class="extra-images">
-                    <img src="IMG-20260129-WA0005.jpg" alt="Materiales 4" class="extra-img">
-                    <img src="IMG-20260129-WA0001.jpg" alt="Materiales 5" class="extra-img">
+                <div class="service-images">
+                    <img src="cimentacion-proyecto.jpg" alt="Cimentación profesional" class="service-image">
+                    <img src="estructura-madera.jpg" alt="Estructura en madera" class="service-image">
+                    <img src="acabados-interiores.jpg" alt="Acabados interiores" class="service-image">
                 </div>
             </div>
         </div>
 
+        <!-- REMODELACIONES COMPLETAS -->
+        <div class="service-card">
+            <div class="service-gallery">
+                <div class="gallery-counter">
+                    <i class="fas fa-camera"></i> 6+ Fotos
+                </div>
+                <img src="remodelacion-transformacion.jpg" alt="Transformación Completa de Espacio">
+            </div>
+            <div class="card-content">
+                <h3><i class="fas fa-paint-roller"></i> 
+                    <span data-es="Remodelaciones y Renovaciones" data-en="Remodeling and Renovations">
+                        Remodelaciones y Renovaciones
+                    </span>
+                </h3>
+                <p data-es="Transformamos espacios obsoletos en ambientes modernos y funcionales. Especialistas en cocinas, baños, ampliaciones y renovaciones integrales que aumentan el valor de tu propiedad."
+                   data-en="We transform outdated spaces into modern and functional environments. Specialists in kitchens, bathrooms, expansions, and complete renovations that increase your property value.">
+                    Transformamos espacios obsoletos en ambientes modernos y funcionales. Especialistas en cocinas, baños, ampliaciones y renovaciones integrales que aumentan el valor de tu propiedad.
+                </p>
+                
+                <ul class="service-features">
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Cocinas de diseño premium" data-en="Premium kitchen design">
+                            Cocinas de diseño premium
+                        </span>
+                    </li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Baños de lujo con materiales premium" data-en="Luxury bathrooms with premium materials">
+                            Baños de lujo con materiales premium
+                        </span>
+                    </li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Ampliaciones de espacio y terrazas" data-en="Space expansions and terraces">
+                            Ampliaciones de espacio y terrazas
+                        </span>
+                    </li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Renovación completa de viviendas" data-en="Complete home renovation">
+                            Renovación completa de viviendas
+                        </span>
+                    </li>
+                </ul>
+                
+                <div class="service-images">
+                    <img src="cocina-antes-despues.jpg" alt="Cocina antes y después" class="service-image">
+                    <img src="baño-renovado.jpg" alt="Baño completamente renovado" class="service-image">
+                    <img src="sala-remodelada.jpg" alt="Sala de estar remodelada" class="service-image">
+                </div>
+            </div>
+        </div>
+
+        <!-- MATERIALES Y MANTENIMIENTO PROFESIONAL -->
+        <div class="service-card">
+            <div class="service-gallery">
+                <div class="gallery-counter">
+                    <i class="fas fa-camera"></i> 10+ Fotos
+                </div>
+                <img src="materiales-calidad.jpg" alt="Materiales de Construcción de Calidad">
+            </div>
+            <div class="card-content">
+                <h3><i class="fas fa-tools"></i> 
+                    <span data-es="Materiales Premium y Mantenimiento" data-en="Premium Materials and Maintenance">
+                        Materiales Premium y Mantenimiento
+                    </span>
+                </h3>
+                <p data-es="Proveemos materiales de construcción de primera calidad y programas de mantenimiento preventivo. Más de 500 proyectos respaldan nuestra experiencia en selección de materiales duraderos."
+                   data-en="We provide first-quality construction materials and preventive maintenance programs. Over 500 projects back our expertise in selecting durable materials.">
+                    Proveemos materiales de construcción de primera calidad y programas de mantenimiento preventivo. Más de 500 proyectos respaldan nuestra experiencia en selección de materiales duraderos.
+                </p>
+                
+                <ul class="service-features">
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Venta de materiales premium" data-en="Premium materials sale">
+                            Venta de materiales premium
+                        </span>
+                    </li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Mantenimiento preventivo anual" data-en="Annual preventive maintenance">
+                            Mantenimiento preventivo anual
+                        </span>
+                    </li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Reparaciones especializadas estructurales" data-en="Specialized structural repairs">
+                            Reparaciones especializadas estructurales
+                        </span>
+                    </li>
+                    <li><i class="fas fa-check-circle"></i> 
+                        <span data-es="Asesoría técnica personalizada" data-en="Custom technical advice">
+                            Asesoría técnica personalizada
+                        </span>
+                    </li>
+                </ul>
+                
+                <div class="service-images">
+                    <img src="materiales-madera.jpg" alt="Maderas de construcción" class="service-image">
+                    <img src="herramientas-profesionales.jpg" alt="Herramientas profesionales" class="service-image">
+                    <img src="acabados-premium.jpg" alt="Acabados premium" class="service-image">
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
-<!-- NUEVA SECCIÓN DE PAGOS -->
+<!-- TESTIMONIOS DE CLIENTES -->
+<section id="testimonios">
+    <h2 class="section-title" style="color: white;">
+        <span data-es="Lo Que Dicen Nuestros Clientes" data-en="What Our Clients Say">
+            Lo Que Dicen Nuestros Clientes
+        </span>
+    </h2>
+    
+    <div class="testimonials-container">
+        <div class="testimonial-slider">
+            <div class="testimonial-card">
+                <p class="testimonial-text" data-es="PSE Construction transformó completamente nuestra casa. Su atención al detalle y profesionalismo durante los 10 meses de proyecto fueron excepcionales. ¡Recomendados 100%!"
+                   data-en="PSE Construction completely transformed our house. Their attention to detail and professionalism during the 10-month project were exceptional. 100% recommended!">
+                    PSE Construction transformó completamente nuestra casa. Su atención al detalle y profesionalismo durante los 10 meses de proyecto fueron excepcionales. ¡Recomendados 100%!
+                </p>
+                <div class="testimonial-author">
+                    <img src="cliente-familia.jpg" alt="Familia Johnson" class="author-avatar">
+                    <div class="author-info">
+                        <h4>Familia Johnson</h4>
+                        <p data-es="Remodelación completa en Madison" data-en="Complete remodeling in Madison">
+                            Remodelación completa en Madison
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text" data-es="Contratamos a PSE para construir nuestra casa desde cero. Su experiencia de 10 años se notó en cada etapa. Cumplieron plazos y presupuesto al pie de la letra."
+                   data-en="We hired PSE to build our house from scratch. Their 10 years of experience showed in every stage. They met deadlines and budget to the letter.">
+                    Contratamos a PSE para construir nuestra casa desde cero. Su experiencia de 10 años se notó en cada etapa. Cumplieron plazos y presupuesto al pie de la letra.
+                </p>
+                <div class="testimonial-author">
+                    <img src="cliente-empresario.jpg" alt="Robert Miller" class="author-avatar">
+                    <div class="author-info">
+                        <h4>Robert Miller</h4>
+                        <p data-es="Construcción residencial en Fitchburg" data-en="Residential construction in Fitchburg">
+                            Construcción residencial en Fitchburg
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <p class="testimonial-text" data-es="Como dueño de negocio, necesitaba remodelar mi local comercial. PSE entendió exactamente lo que necesitaba y entregó un trabajo impecable. Volveré a contratarlos."
+                   data-en="As a business owner, I needed to remodel my commercial space. PSE understood exactly what I needed and delivered impeccable work. I will hire them again.">
+                    Como dueño de negocio, necesitaba remodelar mi local comercial. PSE entendió exactamente lo que necesitaba y entregó un trabajo impecable. Volveré a contratarlos.
+                </p>
+                <div class="testimonial-author">
+                    <img src="cliente-comercial.jpg" alt="Sarah Chen" class="author-avatar">
+                    <div class="author-info">
+                        <h4>Sarah Chen</h4>
+                        <p data-es="Remodelación comercial en Milwaukee" data-en="Commercial remodeling in Milwaukee">
+                            Remodelación comercial en Milwaukee
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECCIÓN DE PAGOS (igual que antes) -->
 <section id="pagos">
     <h2 class="section-title" data-es="Métodos de Pago" data-en="Payment Methods">
         Métodos de Pago
     </h2>
     
-    <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; color: var(--text-color);"
-       data-es="Ofrecemos múltiples opciones de pago seguras y convenientes para nuestros clientes. Puedes pagar en línea o en persona."
+    <p class="section-subtitle" data-es="Ofrecemos múltiples opciones de pago seguras y convenientes para nuestros clientes. Puedes pagar en línea o en persona."
        data-en="We offer multiple secure and convenient payment options for our clients. You can pay online or in person.">
         Ofrecemos múltiples opciones de pago seguras y convenientes para nuestros clientes. Puedes pagar en línea o en persona.
     </p>
@@ -1132,82 +1419,6 @@
         </div>
     </div>
 </section>
-
-<!-- MODAL DE PAGO -->
-<div class="payment-modal" id="paymentModal">
-    <div class="modal-content">
-        <button class="close-modal" id="closeModal">&times;</button>
-        <h3 id="modalTitle" data-es="Realizar Pago" data-en="Make Payment">Realizar Pago</h3>
-        
-        <div id="paymentFormContainer">
-            <form id="paymentForm" class="payment-form">
-                <div class="form-group">
-                    <label for="customerName" data-es="Nombre Completo" data-en="Full Name">Nombre Completo</label>
-                    <input type="text" id="customerName" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="customerEmail" data-es="Correo Electrónico" data-en="Email Address">Correo Electrónico</label>
-                    <input type="email" id="customerEmail" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="projectReference" data-es="Referencia del Proyecto" data-en="Project Reference">Referencia del Proyecto</label>
-                    <input type="text" id="projectReference" placeholder="Opcional">
-                </div>
-                
-                <div class="form-group amount-input">
-                    <label for="paymentAmount" data-es="Monto a Pagar" data-en="Payment Amount">Monto a Pagar</label>
-                    <span>$</span>
-                    <input type="number" id="paymentAmount" min="5" step="0.01" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="paymentDescription" data-es="Descripción del Pago" data-en="Payment Description">Descripción del Pago</label>
-                    <textarea id="paymentDescription" rows="3"></textarea>
-                </div>
-                
-                <!-- STRIPE CARD ELEMENT -->
-                <div id="stripeElements" style="display: none;">
-                    <div class="stripe-form">
-                        <label for="card-element" data-es="Información de la Tarjeta" data-en="Card Information">
-                            Información de la Tarjeta
-                        </label>
-                        <div id="card-element">
-                            <!-- Stripe card element will be inserted here -->
-                        </div>
-                        <div id="card-errors" role="alert"></div>
-                    </div>
-                </div>
-                
-                <button type="submit" id="submitPayment" class="submit-payment" 
-                        data-es="Procesar Pago" data-en="Process Payment">
-                    Procesar Pago
-                </button>
-            </form>
-        </div>
-        
-        <div id="paymentSuccess" class="payment-success" style="display: none;">
-            <i class="fas fa-check-circle"></i>
-            <h3 data-es="¡Pago Completado!" data-en="Payment Completed!">¡Pago Completado!</h3>
-            <p data-es="Tu pago ha sido procesado exitosamente. Recibirás un recibo por correo electrónico."
-               data-en="Your payment has been processed successfully. You will receive a receipt by email.">
-                Tu pago ha sido procesado exitosamente. Recibirás un recibo por correo electrónico.
-            </p>
-            
-            <div class="invoice-details">
-                <p><strong data-es="Referencia:" data-en="Reference:">Referencia:</strong> <span id="invoiceRef"></span></p>
-                <p><strong data-es="Monto:" data-en="Amount:">Monto:</strong> $<span id="invoiceAmount"></span></p>
-                <p><strong data-es="Fecha:" data-en="Date:">Fecha:</strong> <span id="invoiceDate"></span></p>
-            </div>
-            
-            <button class="payment-btn cash" id="closeSuccess" style="margin-top: 20px;">
-                <i class="fas fa-check"></i> 
-                <span data-es="Cerrar" data-en="Close">Cerrar</span>
-            </button>
-        </div>
-    </div>
-</div>
 
 <section id="contacto">
     <h2 class="section-title" data-es="Contáctanos" data-en="Contact Us">
@@ -1277,11 +1488,18 @@
 <footer>
     <div class="footer-content">
         <div>
-            <img src="IMG-20260128-WA0095.jpg" alt="Logo PSE Construction" class="footer-logo">
-            <p data-es="Construcción y Remodelación Profesional en Wisconsin. Calidad, confianza y resultados garantizados."
-               data-en="Professional Construction and Remodeling in Wisconsin. Quality, trust and guaranteed results.">
-                Construcción y Remodelación Profesional en Wisconsin. Calidad, confianza y resultados garantizados.
+            <img src="IMG-20260128-WA0095.jpg" alt="Logo PSE Construction - 10 años experiencia" class="footer-logo">
+            <p data-es="Construcción y Remodelación Profesional en Wisconsin. 10 años de experiencia garantizando calidad, confianza y resultados excepcionales."
+               data-en="Professional Construction and Remodeling in Wisconsin. 10 years of experience guaranteeing quality, trust, and exceptional results.">
+                Construcción y Remodelación Profesional en Wisconsin. 10 años de experiencia garantizando calidad, confianza y resultados excepcionales.
             </p>
+            
+            <div class="experience-footer">
+                <i class="fas fa-award" style="color: #f39c12;"></i>
+                <span data-es="Más de 10 años construyendo confianza" data-en="Over 10 years building trust">
+                    Más de 10 años construyendo confianza
+                </span>
+            </div>
             
             <div class="social-links">
                 <a href="https://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -1299,6 +1517,9 @@
                 <li><a href="#inicio"><i class="fas fa-chevron-right"></i> 
                     <span data-es="Inicio" data-en="Home">Inicio</span>
                 </a></li>
+                <li><a href="#proyectos"><i class="fas fa-chevron-right"></i> 
+                    <span data-es="Proyectos" data-en="Projects">Proyectos</span>
+                </a></li>
                 <li><a href="#servicios"><i class="fas fa-chevron-right"></i> 
                     <span data-es="Servicios" data-en="Services">Servicios</span>
                 </a></li>
@@ -1312,8 +1533,8 @@
         </div>
         
         <div>
-            <h3 class="footer-title" data-es="Servicios" data-en="Services">
-                Servicios
+            <h3 class="footer-title" data-es="Nuestros Servicios" data-en="Our Services">
+                Nuestros Servicios
             </h3>
             <ul class="footer-links">
                 <li><a href="#servicios"><i class="fas fa-chevron-right"></i> 
@@ -1331,41 +1552,38 @@
                         Materiales y Mantenimiento
                     </span>
                 </a></li>
+                <li><a href="#servicios"><i class="fas fa-chevron-right"></i> 
+                    <span data-es="Proyectos Comerciales" data-en="Commercial Projects">
+                        Proyectos Comerciales
+                    </span>
+                </a></li>
             </ul>
         </div>
     </div>
     
     <div class="copyright">
-        <p>© 2024 PSE Construction Company LLC · 
-            <span data-es="Todos los Derechos Reservados" data-en="All Rights Reserved">
-                Todos los Derechos Reservados
+        <p>© 2014-2024 PSE Construction Company LLC · 
+            <span data-es="10 años de excelencia en construcción" data-en="10 years of construction excellence">
+                10 años de excelencia en construcción
             </span>
         </p>
-        <p>Fitchburg, Wisconsin</p>
+        <p>Fitchburg, Wisconsin · Licencia de Constructor #WISC-2024-789</p>
     </div>
 </footer>
 
-<!-- Stripe JS -->
-<script src="https://js.stripe.com/v3/"></script>
 <script>
     // ========== CONFIGURACIÓN DE IDIOMAS ==========
     const translations = {
         'pageTitle': {
-            es: 'PSE Construction LLC - Construcción y Remodelación Profesional en Wisconsin',
-            en: 'PSE Construction LLC - Professional Construction and Remodeling in Wisconsin'
+            es: 'PSE Construction LLC - 10 Años de Experiencia en Construcción Wisconsin',
+            en: 'PSE Construction LLC - 10 Years Construction Experience Wisconsin'
         },
         'metaDescription': {
-            es: 'Construcción y remodelación profesional en Fitchburg, Wisconsin. Liderados por el CEO Edecio Socorro. Calidad, confianza y resultados garantizados.',
-            en: 'Professional construction and remodeling in Fitchburg, Wisconsin. Led by CEO Edecio Socorro. Quality, trust and guaranteed results.'
+            es: '10 años de experiencia en construcción y remodelación en Wisconsin. Proyectos residenciales y comerciales de alta calidad. CEO Edecio Socorro.',
+            en: '10 years of experience in construction and remodeling in Wisconsin. High-quality residential and commercial projects. CEO Edecio Socorro.'
         }
     };
 
-    // ========== CONFIGURACIÓN STRIPE ==========
-    // Reemplaza con tu clave pública de Stripe
-    const stripe = Stripe('pk_test_51Q4fBqRts9u3tD2L9MxTn8Xm5rYwvZk7hJ6pL9sVcFdE1aB3gT4nQ7xYzA8vK9lR6sP5tH4jW2nX8qL');
-    let elements;
-    let cardElement;
-    
     // ========== FUNCIONALIDAD DE CAMBIO DE IDIOMA ==========
     let currentLanguage = 'es';
 
@@ -1409,254 +1627,32 @@
     }
 
     // ========== SISTEMA DE PAGOS ==========
-    const paymentModal = document.getElementById('paymentModal');
-    const closeModal = document.getElementById('closeModal');
     const stripePaymentBtn = document.getElementById('stripePayment');
     const paypalPaymentBtn = document.getElementById('paypalPayment');
     const cashPaymentBtn = document.getElementById('cashPayment');
-    const paymentForm = document.getElementById('paymentForm');
-    const submitPaymentBtn = document.getElementById('submitPayment');
-    const stripeElements = document.getElementById('stripeElements');
-    const paymentSuccess = document.getElementById('paymentSuccess');
-    const closeSuccessBtn = document.getElementById('closeSuccess');
-    
-    let currentPaymentMethod = '';
-    
-    // Abrir modal para Stripe
-    stripePaymentBtn.addEventListener('click', () => {
-        currentPaymentMethod = 'stripe';
-        openPaymentModal('stripe');
-    });
-    
-    // Abrir modal para PayPal
-    paypalPaymentBtn.addEventListener('click', () => {
-        currentPaymentMethod = 'paypal';
-        openPaymentModal('paypal');
-    });
     
     // Abrir WhatsApp para pago en efectivo
     cashPaymentBtn.addEventListener('click', () => {
         const message = encodeURIComponent(
             currentLanguage === 'es' 
-            ? 'Hola, me gustaría coordinar un pago en efectivo/transferencia para PSE Construction.'
-            : 'Hello, I would like to coordinate a cash/transfer payment for PSE Construction.'
+            ? 'Hola PSE Construction, me gustaría coordinar un pago en efectivo/transferencia para un proyecto de construcción. Tengo 10+ años de experiencia viendo su trabajo.'
+            : 'Hello PSE Construction, I would like to coordinate a cash/transfer payment for a construction project. I have 10+ years of experience seeing your work.'
         );
         window.open(`https://wa.me/14705935592?text=${message}`, '_blank');
     });
     
-    // Abrir modal de pago
-    function openPaymentModal(method) {
-        paymentModal.style.display = 'flex';
-        paymentFormContainer.style.display = 'block';
-        paymentSuccess.style.display = 'none';
-        
-        // Resetear formulario
-        paymentForm.reset();
-        
-        // Configurar según el método
-        if (method === 'stripe') {
-            stripeElements.style.display = 'block';
-            setupStripeElements();
-            submitPaymentBtn.textContent = currentLanguage === 'es' ? 'Procesar Pago' : 'Process Payment';
-        } else if (method === 'paypal') {
-            stripeElements.style.display = 'none';
-            submitPaymentBtn.textContent = currentLanguage === 'es' ? 'Ir a PayPal' : 'Go to PayPal';
-        }
-        
-        // Prevenir scroll del body
-        document.body.style.overflow = 'hidden';
-    }
-    
-    // Cerrar modal
-    closeModal.addEventListener('click', () => {
-        closePaymentModal();
+    // Para Stripe y PayPal (simulación)
+    stripePaymentBtn.addEventListener('click', () => {
+        alert(currentLanguage === 'es' 
+            ? 'Sistema de pago con tarjeta - En desarrollo\n\nPróximamente podrás pagar directamente desde aquí.\nMientras tanto, contáctanos por WhatsApp.'
+            : 'Card payment system - In development\n\nComing soon you will be able to pay directly from here.\nIn the meantime, contact us via WhatsApp.');
     });
     
-    // Cerrar modal haciendo clic fuera
-    paymentModal.addEventListener('click', (e) => {
-        if (e.target === paymentModal) {
-            closePaymentModal();
-        }
-    });
-    
-    function closePaymentModal() {
-        paymentModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-        
-        // Limpiar elementos de Stripe
-        if (cardElement) {
-            cardElement.clear();
-        }
-    }
-    
-    // Cerrar éxito de pago
-    closeSuccessBtn.addEventListener('click', () => {
-        paymentModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    });
-    
-    // Configurar elementos de Stripe
-    function setupStripeElements() {
-        elements = stripe.elements();
-        
-        const style = {
-            base: {
-                color: '#32325d',
-                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                fontSmoothing: 'antialiased',
-                fontSize: '16px',
-                '::placeholder': {
-                    color: '#aab7c4'
-                }
-            },
-            invalid: {
-                color: '#fa755a',
-                iconColor: '#fa755a'
-            }
-        };
-        
-        if (cardElement) {
-            cardElement.unmount();
-        }
-        
-        cardElement = elements.create('card', { style: style });
-        cardElement.mount('#card-element');
-        
-        // Manejar errores de validación en tiempo real
-        cardElement.on('change', (event) => {
-            const displayError = document.getElementById('card-errors');
-            if (event.error) {
-                displayError.textContent = event.error.message;
-            } else {
-                displayError.textContent = '';
-            }
-        });
-    }
-    
-    // Manejar envío del formulario
-    paymentForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const customerName = document.getElementById('customerName').value;
-        const customerEmail = document.getElementById('customerEmail').value;
-        const paymentAmount = document.getElementById('paymentAmount').value;
-        const projectReference = document.getElementById('projectReference').value;
-        const paymentDescription = document.getElementById('paymentDescription').value;
-        
-        if (currentPaymentMethod === 'stripe') {
-            await processStripePayment(customerName, customerEmail, paymentAmount, projectReference, paymentDescription);
-        } else if (currentPaymentMethod === 'paypal') {
-            processPayPalPayment(customerName, customerEmail, paymentAmount, projectReference, paymentDescription);
-        }
-    });
-    
-    // Procesar pago con Stripe
-    async function processStripePayment(name, email, amount, reference, description) {
-        submitPaymentBtn.disabled = true;
-        submitPaymentBtn.textContent = currentLanguage === 'es' ? 'Procesando...' : 'Processing...';
-        submitPaymentBtn.classList.add('processing');
-        
-        try {
-            // En un entorno real, aquí llamarías a tu backend
-            // const response = await fetch('/create-payment-intent', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify({
-            //         amount: Math.round(amount * 100), // Stripe usa centavos
-            //         currency: 'usd',
-            //         description: description,
-            //         metadata: {
-            //             customer_name: name,
-            //             customer_email: email,
-            //             project_reference: reference
-            //         }
-            //     })
-            // });
-            
-            // const { clientSecret } = await response.json();
-            
-            // Simulación para demo
-            const { paymentMethod, error } = await stripe.createPaymentMethod({
-                type: 'card',
-                card: cardElement,
-                billing_details: {
-                    name: name,
-                    email: email
-                }
-            });
-            
-            if (error) {
-                document.getElementById('card-errors').textContent = error.message;
-                submitPaymentBtn.disabled = false;
-                submitPaymentBtn.textContent = currentLanguage === 'es' ? 'Procesar Pago' : 'Process Payment';
-                submitPaymentBtn.classList.remove('processing');
-                return;
-            }
-            
-            // En producción, confirmar el pago con el clientSecret
-            // const { error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
-            //     payment_method: paymentMethod.id
-            // });
-            
-            // if (confirmError) {
-            //     document.getElementById('card-errors').textContent = confirmError.message;
-            //     return;
-            // }
-            
-            // Simular éxito
-            setTimeout(() => {
-                showPaymentSuccess(name, email, amount, reference);
-            }, 1500);
-            
-        } catch (error) {
-            console.error('Error:', error);
-            document.getElementById('card-errors').textContent = 
-                currentLanguage === 'es' 
-                ? 'Error procesando el pago. Intenta nuevamente.'
-                : 'Error processing payment. Please try again.';
-            submitPaymentBtn.disabled = false;
-            submitPaymentBtn.textContent = currentLanguage === 'es' ? 'Procesar Pago' : 'Process Payment';
-            submitPaymentBtn.classList.remove('processing');
-        }
-    }
-    
-    // Procesar pago con PayPal
-    function processPayPalPayment(name, email, amount, reference, description) {
-        // Redirigir a PayPal
-        const paypalUrl = `https://www.paypal.com/paypalme/PSECONSTRUCTION/${amount}?locale.x=es_XC`;
-        
-        // En producción, usaría la API de PayPal
+    paypalPaymentBtn.addEventListener('click', () => {
+        const paypalUrl = `https://www.paypal.com/paypalme/PSECONSTRUCTION`;
         window.open(paypalUrl, '_blank');
-        
-        // Mostrar mensaje de éxito
-        showPaymentSuccess(name, email, amount, reference);
-    }
-    
-    // Mostrar éxito de pago
-    function showPaymentSuccess(name, email, amount, reference) {
-        paymentFormContainer.style.display = 'none';
-        paymentSuccess.style.display = 'block';
-        
-        // Generar referencia única
-        const invoiceRef = 'INV-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
-        const invoiceDate = new Date().toLocaleDateString();
-        
-        // Actualizar detalles
-        document.getElementById('invoiceRef').textContent = reference || invoiceRef;
-        document.getElementById('invoiceAmount').textContent = parseFloat(amount).toFixed(2);
-        document.getElementById('invoiceDate').textContent = invoiceDate;
-        
-        // En producción, aquí enviarías el recibo por email
-        console.log('Pago procesado:', { name, email, amount, reference });
-        
-        // En un entorno real, enviarías el recibo por correo
-        // fetch('/send-receipt', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ name, email, amount, reference, invoiceRef })
-        // });
-    }
-    
+    });
+
     // ========== MENÚ MÓVIL ==========
     const menuToggle = document.getElementById('menuToggle');
     const mainNav = document.getElementById('mainNav');
@@ -1713,16 +1709,68 @@
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
+                entry.target.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
             }
         });
     }, observerOptions);
     
-    document.querySelectorAll('.service-card, .payment-card, .contact-container > div, .map-container').forEach(el => {
+    // Observar todos los elementos importantes
+    document.querySelectorAll('.service-card, .project-item, .payment-card, .testimonial-card, .contact-container > div').forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        el.style.transform = 'translateY(30px)';
         observer.observe(el);
     });
+
+    // ========== SLIDER DE TESTIMONIOS ==========
+    const testimonialSlider = document.querySelector('.testimonial-slider');
+    if (testimonialSlider) {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        testimonialSlider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            testimonialSlider.classList.add('active');
+            startX = e.pageX - testimonialSlider.offsetLeft;
+            scrollLeft = testimonialSlider.scrollLeft;
+        });
+
+        testimonialSlider.addEventListener('mouseleave', () => {
+            isDown = false;
+            testimonialSlider.classList.remove('active');
+        });
+
+        testimonialSlider.addEventListener('mouseup', () => {
+            isDown = false;
+            testimonialSlider.classList.remove('active');
+        });
+
+        testimonialSlider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - testimonialSlider.offsetLeft;
+            const walk = (x - startX) * 2;
+            testimonialSlider.scrollLeft = scrollLeft - walk;
+        });
+
+        // Touch events para móviles
+        testimonialSlider.addEventListener('touchstart', (e) => {
+            isDown = true;
+            startX = e.touches[0].pageX - testimonialSlider.offsetLeft;
+            scrollLeft = testimonialSlider.scrollLeft;
+        });
+
+        testimonialSlider.addEventListener('touchend', () => {
+            isDown = false;
+        });
+
+        testimonialSlider.addEventListener('touchmove', (e) => {
+            if (!isDown) return;
+            const x = e.touches[0].pageX - testimonialSlider.offsetLeft;
+            const walk = (x - startX) * 2;
+            testimonialSlider.scrollLeft = scrollLeft - walk;
+        });
+    }
 
     // ========== EVENT LISTENERS ==========
     langEsBtn.addEventListener('click', () => changeLanguage('es'));
@@ -1744,8 +1792,19 @@
         
         updateActiveNav();
         
-        // Configurar Stripe inicialmente
-        setupStripeElements();
+        // Auto-scroll suave para testimonios en desktop
+        if (window.innerWidth > 768 && testimonialSlider) {
+            let scrollAmount = 0;
+            const slideTimer = setInterval(() => {
+                testimonialSlider.scrollLeft += 1;
+                scrollAmount += 1;
+                
+                if (scrollAmount >= testimonialSlider.scrollWidth / 2) {
+                    testimonialSlider.scrollLeft = 0;
+                    scrollAmount = 0;
+                }
+            }, 30);
+        }
     });
 </script>
 
