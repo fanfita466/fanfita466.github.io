@@ -3,122 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PSE Construction Company LLC | Wisconsin</title>
-
-    <meta name="description" content="PSE Construction Company LLC ofrece servicios de construcción y remodelación en Wisconsin.">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+    <title>PSE Construction Company LLC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        /* Estilos CSS (puedes modificarlos) */
         body {
-            font-family: 'Inter', Arial, sans-serif;
-            background: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
             color: #333;
-            line-height: 1.6;
         }
 
         header {
-            background: #1f2d3d;
+            background-color: #333;
             color: #fff;
-            padding: 20px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            padding: 20px;
+            text-align: center;
         }
 
         header img {
-            max-width: 140px;
+            max-width: 200px;
+            height: auto;
+        }
+
+        nav {
+            background-color: #444;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
         }
 
         nav a {
             color: #fff;
-            margin-left: 20px;
             text-decoration: none;
-            font-weight: 600;
-        }
-
-        .hero {
-            background: url('descarga.jpeg') center/cover no-repeat;
-            position: relative;
-            color: #fff;
-            text-align: center;
-            padding: 120px 20px;
-        }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
-        }
-
-        .hero * { position: relative; }
-
-        .hero h1 {
-            font-size: 42px;
-            margin-bottom: 15px;
+            padding: 10px 20px;
+            display: inline-block;
         }
 
         section {
-            max-width: 1200px;
-            margin: auto;
-            padding: 60px 20px;
+            padding: 20px;
+            margin: 20px;
+            background-color: #fff;
+            border-radius: 5px;
         }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #1f2d3d;
+        #servicios h3 {
+            margin-top: 20px; /* Espacio antes del título de cada servicio */
         }
 
-        .services-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+        #servicios img {
+            max-width: 100%; /* Para que la imagen no se desborde del contenedor */
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px; /* Espacio debajo de la imagen */
         }
 
-        .service-card {
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        .materiales-gallery {
+            display: flex; /* Para mostrar las imágenes en línea horizontalmente */
+            flex-wrap: wrap; /* Para que las imágenes se envuelvan a la siguiente línea si no caben */
+            justify-content: space-around; /* Para distribuir las imágenes uniformemente */
+            margin-top: 10px;
         }
 
-        .service-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-        }
-
-        .double-img {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-        }
-
-        .card-content {
-            padding: 25px;
-        }
-
-        #contacto {
-            background: #f4f6f8;
-            border-radius: 12px;
-            text-align: center;
+        .materiales-gallery img {
+            width: 30%; /* Ajusta el ancho según sea necesario */
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 5px;
         }
 
         .whatsapp-btn {
             display: inline-block;
-            background: #25d366;
+            background-color: #25d366;
             color: #fff;
-            padding: 18px 40px;
-            border-radius: 50px;
+            padding: 12px 24px;
+            border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
+            font-size: 16px;
         }
 
-        footer {
-            background: #1f2d3d;
-            color: #fff;
-            text-a
+        .whatsapp-btn:hover {
+            background-color: #128c7e;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="URL_DE_LA_IMAGEN_DE_PORTADA" alt="Logo PSE Construction Company LLC">
+        <h1>PSE Construction Company LLC</h1>
+        <p>Construcción y Remodelación Profesional</p>
+    </header>
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <section id="inicio">
+        <h2>Bienvenido</h2>
+        <p>
+            PSE Construction Company LLC es una empresa dedicada a la construcción y remodelación, comprometida con la calidad, la responsabilidad y la satisfacción del cliente. Ofrecemos soluciones integrales para proyectos residenciales, garantizando trabajos duraderos, seguros y con acabados profesionales.
+        </p>
+    </section>
+
+    <section id="servicios">
+        <h2>Nuestros Servicios</h2>
+
+        <h3>Construcción Residencial</h3>
+        <img src="URL_DE_LA_IMAGEN_CONSTRUCCION_RESIDENCIAL" alt="Construcción Residencial">
+        <p>
+            Desarrollamos proyectos de construcción residencial, desde nuevas viviendas hasta ampliaciones y mejoras estructurales. Cumplimos con normativas vigentes y altos estándares de calidad, asegurando espacios funcionales, seguros y bien terminados.
+        </p>
+
+        <h3>Remodelaciones</h3>
+         <img src="URL_DE_LA_IMAGEN_REMODELACION" alt="Remodelación">
+        <p>
+            Ofrecemos servicios de remodelación de interiores y exteriores, transformando espacios con diseños modernos y funcionales. Realizamos renovaciones de cocinas, baños, fachadas y áreas completas, cuidando cada detalle del proceso.
+        </p>
+
+        <h3>Materiales y Mantenimiento</h3>
+        <p>
+            Brindamos venta de materiales de construcción y servicios de mantenimiento preventivo y correctivo para todo tipo de obras. Aseguramos productos confiables y trabajos eficientes que prolongan la vida útil de las estructuras.
+        </p>
+        <div class="materiales-gallery">
+            <img src="URL_DE_LA_IMAGEN_MATERIAL_1" alt="Material de Construcción 1">
+            <img src="URL_DE_LA_IMAGEN_MATERIAL_2" alt="Material de Construcción 2">
+            <img src="URL_DE_LA_IMAGEN_MATERIAL_3" alt="Material de Construcción 3">
+        </div>
+    </section>
+
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <p>¡Contáctanos para tu próximo proyecto!</p>
+        <a href="https://wa.me/2546169672" target="_blank" class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i> Contáctanos por WhatsApp
+        </a>
+    </section>
+
+</body>
+</html>
