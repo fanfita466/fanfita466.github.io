@@ -5,134 +5,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PSE Construction Company LLC | Construcción en Wisconsin</title>
 
-    <!-- SEO BÁSICO -->
-    <meta name="description" content="PSE Construction Company LLC ofrece servicios profesionales de construcción, remodelación y mantenimiento en Fitchburg, Wisconsin. Calidad, confianza y resultados.">
-    <meta name="keywords" content="construction Wisconsin, remodeling Fitchburg WI, residential construction, PSE Construction">
-    <meta name="author" content="PSE Construction Company LLC">
+    <meta name="description" content="PSE Construction Company LLC ofrece servicios profesionales de construcción y remodelación en Fitchburg, Wisconsin.">
 
-    <!-- FUENTE PROFESIONAL -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', Arial, sans-serif; background: #ffffff; color: #333; line-height: 1.6; }
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
 
-        /* HEADER */
         header {
             background: #1f2d3d;
             color: #fff;
             padding: 20px 40px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
         }
-        .logo-img { max-width: 140px; }
+
         nav a {
             color: #fff;
             margin-left: 20px;
             text-decoration: none;
             font-weight: 600;
-            position: relative;
         }
-        nav a::after {
-            content: "";
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: #f39c12;
-            transition: width 0.3s;
-        }
-        nav a:hover::after { width: 100%; }
 
-        /* HERO */
         .hero {
+            background: url('images/construccion-residencial.jpg') center/cover no-repeat;
             position: relative;
-            background: url('IMG-20260129-WA0014.jpg') center/cover no-repeat;
             color: #fff;
-            padding: 120px 20px;
             text-align: center;
+            padding: 120px 20px;
         }
+
         .hero::before {
             content: "";
             position: absolute;
             inset: 0;
             background: rgba(0,0,0,0.6);
         }
+
         .hero * { position: relative; }
-        .hero h1 { font-size: 42px; margin-bottom: 15px; }
-        .hero p { font-size: 20px; max-width: 900px; margin: auto; }
 
-        /* SECCIONES */
-        section { padding: 60px 20px; max-width: 1200px; margin: auto; }
-        section h2 { text-align: center; font-size: 32px; margin-bottom: 40px; color: #1f2d3d; }
+        section {
+            max-width: 1200px;
+            margin: auto;
+            padding: 60px 20px;
+        }
 
-        /* SERVICIOS */
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #1f2d3d;
+        }
+
         .services-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
+
         .service-card {
+            background: #fff;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-            background: #fff;
-            transition: transform 0.3s;
         }
-        .service-card:hover { transform: translateY(-6px); }
-        .service-gallery img {
+
+        .service-card img {
             width: 100%;
             height: 220px;
             object-fit: cover;
         }
-        .card-content { padding: 25px; }
-        .card-content h3 { color: #1f2d3d; margin-bottom: 10px; font-size: 22px; }
 
-        /* CONTACTO */
+        .double-img {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
         #contacto {
             background: #f4f6f8;
             border-radius: 12px;
             text-align: center;
         }
-        .contact-info { font-size: 18px; margin-bottom: 25px; }
+
         .whatsapp-btn {
             display: inline-block;
             background: #25d366;
             color: #fff;
             padding: 18px 40px;
             border-radius: 50px;
-            font-size: 20px;
-            font-weight: 700;
             text-decoration: none;
-            transition: all 0.3s;
+            font-weight: bold;
         }
-        .whatsapp-btn:hover { background: #128c7e; transform: scale(1.05); }
 
-        /* FOOTER */
         footer {
             background: #1f2d3d;
             color: #fff;
             text-align: center;
             padding: 20px;
-            font-weight: 600;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            header { justify-content: center; text-align: center; }
-            nav { margin-top: 15px; }
-            nav a { margin: 0 10px; }
-            .hero h1 { font-size: 32px; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <img src="IMG-20260128-WA0095.jpg" alt="PSE Construction Logo" class="logo-img">
+    <h3>PSE Construction Company LLC</h3>
     <nav>
         <a href="#inicio">Inicio</a>
         <a href="#servicios">Servicios</a>
@@ -142,25 +129,28 @@
 
 <section class="hero" id="inicio">
     <h1>Construcción Profesional en Wisconsin</h1>
-    <p>En PSE Construction Company LLC construimos con calidad, confianza y resultados duraderos. Liderada por Edecio Socorro.</p>
+    <p>Calidad, confianza y resultados duraderos</p>
 </section>
 
 <section id="servicios">
     <h2>Nuestros Servicios</h2>
+
     <div class="services-container">
+
+        <!-- CONSTRUCCIÓN -->
         <div class="service-card">
-            <div class="service-gallery">
-                <img src="descarga.jpeg" alt="Construcción residencial" loading="lazy">
-            </div>
+            <img src="images/construccion-residencial.jpg" alt="Construcción Residencial">
             <div class="card-content">
                 <h3>Construcción Residencial</h3>
-                <p>Desarrollo de viviendas, edificios y proyectos residenciales cumpliendo normativas y altos estándares de calidad.</p>
+                <p>Desarrollo de viviendas y proyectos residenciales cumpliendo altos estándares.</p>
             </div>
         </div>
 
+        <!-- REMODELACIONES (DOS IMÁGENES) -->
         <div class="service-card">
-            <div class="service-gallery">
-                <img src="descarga-2.jpeg" alt="Remodelaciones" loading="lazy">
+            <div class="double-img">
+                <img src="images/1.png" alt="Remodelación 1">
+                <img src="images/2.jpg" alt="Remodelación 2">
             </div>
             <div class="card-content">
                 <h3>Remodelaciones</h3>
@@ -168,29 +158,18 @@
             </div>
         </div>
 
-        <div class="service-card">
-            <div class="service-gallery">
-                <img src="IMG-20260129-WA0013.jpg" alt="Materiales de construcción" loading="lazy">
-            </div>
-            <div class="card-content">
-                <h3>Materiales y Mantenimiento</h3>
-                <p>Venta de materiales y mantenimiento preventivo y correctivo para todo tipo de obras.</p>
-            </div>
-        </div>
     </div>
 </section>
 
 <section id="contacto">
     <h2>Contacto</h2>
-    <div class="contact-info">
-        <p><strong>Dirección:</strong> 2953 Fish Hatchery Rd, Fitchburg, WI 53713</p>
-        <p><strong>Teléfono / WhatsApp:</strong> +1 (470) 593-5592</p>
-    </div>
-    <a href="https://wa.me/14705935592" target="_blank" class="whatsapp-btn" aria-label="Contactar por WhatsApp">💬 Cotiza por WhatsApp</a>
+    <p><strong>Dirección:</strong> 2953 Fish Hatchery Rd, Fitchburg, WI 53713</p>
+    <p><strong>WhatsApp:</strong> +1 (470) 593-5592</p>
+    <a href="https://wa.me/14705935592" class="whatsapp-btn">Cotizar por WhatsApp</a>
 </section>
 
 <footer>
-    <p>© 2026 PSE Construction Company LLC · Todos los derechos reservados</p>
+    <p>© 2026 PSE Construction Company LLC</p>
 </footer>
 
 </body>
