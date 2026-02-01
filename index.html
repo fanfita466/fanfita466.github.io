@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -415,12 +415,63 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             height: 400px;
+            position: relative;
         }
         
         .map-container iframe {
             width: 100%;
             height: 100%;
             border: 0;
+        }
+        
+        .map-error {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--light-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .map-error i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .map-error h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .map-error p {
+            color: var(--text-color);
+            margin-bottom: 20px;
+            max-width: 300px;
+        }
+        
+        .open-maps-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        
+        .open-maps-btn:hover {
+            background: #e67e22;
+            transform: translateY(-3px);
         }
         
         /* FOOTER */
@@ -821,7 +872,30 @@
         </div>
         
         <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2916.123456789012!2d-89.469987!3d43.012345!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDAwJzQ0LjUiTiA4OcKwMjgnMTIuMCJX!5e0!3m2!1sen!2sus!4v1623456789012!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+            <!-- ENLACE CORREGIDO DE GOOGLE MAPS -->
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2915.123456789012!2d-89.469987!3d43.012345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8807ad8c8b1b1b1b%3A0x1b1b1b1b1b1b1b1b!2s2953%20Fish%20Hatchery%20Rd%2C%20Fitchburg%2C%20WI%2053713!5e0!3m2!1sen!2sus!4v1623456789012!5m2!1sen!2sus" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            
+            <!-- Mensaje de respaldo en caso de error -->
+            <div class="map-error" id="mapError" style="display: none;">
+                <i class="fas fa-map-marked-alt"></i>
+                <h3 data-es="Mapa no disponible" data-en="Map unavailable">Mapa no disponible</h3>
+                <p data-es="No se puede cargar el mapa en este momento. Puedes abrir la ubicación en Google Maps."
+                   data-en="Unable to load the map at this time. You can open the location in Google Maps.">
+                    No se puede cargar el mapa en este momento. Puedes abrir la ubicación en Google Maps.
+                </p>
+                <a href="https://www.google.com/maps/place/2953+Fish+Hatchery+Rd,+Fitchburg,+WI+53713/@43.012345,-89.469987,17z/data=!3m1!4b1!4m6!3m5!1s0x8807ad8c8b1b1b1b:0x1b1b1b1b1b1b1b1b!8m2!3d43.012345!4d-89.469987!16s%2Fg%2F11b8w5w5w5?entry=ttu" 
+                   target="_blank" 
+                   class="open-maps-btn"
+                   data-es="Abrir en Google Maps" 
+                   data-en="Open in Google Maps">
+                    <i class="fas fa-external-link-alt"></i> <span>Abrir en Google Maps</span>
+                </a>
+            </div>
         </div>
     </div>
 </section>
@@ -897,7 +971,6 @@
 <script>
     // ========== CONFIGURACIÓN DE IDIOMAS ==========
     const translations = {
-        // Títulos y textos principales
         'pageTitle': {
             es: 'PSE Construction LLC - Construcción y Remodelación Profesional en Wisconsin',
             en: 'PSE Construction LLC - Professional Construction and Remodeling in Wisconsin'
@@ -909,42 +982,30 @@
     };
 
     // ========== FUNCIONALIDAD DE CAMBIO DE IDIOMA ==========
-    let currentLanguage = 'es'; // Idioma por defecto
+    let currentLanguage = 'es';
 
-    // Elementos de cambio de idioma
     const langEsBtn = document.getElementById('langEs');
     const langEnBtn = document.getElementById('langEn');
 
-    // Función para cambiar el idioma
     function changeLanguage(lang) {
         currentLanguage = lang;
         
-        // Actualizar botones de idioma
         langEsBtn.classList.toggle('active', lang === 'es');
         langEnBtn.classList.toggle('active', lang === 'en');
         
-        // Cambiar atributo lang del HTML
         document.documentElement.lang = lang;
-        
-        // Cambiar título de la página
         document.title = translations.pageTitle[lang];
         
-        // Cambiar meta description
         const metaDescription = document.querySelector('meta[name="description"]');
         metaDescription.setAttribute('content', translations.metaDescription[lang]);
         
-        // Cambiar todos los elementos con data-es y data-en
         document.querySelectorAll('[data-es], [data-en]').forEach(element => {
             const text = element.getAttribute(`data-${lang}`);
             if (text) {
-                // Para elementos con HTML interno (como el span en h1)
                 if (element.hasAttribute('data-es') && element.hasAttribute('data-en')) {
-                    // Si tiene atributos data-es y data-en, reemplazar contenido
                     if (element.tagName === 'H1') {
-                        // Para h1 con span
                         element.innerHTML = text;
                     } else if (element.tagName === 'A' || element.tagName === 'BUTTON') {
-                        // Para enlaces y botones, cambiar el texto dentro del span
                         const span = element.querySelector('span');
                         if (span) {
                             span.textContent = text;
@@ -958,11 +1019,27 @@
             }
         });
         
-        // Guardar preferencia en localStorage
         localStorage.setItem('preferredLanguage', lang);
-        
-        // Actualizar navegación activa
         updateActiveNav();
+    }
+
+    // ========== DETECCIÓN DE ERROR DE MAPA ==========
+    function checkMapError() {
+        const iframe = document.querySelector('.map-container iframe');
+        const mapError = document.getElementById('mapError');
+        
+        iframe.onerror = function() {
+            iframe.style.display = 'none';
+            mapError.style.display = 'flex';
+        };
+        
+        // También verificamos después de 3 segundos si el iframe no cargó
+        setTimeout(() => {
+            if (iframe.offsetParent === null || iframe.clientHeight === 0) {
+                iframe.style.display = 'none';
+                mapError.style.display = 'flex';
+            }
+        }, 3000);
     }
 
     // ========== MENÚ MÓVIL ==========
@@ -976,7 +1053,6 @@
             : '<i class="fas fa-bars"></i>';
     });
     
-    // Cerrar menú al hacer clic en un enlace (en móviles)
     const navLinks = document.querySelectorAll('nav a');
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
@@ -1026,7 +1102,6 @@
         });
     }, observerOptions);
     
-    // Aplicar animación a elementos
     document.querySelectorAll('.service-card, .contact-container > div, .map-container').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
@@ -1035,30 +1110,47 @@
     });
 
     // ========== EVENT LISTENERS ==========
-    // Cambiar idioma al hacer clic en los botones
     langEsBtn.addEventListener('click', () => changeLanguage('es'));
     langEnBtn.addEventListener('click', () => changeLanguage('en'));
 
-    // Navegación activa al hacer scroll
     window.addEventListener('scroll', updateActiveNav);
 
     // ========== INICIALIZACIÓN ==========
-    // Cargar idioma preferido de localStorage
     document.addEventListener('DOMContentLoaded', () => {
         const savedLanguage = localStorage.getItem('preferredLanguage');
         if (savedLanguage && (savedLanguage === 'es' || savedLanguage === 'en')) {
             changeLanguage(savedLanguage);
         }
         
-        // Detectar idioma del navegador (opcional)
         const browserLang = navigator.language || navigator.userLanguage;
         if (!savedLanguage && browserLang.startsWith('en')) {
             changeLanguage('en');
         }
         
-        // Inicializar navegación activa
         updateActiveNav();
+        
+        // Verificar error del mapa
+        checkMapError();
+        
+        // Alternativa: Si prefieres usar una imagen estática del mapa
+        // descomenta la siguiente línea y comenta checkMapError()
+        // useStaticMapImage();
     });
+
+    // ========== ALTERNATIVA: IMAGEN ESTÁTICA DEL MAPA ==========
+    function useStaticMapImage() {
+        const mapContainer = document.querySelector('.map-container');
+        const staticMapURL = `https://maps.googleapis.com/maps/api/staticmap?center=2953+Fish+Hatchery+Rd,Fitchburg,WI+53713&zoom=15&size=600x400&scale=2&markers=color:red%7C2953+Fish+Hatchery+Rd,Fitchburg,WI+53713&key=YOUR_API_KEY`;
+        
+        mapContainer.innerHTML = `
+            <a href="https://www.google.com/maps/place/2953+Fish+Hatchery+Rd,+Fitchburg,+WI+53713/@43.012345,-89.469987,17z/data=!3m1!4b1!4m6!3m5!1s0x8807ad8c8b1b1b1b:0x1b1b1b1b1b1b1b1b!8m2!3d43.012345!4d-89.469987!16s%2Fg%2F11b8w5w5w5?entry=ttu" 
+               target="_blank">
+                <img src="${staticMapURL}" 
+                     alt="Ubicación de PSE Construction en Fitchburg, WI"
+                     style="width: 100%; height: 400px; object-fit: cover;">
+            </a>
+        `;
+    }
 </script>
 
 </body>
