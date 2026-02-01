@@ -3,159 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compañía Constructora PSE LLC</title>
+    <title>PSE Construction Company LLC | Construcción en Wisconsin</title>
+
+    <!-- SEO BÁSICO -->
+    <meta name="description" content="PSE Construction Company LLC ofrece servicios profesionales de construcción, remodelación y mantenimiento en Fitchburg, Wisconsin. Calidad, confianza y resultados.">
+    <meta name="keywords" content="construction Wisconsin, remodeling Fitchburg WI, residential construction, PSE Construction">
+    <meta name="author" content="PSE Construction Company LLC">
+
+    <!-- FUENTE PROFESIONAL -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, Helvetica, sans-serif; background: #ffffff; color: #333333; }
+        body { font-family: 'Inter', Arial, sans-serif; background: #ffffff; color: #333; line-height: 1.6; }
 
-        /* ENCABEZADO Y PIE DE PÁGINA - COLOR PROFESIONAL */
-        header, footer { 
-            background: #2c3e50; /* GRIS OSCURO PROFESIONAL */
-            color: #ffffff; /* TEXTO BLANCO CONTRASTANTE */
-            padding: 20px; 
-            text-align: center; 
+        /* HEADER */
+        header {
+            background: #1f2d3d;
+            color: #fff;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
         }
-        .logo-img { max-width: 150px; height: auto; margin: 0 auto; display: block; }
-        header p { margin: 10px 0 0; font-weight: bold; }
-        nav { margin-top: 15px; }
-        nav a { color: #ffffff; margin: 0 12px; text-decoration: none; font-weight: bold; }
-        nav a:hover { text-decoration: underline; color: #f39c12; } /* DESTACO EN AMARILLO AL PASAR EL MOUSE */
-
-        /* SECCIÓN PRINCIPAL - FONDO CON LOGO Y TEXTO CLARO */
-        .hero { 
-            background: url('IMG-20260129-WA0014.jpg') center/cover no-repeat; 
-            padding: 100px 20px; 
-            text-align: center; 
-            color: #ffffff; 
-            text-shadow: 0 0 15px #000000; /* SOMBRA MÁS FUERTE PARA VER MEJOR EL TEXTO */
+        .logo-img { max-width: 140px; }
+        nav a {
+            color: #fff;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
         }
-        .hero h2 { font-size: 36px; margin-bottom: 15px; font-weight: bold; }
-        .hero p { font-size: 20px; max-width: 900px; margin: 0 auto; }
-
-        /* SERVICIOS - DISEÑO LIMPIO Y PROFESIONAL */
-        #servicios { 
-            max-width: 1200px; 
-            margin: 40px auto; 
-            padding: 30px; 
-            border-radius: 10px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* SOMBRA SUAVE */
+        nav a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #f39c12;
+            transition: width 0.3s;
         }
-        #servicios h2 { color: #2c3e50; text-align: center; margin-bottom: 30px; font-size: 28px; }
-        .services-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .service-card { border: 1px solid #ecf0f1; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .service-gallery { display: flex; gap: 5px; }
-        .service-gallery img { width: 33.33%; height: 180px; object-fit: cover; }
-        .double-gallery img { width: 50%; height: 180px; object-fit: cover; }
-        .service-card .card-content { padding: 20px; }
-        .service-card h3 { color: #2c3e50; margin-bottom: 10px; font-size: 22px; }
-        .service-card p { line-height: 1.5; color: #555555; }
-        .extra-img { width: 100%; height: auto; margin-top: 10px; object-fit: cover; border-radius: 5px; }
+        nav a:hover::after { width: 100%; }
 
-        /* BOTÓN WHATSAPP - COLOR ORIGINAL Y LLAMATIVO */
-        #contacto { 
-            max-width: 1200px; 
-            margin: 40px auto; 
-            padding: 30px; 
-            border-radius: 10px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        /* HERO */
+        .hero {
+            position: relative;
+            background: url('IMG-20260129-WA0014.jpg') center/cover no-repeat;
+            color: #fff;
+            padding: 120px 20px;
             text-align: center;
         }
-        #contacto h2 { color: #2c3e50; margin-bottom: 20px; font-size: 28px; }
-        .contact-info { font-size: 18px; line-height: 1.8; color: #555555; margin-bottom: 20px; }
-        .whatsapp-btn { 
-            display: inline-block; 
-            background: #25d366; /* COLOR VERDE ORIGINAL DE WHATSAPP */
-            color: #fff; 
-            padding: 18px 35px; /* MÁS GRANDE PARA SER LLAMATIVO */
-            border-radius: 50px; 
-            text-decoration: none; 
-            font-weight: bold;
-            font-size: 20px; /* TEXTO MÁS GRANDE */
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); /* SOMBRA VERDE PARA DESTACAR */
-            transition: all 0.3s ease;
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
         }
-        .whatsapp-btn:hover { 
-            background: #128c7e; /* VERDE OSCURO AL PASAR EL MOUSE */
-            transform: scale(1.05); /* SE AGRANDA UN POCO */
-            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.6);
+        .hero * { position: relative; }
+        .hero h1 { font-size: 42px; margin-bottom: 15px; }
+        .hero p { font-size: 20px; max-width: 900px; margin: auto; }
+
+        /* SECCIONES */
+        section { padding: 60px 20px; max-width: 1200px; margin: auto; }
+        section h2 { text-align: center; font-size: 32px; margin-bottom: 40px; color: #1f2d3d; }
+
+        /* SERVICIOS */
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .service-card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            background: #fff;
+            transition: transform 0.3s;
+        }
+        .service-card:hover { transform: translateY(-6px); }
+        .service-gallery img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .card-content { padding: 25px; }
+        .card-content h3 { color: #1f2d3d; margin-bottom: 10px; font-size: 22px; }
+
+        /* CONTACTO */
+        #contacto {
+            background: #f4f6f8;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .contact-info { font-size: 18px; margin-bottom: 25px; }
+        .whatsapp-btn {
+            display: inline-block;
+            background: #25d366;
+            color: #fff;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .whatsapp-btn:hover { background: #128c7e; transform: scale(1.05); }
+
+        /* FOOTER */
+        footer {
+            background: #1f2d3d;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-weight: 600;
         }
 
-        footer p { font-weight: bold; font-size: 16px; }
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header { justify-content: center; text-align: center; }
+            nav { margin-top: 15px; }
+            nav a { margin: 0 10px; }
+            .hero h1 { font-size: 32px; }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <img src="IMG-20260128-WA0095.jpg" alt="Logo PSE Construction" class="logo-img">
-        <p>Construcción y Remodelación Profesional en Wisconsin</p>
-        <nav>
-            <a href="#inicio">Inicio</a>
-            <a href="#servicios">Servicios</a>
-            <a href="#contacto">Contacto</a>
-        </nav>
-    </header>
 
-    <section class="hero" id="inicio">
-        <h2>Construimos Calidad, Confianza y Resultados</h2>
-        <p>Liderada por el CEO Edecio Socorro, PSE Construction Company LLC ofrece servicios completos en Fitchburg, Wisconsin.</p>
-    </section>
+<header>
+    <img src="IMG-20260128-WA0095.jpg" alt="PSE Construction Logo" class="logo-img">
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+</header>
 
-    <section id="servicios">
-        <h2>Nuestros Servicios</h2>
-        <div class="services-container">
-            <!-- CONSTRUCCIÓN RESIDENCIAL -->
-            <div class="service-card">
-                <div class="double-gallery">
-                    <img src="descarga.jpeg" alt="Construcción Residencial 1">
-                    <img src="descarga (1).jpeg" alt="Construcción Residencial 2">
-                </div>
-                <div class="card-content">
-                    <h3>Construcción Residencial</h3>
-                    <p>Proyectos completos de viviendas unifamiliares, apartamentos y edificios, adaptados a normativas locales y estándares de calidad.</p>
-                </div>
+<section class="hero" id="inicio">
+    <h1>Construcción Profesional en Wisconsin</h1>
+    <p>En PSE Construction Company LLC construimos con calidad, confianza y resultados duraderos. Liderada por Edecio Socorro.</p>
+</section>
+
+<section id="servicios">
+    <h2>Nuestros Servicios</h2>
+    <div class="services-container">
+        <div class="service-card">
+            <div class="service-gallery">
+                <img src="descarga.jpeg" alt="Construcción residencial" loading="lazy">
             </div>
-
-            <!-- REMODELACIONES -->
-            <div class="service-card">
-                <div class="service-gallery">
-                    <img src="descarga (2).jpeg" alt="Remodelaciones 1">
-                    <img src="descarga (3).jpeg" alt="Remodelaciones 2">
-                    <img src="imagenes (2).jpeg" alt="Remodelaciones 3"> <!-- CORREGÍ EL NOMBRE SIN TILDE SI ES ASÍ EN TU REPOSITORIO -->
-                </div>
-                <div class="card-content">
-                    <h3>Remodelaciones</h3>
-                    <p>Renovación de hogares, oficinas y locales comerciales, con acabados premium ajustados a tus necesidades y presupuesto.</p>
-                </div>
-            </div>
-
-            <!-- MATERIALES Y MANTENIMIENTO -->
-            <div class="service-card">
-                <div class="service-gallery">
-                    <img src="IMG-20260129-WA0013.jpg" alt="Materiales 1">
-                    <img src="IMG-20260129-WA0012.jpg" alt="Materiales 2">
-                    <img src="IMG-20260129-WA0010.jpg" alt="Materiales 3">
-                </div>
-                <div class="card-content">
-                    <h3>Materiales y Mantenimiento</h3>
-                    <p>Venta de materiales de alta calidad (cemento, acero, madera, cerámicas) y programas de mantenimiento preventivo y correctivo para todo tipo de obras.</p>
-                    <img src="IMG-20260129-WA0005.jpg" alt="Materiales 4" class="extra-img">
-                    <img src="IMG-20260129-WA0001.jpg" alt="Materiales 5" class="extra-img">
-                    <img src="IMG-20260129-WA0016.jpg" alt="Materiales 6" class="extra-img">
-                </div>
+            <div class="card-content">
+                <h3>Construcción Residencial</h3>
+                <p>Desarrollo de viviendas, edificios y proyectos residenciales cumpliendo normativas y altos estándares de calidad.</p>
             </div>
         </div>
-    </section>
 
-    <section id="contacto">
-        <h2>Contacto</h2>
-        <div class="contact-info">
-            <p><strong>Dirección:</strong> 2953 Fish Hatchery Rd, Fitchburg, WI 53713</p>
-            <p><strong>Teléfono / WhatsApp:</strong> +1 (470) 593-5592</p>
+        <div class="service-card">
+            <div class="service-gallery">
+                <img src="descarga-2.jpeg" alt="Remodelaciones" loading="lazy">
+            </div>
+            <div class="card-content">
+                <h3>Remodelaciones</h3>
+                <p>Renovación de interiores y exteriores con acabados modernos y funcionales.</p>
+            </div>
         </div>
-        <a href="https://wa.me/14705935592" target="_blank" class="whatsapp-btn">💬 Cotiza Ahora por WhatsApp</a>
-    </section>
 
-    <footer>
-        <p>© 2024 PSE Construction Company LLC · Todos los Derechos Reservados</p>
-    </footer>
+        <div class="service-card">
+            <div class="service-gallery">
+                <img src="IMG-20260129-WA0013.jpg" alt="Materiales de construcción" loading="lazy">
+            </div>
+            <div class="card-content">
+                <h3>Materiales y Mantenimiento</h3>
+                <p>Venta de materiales y mantenimiento preventivo y correctivo para todo tipo de obras.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contacto">
+    <h2>Contacto</h2>
+    <div class="contact-info">
+        <p><strong>Dirección:</strong> 2953 Fish Hatchery Rd, Fitchburg, WI 53713</p>
+        <p><strong>Teléfono / WhatsApp:</strong> +1 (470) 593-5592</p>
+    </div>
+    <a href="https://wa.me/14705935592" target="_blank" class="whatsapp-btn" aria-label="Contactar por WhatsApp">💬 Cotiza por WhatsApp</a>
+</section>
+
+<footer>
+    <p>© 2026 PSE Construction Company LLC · Todos los derechos reservados</p>
+</footer>
+
 </body>
 </html>
