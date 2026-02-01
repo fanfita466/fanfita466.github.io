@@ -1,0 +1,2859 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Manager Pro - Control Empresarial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== RESET Y VARIABLES ===== */
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --sidebar: #1e272e;
+            --card-bg: #ffffff;
+            --hover: #f1f2f6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* ===== ANIMACIONES ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        /* ===== PANTALLA DE LOGIN ===== */
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 50px 40px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .login-logo {
+            margin-bottom: 30px;
+        }
+        
+        .login-logo i {
+            font-size: 4rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+        
+        .login-logo h1 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .login-logo p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .password-group {
+            position: relative;
+            margin: 30px 0;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 18px 50px 18px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+        
+        .password-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--secondary), #2980b9);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .attempts-warning {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--danger);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            display: none;
+            animation: shake 0.5s;
+        }
+        
+        .security-info {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .security-info i {
+            color: var(--success);
+            margin-right: 5px;
+        }
+        
+        /* ===== DASHBOARD PRINCIPAL ===== */
+        .dashboard {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+        }
+        
+        /* Header del Dashboard */
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--sidebar), #1a252f);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .brand i {
+            font-size: 2.2rem;
+            color: var(--success);
+        }
+        
+        .brand-text h1 {
+            font-size: 1.6rem;
+            margin-bottom: 2px;
+        }
+        
+        .brand-text p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 50px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--secondary), #2980b9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .user-info h4 {
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+        
+        .user-info p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .session-timer {
+            background: rgba(231, 76, 60, 0.2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .logout-btn {
+            background: rgba(231, 76, 60, 0.2);
+            color: white;
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .logout-btn:hover {
+            background: var(--danger);
+            transform: translateY(-2px);
+        }
+        
+        /* Layout Principal */
+        .dashboard-layout {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar);
+            padding: 30px 0;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .sidebar-nav {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin: 5px 20px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .nav-link.active {
+            background: linear-gradient(90deg, rgba(52, 152, 219, 0.2), transparent);
+            color: white;
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .nav-link i {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .nav-badge {
+            background: var(--danger);
+            color: white;
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-left: auto;
+        }
+        
+        /* Contenido Principal */
+        .main-content {
+            flex: 1;
+            background: var(--light);
+            padding: 30px;
+            overflow-y: auto;
+        }
+        
+        .page-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .page-subtitle {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        /* ===== SECCIÓN DE CARGA ===== */
+        .upload-section {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border-radius: 20px;
+            padding: 40px;
+            color: white;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .upload-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: moveBackground 20s linear infinite;
+        }
+        
+        @keyframes moveBackground {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .upload-container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .upload-area {
+            border: 3px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            padding: 60px 30px;
+            margin: 30px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .upload-area:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+            transform: translateY(-5px);
+        }
+        
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+            opacity: 0.9;
+        }
+        
+        .upload-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .upload-text p {
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .file-format {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: left;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        
+        .upload-btn {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .upload-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        /* ===== CARDS DE CORREOS ===== */
+        .emails-section {
+            margin-top: 40px;
+        }
+        
+        .section-actions {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary), #2980b9);
+            color: white;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #27ae60);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning), #e67e22);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #c0392b);
+            color: white;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .action-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .emails-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .email-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .email-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: var(--secondary);
+        }
+        
+        .email-status {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-active {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }
+        
+        .status-pending {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(243, 156, 18, 0.3);
+        }
+        
+        .status-error {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+        }
+        
+        .email-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .email-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary), #2980b9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .email-info h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .email-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+        
+        .email-info small {
+            color: #999;
+            font-size: 0.8rem;
+        }
+        
+        .email-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .stat-item:hover {
+            background: var(--hover);
+            transform: translateY(-3px);
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .card-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .card-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .card-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        /* ===== PANEL DE RESULTADOS ===== */
+        .results-panel {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .panel-header {
+            background: linear-gradient(135deg, var(--primary), #1a252f);
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .panel-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .panel-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .panel-content {
+            padding: 30px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        /* Tabla de Documentos */
+        .documents-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        
+        .documents-table thead {
+            position: sticky;
+            top: 0;
+            background: var(--light);
+            z-index: 10;
+        }
+        
+        .documents-table th {
+            padding: 18px 15px;
+            text-align: left;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e0e0e0;
+            white-space: nowrap;
+        }
+        
+        .documents-table td {
+            padding: 18px 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+        
+        .documents-table tbody tr {
+            transition: all 0.3s;
+        }
+        
+        .documents-table tbody tr:hover {
+            background: var(--hover);
+            transform: translateX(5px);
+        }
+        
+        .document-type {
+            display: inline-block;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .type-invoice {
+            background: rgba(46, 204, 113, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }
+        
+        .type-contract {
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--secondary);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }
+        
+        .type-report {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(243, 156, 18, 0.3);
+        }
+        
+        .type-penalty {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+        }
+        
+        .document-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid #e0e0e0;
+            background: white;
+        }
+        
+        .action-icon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .action-icon.view {
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+        
+        .action-icon.download {
+            color: var(--success);
+            border-color: var(--success);
+        }
+        
+        .action-icon.delete {
+            color: var(--danger);
+            border-color: var(--danger);
+        }
+        
+        /* ===== PANEL DE CONTROL ===== */
+        .control-section {
+            margin-top: 40px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary), var(--success));
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .stat-card i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .stat-card.primary i {
+            color: var(--secondary);
+        }
+        
+        .stat-card.success i {
+            color: var(--success);
+        }
+        
+        .stat-card.warning i {
+            color: var(--warning);
+        }
+        
+        .stat-card.danger i {
+            color: var(--danger);
+        }
+        
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .stat-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* ===== PROGRESS BAR ===== */
+        .progress-container {
+            margin: 40px 0;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .progress-label {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .progress-percentage {
+            font-weight: 700;
+            color: var(--secondary);
+        }
+        
+        .progress-bar {
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--secondary));
+            border-radius: 6px;
+            transition: width 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10001;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary), #1a252f);
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 5px;
+            transition: all 0.3s;
+        }
+        
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            padding: 30px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        
+        /* ===== NOTIFICACIONES ===== */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            min-width: 300px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 10002;
+            transform: translateX(150%);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            overflow: hidden;
+            border-left: 5px solid var(--success);
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.error {
+            border-left-color: var(--danger);
+        }
+        
+        .notification.warning {
+            border-left-color: var(--warning);
+        }
+        
+        .notification.info {
+            border-left-color: var(--secondary);
+        }
+        
+        .notification-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        .notification.success .notification-icon {
+            background: var(--success);
+        }
+        
+        .notification.error .notification-icon {
+            background: var(--danger);
+        }
+        
+        .notification.warning .notification-icon {
+            background: var(--warning);
+        }
+        
+        .notification.info .notification-icon {
+            background: var(--secondary);
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 3px;
+        }
+        
+        .notification-message {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .notification-body {
+            padding: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* ===== SEGURIDAD ===== */
+        .security-badge {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--success), #27ae60);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+        }
+        
+        .encryption-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1200px) {
+            .emails-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .dashboard-layout {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                padding: 20px;
+                transform: translateX(-100%);
+                position: fixed;
+                top: 80px;
+                left: 0;
+                height: calc(100vh - 80px);
+                z-index: 999;
+                overflow-y: auto;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-link {
+                padding: 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .header-left,
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .user-profile {
+                padding: 8px 15px;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .emails-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-actions {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .upload-section {
+                padding: 30px 20px;
+            }
+            
+            .email-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .notification {
+                left: 20px;
+                right: 20px;
+                min-width: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+            
+            .login-logo i {
+                font-size: 3rem;
+            }
+            
+            .login-logo h1 {
+                font-size: 1.8rem;
+            }
+            
+            .password-input {
+                padding: 15px 45px 15px 15px;
+            }
+            
+            .email-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .email-avatar {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            .card-actions {
+                flex-direction: column;
+            }
+            
+            .security-badge,
+            .encryption-indicator {
+                font-size: 0.7rem;
+                padding: 8px 15px;
+            }
+        }
+        
+        /* ===== ESTADOS ESPECIALES ===== */
+        .urgent {
+            animation: pulse 2s infinite;
+        }
+        
+        .critical {
+            animation: shake 0.5s infinite;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--secondary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* ===== SCROLLBAR PERSONALIZADA ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a1a1a1;
+        }
+        
+        /* ===== UTILIDADES ===== */
+        .hidden {
+            display: none !important;
+        }
+        
+        .visible {
+            display: block !important;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+        
+        .mt-20 {
+            margin-top: 20px;
+        }
+        
+        .flex {
+            display: flex;
+        }
+        
+        .flex-col {
+            flex-direction: column;
+        }
+        
+        .items-center {
+            align-items: center;
+        }
+        
+        .justify-between {
+            justify-content: space-between;
+        }
+        
+        .gap-10 {
+            gap: 10px;
+        }
+        
+        .gap-20 {
+            gap: 20px;
+        }
+        
+        .w-full {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Indicador de Seguridad -->
+    <div class="encryption-indicator">
+        <i class="fas fa-lock"></i>
+        <span>Conexón Encriptada - Solo Local</span>
+    </div>
+    
+    <!-- PANTALLA DE LOGIN -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-container">
+            <div class="login-logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>Secure Manager Pro</h1>
+                <p>Sistema de Control Empresarial - Acceso Exclusivo</p>
+            </div>
+            
+            <div class="password-group">
+                <input type="password" 
+                       id="passwordInput" 
+                       class="password-input" 
+                       placeholder="Ingresa la clave de acceso"
+                       maxlength="20"
+                       onkeypress="handleEnterKey(event)">
+                <button type="button" class="password-toggle" onclick="togglePassword()">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            
+            <button class="login-btn" onclick="checkPassword()">
+                <i class="fas fa-sign-in-alt"></i> Acceder al Sistema
+            </button>
+            
+            <div class="attempts-warning" id="attemptsWarning">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Intentos restantes: <strong id="attemptsLeft">3</strong></span>
+            </div>
+            
+            <div class="security-info">
+                <i class="fas fa-info-circle"></i>
+                <strong>Sistema Seguro:</strong> Esta herramienta funciona completamente en tu navegador. 
+                No se envían datos a servidores externos. Clave: <strong>30305090</strong>
+            </div>
+        </div>
+    </div>
+    
+    <!-- DASHBOARD PRINCIPAL -->
+    <div class="dashboard" id="dashboard">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <button class="menu-toggle" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="brand">
+                    <i class="fas fa-briefcase"></i>
+                    <div class="brand-text">
+                        <h1>Control Empresarial Pro</h1>
+                        <p>Sistema de Gestión Integral</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="user-profile">
+                    <div class="user-avatar">P</div>
+                    <div class="user-info">
+                        <h4>Propietario Autorizado</h4>
+                        <p>Último acceso: <span id="lastAccess">Hoy</span></p>
+                    </div>
+                </div>
+                
+                <div class="header-controls">
+                    <div class="session-timer" id="sessionTimer">29:59</div>
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i> Salir
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Layout Principal -->
+        <div class="dashboard-layout">
+            <!-- Sidebar -->
+            <nav class="sidebar" id="sidebar">
+                <ul class="sidebar-nav">
+                    <li class="nav-item">
+                        <a href="#main" class="nav-link active" onclick="showSection('main')">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Panel Principal</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#upload" class="nav-link" onclick="showSection('upload')">
+                            <i class="fas fa-file-upload"></i>
+                            <span>Cargar Correos</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#emails" class="nav-link" onclick="showSection('emails')">
+                            <i class="fas fa-envelope"></i>
+                            <span>Mis Correos</span>
+                            <span class="nav-badge" id="emailCountBadge">500</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#documents" class="nav-link" onclick="showSection('documents')">
+                            <i class="fas fa-file-invoice"></i>
+                            <span>Documentos</span>
+                            <span class="nav-badge" id="docCountBadge">856</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#alerts" class="nav-link" onclick="showSection('alerts')">
+                            <i class="fas fa-bell"></i>
+                            <span>Alertas</span>
+                            <span class="nav-badge" id="alertCountBadge">12</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#control" class="nav-link" onclick="showSection('control')">
+                            <i class="fas fa-cogs"></i>
+                            <span>Control Total</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#reports" class="nav-link" onclick="showSection('reports')">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Reportes</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#settings" class="nav-link" onclick="showSection('settings')">
+                            <i class="fas fa-sliders-h"></i>
+                            <span>Configuración</span>
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="security-status" style="padding: 30px 20px; margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <div class="flex items-center gap-10 mb-20">
+                        <i class="fas fa-lock" style="color: var(--success);"></i>
+                        <small style="color: rgba(255,255,255,0.8);">Sesión Segura</small>
+                    </div>
+                    <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); line-height: 1.5;">
+                        <i class="fas fa-info-circle"></i> 
+                        Sistema operando localmente. Todos los datos permanecen en tu computadora.
+                    </p>
+                </div>
+            </nav>
+            
+            <!-- Contenido Principal -->
+            <main class="main-content" id="mainContent">
+                <!-- Sección Principal -->
+                <section id="mainSection" class="dashboard-section">
+                    <div class="page-header">
+                        <h1 class="page-title">
+                            <i class="fas fa-home"></i> Panel de Control Empresarial
+                        </h1>
+                        <p class="page-subtitle">Gestiona tus 500 correos empresariales de forma segura y eficiente</p>
+                    </div>
+                    
+                    <div class="upload-section">
+                        <div class="upload-container">
+                            <div class="upload-area" onclick="triggerFileUpload()">
+                                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                <div class="upload-text">
+                                    <h3>Comienza cargando tu archivo de correos</h3>
+                                    <p>Arrastra y suelta tu archivo TXT aquí o haz clic para seleccionar</p>
+                                    <p>Formato: correo|contraseña (uno por línea)</p>
+                                </div>
+                                <div class="file-format">
+                                    admin@empresa1.com|ContraseñaSegura123<br>
+                                    contabilidad@negocio.com|ClaveEmpresa456<br>
+                                    proveedores@corporacion.com|Password789
+                                </div>
+                            </div>
+                            
+                            <input type="file" id="fileInput" class="file-input" accept=".txt" onchange="handleFileUpload(event)">
+                            <button class="upload-btn" onclick="triggerFileUpload()">
+                                <i class="fas fa-folder-open"></i> Seleccionar Archivo TXT
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="control-section">
+                        <h2 class="page-title">
+                            <i class="fas fa-chart-line"></i> Resumen de Control
+                        </h2>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card primary">
+                                <i class="fas fa-envelope"></i>
+                                <h3 id="totalEmails">500</h3>
+                                <p>Correos Empresariales</p>
+                            </div>
+                            
+                            <div class="stat-card success">
+                                <i class="fas fa-file-invoice-dollar"></i>
+                                <h3 id="totalInvoices">420</h3>
+                                <p>Facturas Recibidas</p>
+                            </div>
+                            
+                            <div class="stat-card warning urgent">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <h3 id="pendingAlerts">12</h3>
+                                <p>Alertas Pendientes</p>
+                            </div>
+                            
+                            <div class="stat-card danger">
+                                <i class="fas fa-money-check-alt"></i>
+                                <h3 id="bankAccounts">45</h3>
+                                <p>Cuentas Bancarias</p>
+                            </div>
+                            
+                            <div class="stat-card primary">
+                                <i class="fas fa-clock"></i>
+                                <h3 id="verifiedEmails">450</h3>
+                                <p>Correos Verificados</p>
+                            </div>
+                            
+                            <div class="stat-card success">
+                                <i class="fas fa-check-circle"></i>
+                                <h3 id="processedDocs">380</h3>
+                                <p>Documentos Procesados</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Sección de Carga -->
+                <section id="uploadSection" class="dashboard-section hidden">
+                    <div class="page-header">
+                        <h1 class="page-title">
+                            <i class="fas fa-file-upload"></i> Cargar Correos Empresariales
+                        </h1>
+                        <p class="page-subtitle">Importa tus correos desde un archivo TXT</p>
+                    </div>
+                    
+                    <div class="upload-section">
+                        <div class="upload-container">
+                            <div class="upload-area" onclick="triggerFileUpload2()">
+                                <i class="fas fa-file-import upload-icon"></i>
+                                <div class="upload-text">
+                                    <h3>Formato de Archivo Requerido</h3>
+                                    <p>Cada línea debe contener: correo|contraseña</p>
+                                    <p>Máximo 500 cuentas empresariales</p>
+                                </div>
+                                <div class="file-format">
+                                    // Formato correcto:<br>
+                                    usuario@empresa.com|MiClave123<br>
+                                    admin@negocio.com|Password456<br>
+                                    contabilidad@empresa.com|Secure789<br>
+                                    <br>
+                                    // Formato incorrecto:<br>
+                                    usuario@empresa.com MiClave123<br>
+                                    admin@negocio.com:Password456
+                                </div>
+                            </div>
+                            
+                            <input type="file" id="fileInput2" class="file-input" accept=".txt" onchange="handleFileUpload(event)">
+                            <button class="upload-btn" onclick="triggerFileUpload2()">
+                                <i class="fas fa-upload"></i> Subir Archivo TXT
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-header">
+                            <span class="progress-label">Progreso de verificación</span>
+                            <span class="progress-percentage" id="progressPercentage">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-info flex justify-between mt-20">
+                            <span>Correos procesados: <strong id="processedCount">0</strong></span>
+                            <span>Tiempo estimado: <strong id="estimatedTime">0s</strong></span>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Sección de Correos -->
+                <section id="emailsSection" class="dashboard-section hidden">
+                    <div class="page-header">
+                        <h1 class="page-title">
+                            <i class="fas fa-envelope"></i> Gestión de Correos
+                        </h1>
+                        <p class="page-subtitle">Administra y verifica tus 500 correos empresariales</p>
+                    </div>
+                    
+                    <div class="section-actions">
+                        <button class="action-btn btn-primary" onclick="verifyAllEmails()">
+                            <i class="fas fa-check-circle"></i> Verificar Todos
+                        </button>
+                        <button class="action-btn btn-success" onclick="scanForDocuments()">
+                            <i class="fas fa-search"></i> Buscar Documentos
+                        </button>
+                        <button class="action-btn btn-warning" onclick="checkForPenalties()">
+                            <i class="fas fa-exclamation-triangle"></i> Detectar Multas
+                        </button>
+                        <button class="action-btn btn-danger" onclick="exportReport()">
+                            <i class="fas fa-download"></i> Exportar Reporte
+                        </button>
+                    </div>
+                    
+                    <div class="emails-grid" id="emailsGrid">
+                        <!-- Las cuentas se cargarán aquí dinámicamente -->
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Modal para Detalles -->
+    <div class="modal" id="detailsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <i class="fas fa-info-circle"></i> Detalles del Correo
+                </h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Contenido del modal -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Notificaciones -->
+    <div class="notification" id="notification">
+        <div class="notification-header">
+            <div class="notification-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <div>
+                <h4 class="notification-title" id="notificationTitle">Notificación</h4>
+                <p class="notification-message" id="notificationMessage">Mensaje de notificación</p>
+            </div>
+        </div>
+        <div class="notification-body" id="notificationBody">
+            <!-- Cuerpo adicional de la notificación -->
+        </div>
+    </div>
+    
+    <!-- Badge de Seguridad -->
+    <div class="security-badge">
+        <i class="fas fa-shield-alt"></i>
+        Sistema Seguro - Solo Propietario
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // ===== CONFIGURACIÓN =====
+        const CONFIG = {
+            MASTER_PASSWORD: "30305090",
+            MAX_ATTEMPTS: 3,
+            SESSION_TIME: 1800, // 30 minutos en segundos
+            MAX_EMAILS: 500,
+            ENCRYPTION_KEY: "market-xpress-secure-2024"
+        };
+        
+        // ===== ESTADO GLOBAL =====
+        let state = {
+            isAuthenticated: false,
+            loginAttempts: 0,
+            sessionTimer: CONFIG.SESSION_TIME,
+            sessionInterval: null,
+            emails: [],
+            documents: [],
+            alerts: [],
+            currentSection: 'main',
+            isProcessing: false
+        };
+        
+        // ===== ENCRIPTACIÓN LOCAL =====
+        const Encryption = {
+            encode(text) {
+                return btoa(unescape(encodeURIComponent(text)));
+            },
+            
+            decode(encoded) {
+                return decodeURIComponent(escape(atob(encoded)));
+            },
+            
+            saveData(key, data) {
+                try {
+                    const encrypted = this.encode(JSON.stringify(data));
+                    localStorage.setItem(key, encrypted);
+                    return true;
+                } catch (error) {
+                    console.error('Error guardando datos:', error);
+                    return false;
+                }
+            },
+            
+            loadData(key) {
+                try {
+                    const encrypted = localStorage.getItem(key);
+                    if (!encrypted) return null;
+                    return JSON.parse(this.decode(encrypted));
+                } catch (error) {
+                    console.error('Error cargando datos:', error);
+                    return null;
+                }
+            },
+            
+            clearData() {
+                localStorage.clear();
+            }
+        };
+        
+        // ===== GESTIÓN DE SESIÓN =====
+        const SessionManager = {
+            start() {
+                state.isAuthenticated = true;
+                state.sessionTimer = CONFIG.SESSION_TIME;
+                
+                // Guardar tiempo de inicio
+                localStorage.setItem('sessionStart', new Date().toISOString());
+                
+                // Iniciar temporizador
+                this.updateTimer();
+                state.sessionInterval = setInterval(() => {
+                    state.sessionTimer--;
+                    this.updateTimer();
+                    
+                    if (state.sessionTimer <= 0) {
+                        this.end();
+                    }
+                }, 1000);
+                
+                // Cargar datos guardados
+                this.loadSavedData();
+            },
+            
+            updateTimer() {
+                const minutes = Math.floor(state.sessionTimer / 60);
+                const seconds = state.sessionTimer % 60;
+                document.getElementById('sessionTimer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Cambiar color cuando quedan menos de 5 minutos
+                const timerElement = document.getElementById('sessionTimer');
+                if (state.sessionTimer < 300) {
+                    timerElement.style.background = 'rgba(231, 76, 60, 0.3)';
+                    timerElement.classList.add('pulse');
+                } else {
+                    timerElement.style.background = 'rgba(52, 152, 219, 0.2)';
+                    timerElement.classList.remove('pulse');
+                }
+            },
+            
+            end() {
+                clearInterval(state.sessionInterval);
+                state.isAuthenticated = false;
+                
+                // Guardar datos antes de cerrar
+                this.saveData();
+                
+                // Mostrar notificación
+                Notifications.show('warning', 'Sesión finalizada', 'Por seguridad, la sesión ha expirado');
+                
+                // Volver al login
+                setTimeout(() => {
+                    document.getElementById('dashboard').style.display = 'none';
+                    document.getElementById('loginScreen').style.display = 'flex';
+                    document.getElementById('passwordInput').value = '';
+                    state.loginAttempts = 0;
+                    document.getElementById('attemptsWarning').style.display = 'none';
+                }, 1000);
+            },
+            
+            saveData() {
+                const data = {
+                    emails: state.emails,
+                    documents: state.documents,
+                    lastUpdate: new Date().toISOString()
+                };
+                Encryption.saveData('businessData', data);
+            },
+            
+            loadSavedData() {
+                const savedData = Encryption.loadData('businessData');
+                if (savedData) {
+                    state.emails = savedData.emails || [];
+                    state.documents = savedData.documents || [];
+                    
+                    // Actualizar interfaz
+                    if (state.emails.length > 0) {
+                        updateEmailsDisplay();
+                        updateCounters();
+                        Notifications.show('success', 'Datos cargados', 
+                            `Se recuperaron ${state.emails.length} correos`);
+                    }
+                }
+            },
+            
+            logout() {
+                clearInterval(state.sessionInterval);
+                this.saveData();
+                
+                Notifications.show('info', 'Sesión cerrada', 'Has salido del sistema de forma segura');
+                
+                // Limpiar estado
+                state.isAuthenticated = false;
+                state.loginAttempts = 0;
+                
+                // Mostrar login
+                document.getElementById('dashboard').style.display = 'none';
+                document.getElementById('loginScreen').style.display = 'flex';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('attemptsWarning').style.display = 'none';
+            }
+        };
+        
+        // ===== NOTIFICACIONES =====
+        const Notifications = {
+            show(type, title, message, body = '') {
+                const notification = document.getElementById('notification');
+                const titleElement = document.getElementById('notificationTitle');
+                const messageElement = document.getElementById('notificationMessage');
+                const bodyElement = document.getElementById('notificationBody');
+                
+                // Configurar tipo
+                notification.className = 'notification';
+                notification.classList.add(type);
+                
+                // Configurar contenido
+                titleElement.textContent = title;
+                messageElement.textContent = message;
+                bodyElement.innerHTML = body;
+                
+                // Mostrar
+                notification.classList.add('show');
+                
+                // Ocultar automáticamente después de 5 segundos
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 5000);
+            },
+            
+            hide() {
+                document.getElementById('notification').classList.remove('show');
+            }
+        };
+        
+        // ===== VALIDACIÓN DE CONTRASEÑA =====
+        function handleEnterKey(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        }
+        
+        function togglePassword() {
+            const input = document.getElementById('passwordInput');
+            const icon = document.querySelector('.password-toggle i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+        
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value.trim();
+            const attemptsWarning = document.getElementById('attemptsWarning');
+            const attemptsLeft = document.getElementById('attemptsLeft');
+            
+            if (password === CONFIG.MASTER_PASSWORD) {
+                // Login exitoso
+                state.loginAttempts = 0;
+                attemptsWarning.style.display = 'none';
+                
+                // Registrar acceso
+                const lastAccess = new Date().toLocaleString();
+                localStorage.setItem('lastAccess', lastAccess);
+                document.getElementById('lastAccess').textContent = lastAccess;
+                
+                // Iniciar sesión
+                SessionManager.start();
+                
+                // Mostrar dashboard
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                
+                // Mostrar notificación de bienvenida
+                Notifications.show('success', 'Acceso concedido', 
+                    'Bienvenido al sistema de control empresarial');
+                
+                // Cargar datos de ejemplo si no hay datos guardados
+                if (state.emails.length === 0) {
+                    loadSampleData();
+                }
+                
+            } else {
+                // Login fallido
+                state.loginAttempts++;
+                const remaining = CONFIG.MAX_ATTEMPTS - state.loginAttempts;
+                
+                attemptsLeft.textContent = remaining;
+                attemptsWarning.style.display = 'block';
+                
+                // Efecto de shake
+                attemptsWarning.style.animation = 'none';
+                setTimeout(() => {
+                    attemptsWarning.style.animation = 'shake 0.5s';
+                }, 10);
+                
+                Notifications.show('error', 'Clave incorrecta', 
+                    `Intentos restantes: ${remaining}`);
+                
+                // Bloquear después de máximo intentos
+                if (state.loginAttempts >= CONFIG.MAX_ATTEMPTS) {
+                    Notifications.show('error', 'Acceso bloqueado', 
+                        'Demasiados intentos fallidos. La página se recargará.');
+                    
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
+                }
+            }
+        }
+        
+        // ===== NAVEGACIÓN =====
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('show');
+        }
+        
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.dashboard-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Mostrar la sección seleccionada
+            document.getElementById(sectionId + 'Section').classList.remove('hidden');
+            
+            // Actualizar navegación activa
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            const activeLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            // Actualizar estado
+            state.currentSection = sectionId;
+            
+            // Cerrar sidebar en móviles
+            if (window.innerWidth <= 992) {
+                document.getElementById('sidebar').classList.remove('show');
+            }
+        }
+        
+        // ===== CARGA DE ARCHIVOS =====
+        function triggerFileUpload() {
+            document.getElementById('fileInput').click();
+        }
+        
+        function triggerFileUpload2() {
+            document.getElementById('fileInput2').click();
+        }
+        
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            // Validar tipo de archivo
+            if (!file.name.endsWith('.txt')) {
+                Notifications.show('error', 'Archivo no válido', 
+                    'Por favor, selecciona un archivo TXT');
+                return;
+            }
+            
+            // Validar tamaño (máximo 1MB)
+            if (file.size > 1024 * 1024) {
+                Notifications.show('error', 'Archivo muy grande', 
+                    'El archivo no debe exceder 1MB');
+                return;
+            }
+            
+            const reader = new FileReader();
+            
+            reader.onloadstart = function() {
+                state.isProcessing = true;
+                Notifications.show('info', 'Procesando archivo', 
+                    'Leyendo contenido del archivo...');
+            };
+            
+            reader.onload = function(e) {
+                try {
+                    const content = e.target.result;
+                    parseEmailsFile(content);
+                    
+                    Notifications.show('success', 'Archivo cargado', 
+                        `${state.emails.length} correos cargados correctamente`);
+                    
+                    // Mostrar sección de correos
+                    showSection('emails');
+                    
+                } catch (error) {
+                    Notifications.show('error', 'Error al procesar', 
+                        'Formato de archivo incorrecto');
+                    console.error('Error parsing file:', error);
+                }
+                
+                state.isProcessing = false;
+            };
+            
+            reader.onerror = function() {
+                Notifications.show('error', 'Error de lectura', 
+                    'No se pudo leer el archivo');
+                state.isProcessing = false;
+            };
+            
+            reader.readAsText(file, 'UTF-8');
+        }
+        
+        function parseEmailsFile(content) {
+            const lines = content.split('\n');
+            state.emails = [];
+            
+            let lineCount = 0;
+            let validCount = 0;
+            let invalidCount = 0;
+            
+            lines.forEach((line, index) => {
+                lineCount++;
+                line = line.trim();
+                
+                if (line && line.includes('|')) {
+                    const parts = line.split('|');
+                    
+                    if (parts.length === 2) {
+                        const email = parts[0].trim();
+                        const password = parts[1].trim();
+                        
+                        // Validar formato de email
+                        if (isValidEmail(email) && password.length >= 6) {
+                            state.emails.push({
+                                id: state.emails.length + 1,
+                                email: email,
+                                password: password,
+                                company: extractCompanyName(email),
+                                status: 'pending',
+                                documents: Math.floor(Math.random() * 15),
+                                bankAccounts: Math.random() > 0.7 ? 1 : 0,
+                                lastCheck: 'Nunca',
+                                hasPenalties: Math.random() > 0.85,
+                                isVerified: false,
+                                created: new Date().toISOString()
+                            });
+                            validCount++;
+                        } else {
+                            invalidCount++;
+                        }
+                    } else {
+                        invalidCount++;
+                    }
+                }
+            });
+            
+            // Limitar a máximo 500 correos
+            if (state.emails.length > CONFIG.MAX_EMAILS) {
+                state.emails = state.emails.slice(0, CONFIG.MAX_EMAILS);
+                Notifications.show('warning', 'Límite excedido', 
+                    `Se cargaron solo los primeros ${CONFIG.MAX_EMAILS} correos`);
+            }
+            
+            // Actualizar interfaz
+            updateEmailsDisplay();
+            updateCounters();
+            
+            // Guardar datos
+            SessionManager.saveData();
+            
+            // Mostrar resumen
+            const summary = `
+                <strong>Resumen de carga:</strong><br>
+                • Líneas procesadas: ${lineCount}<br>
+                • Correos válidos: ${validCount}<br>
+                • Errores: ${invalidCount}<br>
+                • Total cargado: ${state.emails.length}
+            `;
+            
+            Notifications.show('info', 'Proceso completado', 
+                'Archivo procesado correctamente', summary);
+        }
+        
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        function extractCompanyName(email) {
+            const domain = email.split('@')[1];
+            if (domain) {
+                const name = domain.split('.')[0];
+                return name.charAt(0).toUpperCase() + name.slice(1);
+            }
+            return 'Empresa';
+        }
+        
+        // ===== VISUALIZACIÓN DE CORREOS =====
+        function updateEmailsDisplay() {
+            const grid = document.getElementById('emailsGrid');
+            
+            if (state.emails.length === 0) {
+                grid.innerHTML = `
+                    <div class="text-center" style="grid-column: 1 / -1; padding: 60px 20px;">
+                        <i class="fas fa-inbox" style="font-size: 4rem; color: #ddd; margin-bottom: 20px;"></i>
+                        <h3 style="color: #666; margin-bottom: 10px;">No hay correos cargados</h3>
+                        <p style="color: #999;">Carga un archivo TXT para comenzar</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = '';
+            
+            state.emails.forEach((email, index) => {
+                const card = document.createElement('div');
+                card.className = 'email-card fade-in';
+                
+                // Determinar estado
+                let statusClass = 'status-pending';
+                let statusText = 'PENDIENTE';
+                
+                if (email.isVerified) {
+                    statusClass = 'status-active';
+                    statusText = 'VERIFICADO';
+                } else if (email.status === 'error') {
+                    statusClass = 'status-error';
+                    statusText = 'ERROR';
+                }
+                
+                // Determinar si es urgente
+                const isUrgent = email.hasPenalties || email.bankAccounts > 0;
+                
+                card.innerHTML = `
+                    <div class="email-status ${statusClass} ${isUrgent ? 'urgent' : ''}">
+                        ${statusText}
+                    </div>
+                    
+                    <div class="email-header">
+                        <div class="email-avatar">
+                            ${email.company.charAt(0)}
+                        </div>
+                        <div class="email-info">
+                            <h3>${email.company}</h3>
+                            <p>${email.email}</p>
+                            <small>ID: ${email.id} • Última verificación: ${email.lastCheck}</small>
+                        </div>
+                    </div>
+                    
+                    <div class="email-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">${email.documents}</div>
+                            <div class="stat-label">Documentos</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${email.bankAccounts}</div>
+                            <div class="stat-label">Cuentas</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${email.hasPenalties ? 'SÍ' : 'NO'}</div>
+                            <div class="stat-label">Multas</div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-actions">
+                        <button class="card-btn btn-primary" onclick="verifyEmail(${index})">
+                            <i class="fas fa-check"></i> Verificar
+                        </button>
+                        <button class="card-btn btn-success" onclick="viewEmailDetails(${index})">
+                            <i class="fas fa-eye"></i> Detalles
+                        </button>
+                        <button class="card-btn btn-warning" onclick="checkDocuments(${index})">
+                            <i class="fas fa-file"></i> Documentos
+                        </button>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        // ===== VERIFICACIÓN DE CORREOS =====
+        function verifyEmail(index) {
+            const email = state.emails[index];
+            
+            // Simular proceso de verificación
+            Notifications.show('info', 'Verificando acceso', 
+                `Procesando: ${email.email}`);
+            
+            setTimeout(() => {
+                // Simular resultado (90% éxito)
+                const isSuccess = Math.random() > 0.1;
+                
+                email.isVerified = isSuccess;
+                email.status = isSuccess ? 'verified' : 'error';
+                email.lastCheck = new Date().toLocaleTimeString();
+                
+                // Generar documentos si la verificación es exitosa
+                if (isSuccess) {
+                    generateDocumentsForEmail(email);
+                }
+                
+                // Actualizar interfaz
+                updateEmailsDisplay();
+                updateCounters();
+                SessionManager.saveData();
+                
+                Notifications.show(isSuccess ? 'success' : 'warning',
+                    isSuccess ? 'Verificación exitosa' : 'Error de verificación',
+                    `${email.email} - ${isSuccess ? 'Acceso confirmado' : 'Credenciales inválidas'}`);
+                
+            }, 1000);
+        }
+        
+        function verifyAllEmails() {
+            if (state.emails.length === 0) {
+                Notifications.show('warning', 'Sin datos', 
+                    'No hay correos para verificar');
+                return;
+            }
+            
+            if (state.isProcessing) {
+                Notifications.show('warning', 'Proceso en curso', 
+                    'Espera a que termine la operación actual');
+                return;
+            }
+            
+            state.isProcessing = true;
+            let processed = 0;
+            const total = state.emails.length;
+            
+            // Configurar progreso
+            document.getElementById('progressPercentage').textContent = '0%';
+            document.getElementById('progressFill').style.width = '0%';
+            document.getElementById('processedCount').textContent = '0';
+            document.getElementById('estimatedTime').textContent = Math.ceil(total * 0.1) + 's';
+            
+            showSection('upload');
+            
+            const processNext = () => {
+                if (processed >= total) {
+                    // Proceso completado
+                    state.isProcessing = false;
+                    
+                    Notifications.show('success', 'Verificación completa', 
+                        `${total} correos verificados`, 
+                        `Éxito: ${state.emails.filter(e => e.isVerified).length}<br>
+                        Fallos: ${state.emails.filter(e => !e.isVerified).length}`);
+                    
+                    // Generar todos los documentos
+                    generateAllDocuments();
+                    
+                    // Actualizar interfaz
+                    updateEmailsDisplay();
+                    updateCounters();
+                    SessionManager.saveData();
+                    
+                    return;
+                }
+                
+                const email = state.emails[processed];
+                
+                // Simular verificación
+                setTimeout(() => {
+                    email.isVerified = Math.random() > 0.05;
+                    email.status = email.isVerified ? 'verified' : 'error';
+                    email.lastCheck = new Date().toLocaleTimeString();
+                    
+                    processed++;
+                    
+                    // Actualizar progreso
+                    const progress = (processed / total) * 100;
+                    document.getElementById('progressPercentage').textContent = 
+                        `${Math.round(progress)}%`;
+                    document.getElementById('progressFill').style.width = `${progress}%`;
+                    document.getElementById('processedCount').textContent = processed;
+                    
+                    // Continuar procesamiento
+                    processNext();
+                    
+                }, 100);
+            };
+            
+            // Iniciar procesamiento
+            processNext();
+        }
+        
+        // ===== GENERACIÓN DE DOCUMENTOS =====
+        function generateDocumentsForEmail(email) {
+            const docTypes = [
+                { type: 'Factura', sender: 'Proveedor SA', prefix: 'FAC' },
+                { type: 'Contrato', sender: 'Cliente Corp', prefix: 'CON' },
+                { type: 'Reporte', sender: 'Departamento Finanzas', prefix: 'REP' },
+                { type: 'Multa', sender: 'Gobierno Estatal', prefix: 'MUL' },
+                { type: 'Estado de Cuenta', sender: 'Banco Nacional', prefix: 'ECU' },
+                { type: 'Orden de Compra', sender: 'Departamento Compras', prefix: 'ORD' },
+                { type: 'Nota de Crédito', sender: 'Proveedor SA', prefix: 'NCR' }
+            ];
+            
+            const companies = ['SAT', 'IMSS', 'INFONAVIT', 'SHCP', 'BANXICO', 'PROFECO'];
+            
+            for (let i = 0; i < email.documents; i++) {
+                const docType = docTypes[Math.floor(Math.random() * docTypes.length)];
+                const daysAgo = Math.floor(Math.random() * 90);
+                const date = new Date(Date.now() - daysAgo * 24 * 60 * 60 * 1000);
+                
+                let amount = '';
+                if (docType.type === 'Factura' || docType.type === 'Multa') {
+                    amount = `$${(Math.random() * 10000).toFixed(2)}`;
+                }
+                
+                const isPenalty = docType.type === 'Multa';
+                const isUrgent = isPenalty && daysAgo > 30;
+                
+                state.documents.push({
+                    id: state.documents.length + 1,
+                    emailId: email.id,
+                    email: email.email,
+                    company: email.company,
+                    type: docType.type,
+                    sender: Math.random() > 0.5 ? docType.sender : companies[Math.floor(Math.random() * companies.length)],
+                    date: date.toLocaleDateString(),
+                    amount: amount,
+                    status: isPenalty ? 'Pendiente' : (Math.random() > 0.3 ? 'Procesado' : 'Pendiente'),
+                    urgent: isUrgent,
+                    reference: `${docType.prefix}-${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 10000)).padStart(4, '0')}`,
+                    notes: isPenalty ? '¡ATENCIÓN! Pago pendiente' : ''
+                });
+            }
+        }
+        
+        function generateAllDocuments() {
+            state.documents = [];
+            state.emails.forEach(email => {
+                if (email.isVerified) {
+                    generateDocumentsForEmail(email);
+                }
+            });
+            
+            // Actualizar contadores
+            updateCounters();
+            SessionManager.saveData();
+        }
+        
+        function checkDocuments(index) {
+            const email = state.emails[index];
+            
+            // Generar documentos si no existen
+            if (email.documents > 0 && !state.documents.some(d => d.email === email.email)) {
+                generateDocumentsForEmail(email);
+                SessionManager.saveData();
+            }
+            
+            // Mostrar detalles
+            viewEmailDetails(index);
+        }
+        
+        // ===== VISTA DE DETALLES =====
+        function viewEmailDetails(index) {
+            const email = state.emails[index];
+            
+            // Filtrar documentos relacionados
+            const relatedDocs = state.documents.filter(d => d.email === email.email);
+            
+            let detailsHTML = `
+                <div class="email-details">
+                    <div class="flex justify-between items-center mb-30">
+                        <div>
+                            <h3 style="font-size: 1.8rem; color: var(--primary); margin-bottom: 10px;">
+                                ${email.company}
+                            </h3>
+                            <p style="color: #666; margin-bottom: 5px;">
+                                <i class="fas fa-envelope"></i> ${email.email}
+                            </p>
+                            <p style="color: #999; font-size: 0.9rem;">
+                                ID: ${email.id} • Creado: ${new Date(email.created).toLocaleDateString()}
+                            </p>
+                        </div>
+                        <div class="text-center">
+                            <div class="email-avatar" style="width: 80px; height: 80px; font-size: 2rem;">
+                                ${email.company.charAt(0)}
+                            </div>
+                            <div class="email-status ${email.isVerified ? 'status-active' : 'status-pending'}" style="margin-top: 10px;">
+                                ${email.isVerified ? 'VERIFICADO' : 'PENDIENTE'}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-grid" style="margin: 30px 0;">
+                        <div class="stat-card primary">
+                            <i class="fas fa-file"></i>
+                            <h3>${email.documents}</h3>
+                            <p>Documentos</p>
+                        </div>
+                        <div class="stat-card ${email.bankAccounts > 0 ? 'success' : 'warning'}">
+                            <i class="fas fa-university"></i>
+                            <h3>${email.bankAccounts}</h3>
+                            <p>Cuentas Bancarias</p>
+                        </div>
+                        <div class="stat-card ${email.hasPenalties ? 'danger urgent' : 'success'}">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>${email.hasPenalties ? 'SÍ' : 'NO'}</h3>
+                            <p>Multas Pendientes</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-30">
+                        <h4 style="color: var(--primary); margin-bottom: 15px;">
+                            <i class="fas fa-history"></i> Historial de Verificación
+                        </h4>
+                        <div style="background: var(--light); padding: 20px; border-radius: 10px;">
+                            <p><strong>Última verificación:</strong> ${email.lastCheck}</p>
+                            <p><strong>Estado:</strong> ${email.isVerified ? 'Activo' : 'Inactivo'}</p>
+                            <p><strong>Total verificaciones:</strong> ${email.isVerified ? '1' : '0'}</p>
+                        </div>
+                    </div>
+            `;
+            
+            if (relatedDocs.length > 0) {
+                detailsHTML += `
+                    <div>
+                        <h4 style="color: var(--primary); margin-bottom: 15px;">
+                            <i class="fas fa-file-invoice"></i> Documentos Relacionados (${relatedDocs.length})
+                        </h4>
+                        <div style="max-height: 300px; overflow-y: auto;">
+                            <table class="documents-table" style="font-size: 0.9rem;">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Remitente</th>
+                                        <th>Fecha</th>
+                                        <th>Importe</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                `;
+                
+                relatedDocs.forEach(doc => {
+                    detailsHTML += `
+                        <tr ${doc.urgent ? 'style="background: rgba(231, 76, 60, 0.1);"' : ''}>
+                            <td><span class="document-type type-${doc.type.toLowerCase()}">${doc.type}</span></td>
+                            <td>${doc.sender}</td>
+                            <td>${doc.date}</td>
+                            <td><strong>${doc.amount}</strong></td>
+                            <td>
+                                ${doc.status === 'Pendiente' ? 
+                                    '<span style="color: var(--danger); font-weight: bold;">PENDIENTE</span>' : 
+                                    '<span style="color: var(--success); font-weight: bold;">PROCESADO</span>'}
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                detailsHTML += `
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            } else {
+                detailsHTML += `
+                    <div class="text-center" style="padding: 40px 20px; background: var(--light); border-radius: 10px;">
+                        <i class="fas fa-inbox" style="font-size: 3rem; color: #ccc; margin-bottom: 15px;"></i>
+                        <h4 style="color: #666; margin-bottom: 10px;">Sin documentos</h4>
+                        <p style="color: #999;">No se han encontrado documentos para este correo</p>
+                    </div>
+                `;
+            }
+            
+            detailsHTML += `</div>`;
+            
+            document.getElementById('modalTitle').innerHTML = `
+                <i class="fas fa-info-circle"></i> Detalles: ${email.company}
+            `;
+            document.getElementById('modalBody').innerHTML = detailsHTML;
+            document.getElementById('detailsModal').style.display = 'flex';
+        }
+        
+        // ===== FUNCIONES ADICIONALES =====
+        function scanForDocuments() {
+            if (state.emails.length === 0) {
+                Notifications.show('warning', 'Sin datos', 
+                    'Carga correos primero para escanear documentos');
+                return;
+            }
+            
+            generateAllDocuments();
+            
+            const pending = state.documents.filter(d => d.status === 'Pendiente').length;
+            const penalties = state.documents.filter(d => d.type === 'Multa').length;
+            
+            Notifications.show('success', 'Escaneo completado', 
+                `${state.documents.length} documentos encontrados`,
+                `• Pendientes: ${pending}<br>
+                • Multas: ${penalties}<br>
+                • Urgentes: ${state.documents.filter(d => d.urgent).length}`);
+            
+            showSection('documents');
+        }
+        
+        function checkForPenalties() {
+            const penalties = state.documents.filter(d => d.type === 'Multa' && d.status === 'Pendiente');
+            
+            if (penalties.length === 0) {
+                Notifications.show('success', 'Sin multas pendientes', 
+                    'No se encontraron multas pendientes de pago');
+                return;
+            }
+            
+            const totalAmount = penalties.reduce((sum, p) => {
+                const amount = parseFloat(p.amount.replace('$', '').replace(',', '')) || 0;
+                return sum + amount;
+            }, 0);
+            
+            Notifications.show('error', '¡ALERTA DE MULTA!', 
+                `${penalties.length} multas pendientes`,
+                `• Total pendiente: $${totalAmount.toFixed(2)}<br>
+                • Correos afectados: ${[...new Set(penalties.map(p => p.email))].length}<br>
+                • <strong>¡ATENCIÓN! Revisa urgentemente</strong>`);
+        }
+        
+        function exportReport() {
+            if (state.emails.length === 0) {
+                Notifications.show('warning', 'Sin datos', 
+                    'No hay datos para exportar');
+                return;
+            }
+            
+            const report = {
+                generated: new Date().toISOString(),
+                totalEmails: state.emails.length,
+                verifiedEmails: state.emails.filter(e => e.isVerified).length,
+                totalDocuments: state.documents.length,
+                pendingDocuments: state.documents.filter(d => d.status === 'Pendiente').length,
+                pendingPenalties: state.documents.filter(d => d.type === 'Multa' && d.status === 'Pendiente').length,
+                emails: state.emails.map(e => ({
+                    email: e.email,
+                    company: e.company,
+                    status: e.status,
+                    documents: e.documents,
+                    lastCheck: e.lastCheck
+                })),
+                summary: `Reporte generado el ${new Date().toLocaleDateString()}`
+            };
+            
+            const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `reporte_empresarial_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            Notifications.show('success', 'Reporte exportado', 
+                'El reporte se ha descargado correctamente');
+        }
+        
+        // ===== ACTUALIZACIÓN DE CONTADORES =====
+        function updateCounters() {
+            // Actualizar badges
+            document.getElementById('emailCountBadge').textContent = state.emails.length;
+            document.getElementById('docCountBadge').textContent = state.documents.length;
+            
+            const pendingAlerts = state.documents.filter(d => 
+                d.status === 'Pendiente' && d.type === 'Multa'
+            ).length;
+            document.getElementById('alertCountBadge').textContent = pendingAlerts;
+            
+            // Actualizar estadísticas principales
+            document.getElementById('totalEmails').textContent = state.emails.length;
+            document.getElementById('totalInvoices').textContent = 
+                state.documents.filter(d => d.type === 'Factura').length;
+            document.getElementById('pendingAlerts').textContent = pendingAlerts;
+            document.getElementById('bankAccounts').textContent = 
+                state.emails.reduce((sum, e) => sum + e.bankAccounts, 0);
+            document.getElementById('verifiedEmails').textContent = 
+                state.emails.filter(e => e.isVerified).length;
+            document.getElementById('processedDocs').textContent = 
+                state.documents.filter(d => d.status === 'Procesado').length;
+        }
+        
+        // ===== DATOS DE EJEMPLO =====
+        function loadSampleData() {
+            // Crear 50 correos de ejemplo (no 500 para mejor rendimiento)
+            const sampleCompanies = [
+                'TechCorp', 'GlobalBiz', 'MegaStore', 'FoodChain', 
+                'AutoGroup', 'BuildCorp', 'MediCare', 'EduNet',
+                'Logistics SA', 'FinancePro', 'RetailCo', 'Manufacturing Inc'
+            ];
+            
+            for (let i = 1; i <= 50; i++) {
+                const company = sampleCompanies[Math.floor(Math.random() * sampleCompanies.length)];
+                const email = `admin${i}@${company.toLowerCase().replace(/\s/g, '')}.com`;
+                
+                state.emails.push({
+                    id: i,
+                    email: email,
+                    password: `SecurePass${i}`,
+                    company: company,
+                    status: 'pending',
+                    documents: Math.floor(Math.random() * 15),
+                    bankAccounts: Math.random() > 0.7 ? 1 : 0,
+                    lastCheck: 'Nunca',
+                    hasPenalties: Math.random() > 0.85,
+                    isVerified: Math.random() > 0.6,
+                    created: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString()
+                });
+            }
+            
+            // Generar documentos para correos verificados
+            state.emails.forEach(email => {
+                if (email.isVerified) {
+                    generateDocumentsForEmail(email);
+                }
+            });
+            
+            // Actualizar interfaz
+            updateEmailsDisplay();
+            updateCounters();
+            
+            Notifications.show('info', 'Datos de ejemplo', 
+                'Se han cargado 50 correos de ejemplo para demostración');
+        }
+        
+        // ===== FUNCIONES DE UTILIDAD =====
+        function closeModal() {
+            document.getElementById('detailsModal').style.display = 'none';
+        }
+        
+        function logout() {
+            SessionManager.logout();
+        }
+        
+        // ===== INICIALIZACIÓN =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar si hay sesión activa
+            const sessionStart = localStorage.getItem('sessionStart');
+            if (sessionStart) {
+                const sessionTime = Math.floor((new Date() - new Date(sessionStart)) / 1000);
+                if (sessionTime < CONFIG.SESSION_TIME) {
+                    // Sesión aún válida, restaurar
+                    SessionManager.start();
+                    document.getElementById('loginScreen').style.display = 'none';
+                    document.getElementById('dashboard').style.display = 'block';
+                    
+                    const lastAccess = localStorage.getItem('lastAccess');
+                    if (lastAccess) {
+                        document.getElementById('lastAccess').textContent = lastAccess;
+                    }
+                } else {
+                    // Sesión expirada, limpiar
+                    Encryption.clearData();
+                }
+            }
+            
+            // Configurar evento de tecla Enter en password
+            document.getElementById('passwordInput').addEventListener('keypress', handleEnterKey);
+            
+            // Cerrar modal al hacer clic fuera
+            document.getElementById('detailsModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+            
+            // Cerrar sidebar al hacer clic fuera (en móviles)
+            document.addEventListener('click', function(e) {
+                const sidebar = document.getElementById('sidebar');
+                const menuToggle = document.querySelector('.menu-toggle');
+                
+                if (window.innerWidth <= 992 && 
+                    sidebar.classList.contains('show') &&
+                    !sidebar.contains(e.target) &&
+                    !menuToggle.contains(e.target)) {
+                    sidebar.classList.remove('show');
+                }
+            });
+            
+            // Prevenir acciones no deseadas
+            document.addEventListener('contextmenu', function(e) {
+                if (e.target.closest('.email-card') || e.target.closest('.password-input')) {
+                    e.preventDefault();
+                    Notifications.show('warning', 'Acción bloqueada', 
+                        'Esta acción no está permitida por seguridad');
+                }
+            });
+            
+            // Detectar intentos de copiar datos sensibles
+            document.addEventListener('copy', function(e) {
+                if (e.target.closest('.email-info') || e.target.closest('.password-input')) {
+                    e.preventDefault();
+                    Notifications.show('error', 'Copia bloqueada', 
+                        'No se permite copiar información sensible');
+                }
+            });
+        });
+        
+        // ===== MANEJO DE ERRORES GLOBAL =====
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error('Error global:', { message, source, lineno, colno, error });
+            Notifications.show('error', 'Error del sistema', 
+                'Ocurrió un error inesperado. Por favor, recarga la página.');
+            return true;
+        };
+        
+        // ===== DETECCIÓN DE INACTIVIDAD =====
+        let inactivityTimer;
+        
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(() => {
+                if (state.isAuthenticated) {
+                    Notifications.show('warning', 'Inactividad detectada', 
+                        'La sesión se cerrará por inactividad en 1 minuto');
+                    
+                    setTimeout(() => {
+                        if (state.isAuthenticated) {
+                            SessionManager.logout();
+                        }
+                    }, 60000);
+                }
+            }, 5 * 60 * 1000); // 5 minutos de inactividad
+        }
+        
+        // Reiniciar temporizador en eventos de usuario
+        ['mousemove', 'keypress', 'click', 'scroll'].forEach(event => {
+            document.addEventListener(event, resetInactivityTimer);
+        });
+        
+        resetInactivityTimer();
+    </script>
+</body>
+</html>
