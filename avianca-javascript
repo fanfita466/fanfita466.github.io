@@ -1,0 +1,597 @@
+// Datos iniciales de vuelos
+let flightsData = [
+    {
+        id: 1,
+        flightNumber: "SW123",
+        airline: "SkyWings",
+        origin: "Bogotá (BOG)",
+        originCode: "BOG",
+        destination: "Medellín (MDE)",
+        destinationCode: "MDE",
+        departureTime: "06:30",
+        arrivalTime: "07:30",
+        departureDate: "15 Mar 2024",
+        arrivalDate: "15 Mar 2024",
+        duration: "1h 00m",
+        originalPrice: 250000,
+        status: "Disponible",
+        featured: true,
+        direct: true,
+        baggage: true
+    },
+    {
+        id: 2,
+        flightNumber: "SW456",
+        airline: "SkyWings",
+        origin: "Bogotá (BOG)",
+        originCode: "BOG",
+        destination: "Cartagena (CTG)",
+        destinationCode: "CTG",
+        departureTime: "09:15",
+        arrivalTime: "10:45",
+        departureDate: "15 Mar 2024",
+        arrivalDate: "15 Mar 2024",
+        duration: "1h 30m",
+        originalPrice: 320000,
+        status: "Disponible",
+        featured: false,
+        direct: true,
+        baggage: true
+    },
+    {
+        id: 3,
+        flightNumber: "SW789",
+        airline: "SkyWings",
+        origin: "Bogotá (BOG)",
+        originCode: "BOG",
+        destination: "Cali (CLO)",
+        destinationCode: "CLO",
+        departureTime: "14:20",
+        arrivalTime: "15:30",
+        departureDate: "15 Mar 2024",
+        arrivalDate: "15 Mar 2024",
+        duration: "1h 10m",
+        originalPrice: 280000,
+        status: "Últimos asientos",
+        featured: true,
+        direct: true,
+        baggage: false
+    },
+    {
+        id: 4,
+        flightNumber: "SW101",
+        airline: "SkyWings",
+        origin: "Bogotá (BOG)",
+        originCode: "BOG",
+        destination: "Miami (MIA)",
+        destinationCode: "MIA",
+        departureTime: "18:00",
+        arrivalTime: "23:30",
+        departureDate: "15 Mar 2024",
+        arrivalDate: "15 Mar 2024",
+        duration: "5h 30m",
+        originalPrice: 1200000,
+        status: "Disponible",
+        featured: false,
+        direct: false,
+        baggage: true
+    },
+    {
+        id: 5,
+        flightNumber: "SW202",
+        airline: "SkyWings",
+        origin: "Medellín (MDE)",
+        originCode: "MDE",
+        destination: "Cartagena (CTG)",
+        destinationCode: "CTG",
+        departureTime: "11:00",
+        arrivalTime: "12:30",
+        departureDate: "15 Mar 2024",
+        arrivalDate: "15 Mar 2024",
+        duration: "1h 30m",
+        originalPrice: 270000,
+        status: "Disponible",
+        featured: false,
+        direct: true,
+        baggage: true
+    },
+    {
+        id: 6,
+        flightNumber: "SW303",
+        airline: "SkyWings",
+        origin: "Cartagena (CTG)",
+        originCode: "CTG",
+        destination: "Madrid (MAD)",
+        destinationCode: "MAD",
+        departureTime: "22:00",
+        arrivalTime: "14:00",
+        departureDate: "15 Mar 2024",
+        arrivalDate: "16 Mar 2024",
+        duration: "9h 00m",
+        originalPrice: 1800000,
+        status: "Disponible",
+        featured: true,
+        direct: true,
+        baggage: true
+    }
+];
+
+// Variables globales
+let currentPage = 1;
+const flightsPerPage = 6;
+let isUpdating = true;
+let updateInterval;
+let lastUpdateTime = new Date();
+
+// Función para aplicar 40% de descuento
+function applyDiscount(price) {
+    return Math.round(price * 0.6);
+}
+
+// Función para formatear precio
+function formatPrice(price) {
+    return new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+        minimumFractionDigits: 0
+    }).format(price);
+}
+
+// Función para formatear hora
+function formatTime(time) {
+    return time.replace(/:00$/, '');
+}
+
+// Función para obtener estado con color
+function getStatusColor(status) {
+    const colors = {
+        'Disponible': '#28a745',
+        'Últimos asientos': '#ffc107',
+        'Reservado': '#6c757d',
+        'Cancelado': '#dc3545'
+    };
+    return colors[status] || '#6c757d';
+}
+
+// Función para renderizar vuelos
+function renderFlights(flights = flightsData, page = 1) {
+    const flightsList = document.getElementById('flightsList');
+    const startIndex = (page - 1) * flightsPerPage;
+    const endIndex = startIndex + flightsPerPage;
+    const flightsToShow = flights.slice(startIndex, endIndex);
+
+    if (flightsToShow.length === 0) {
+        flightsList.innerHTML = `
+            <div class="no-flights" style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                <i class="fas fa-plane-slash" style="font-size: 4rem; color: #6c757d; margin-bottom: 1rem;"></i>
+                <h3 style="color: var(--secondary-color); margin-bottom: 0.5rem;">No se encontraron vuelos</h3>
+                <p style="color: var(--gray-color);">Intenta con otros criterios de búsqueda</p>
+            </div>
+        `;
+        return;
+    }
+
+    flightsList.innerHTML = flightsToShow.map(flight => {
+        const discountedPrice = applyDiscount(flight.originalPrice);
+        const statusColor = getStatusColor(flight.status);
+        
+        return `
+            <div class="flight-card ${flight.featured ? 'featured' : ''}" data-id="${flight.id}">
+                <div class="flight-header">
+                    <div class="flight-number">
+                        <i class="fas fa-plane"></i>
+                        ${flight.flightNumber} - ${flight.airline}
+                    </div>
+                    <div class="flight-status" style="background-color: ${statusColor}">
+                        ${flight.status}
+                    </div>
+                </div>
+                <div class="flight-body">
+                    <div class="flight-origin">
+                        <div class="city">${flight.origin}</div>
+                        <div class="code">${flight.originCode}</div>
+                        <div class="time">${formatTime(flight.departureTime)}</div>
+                        <div class="date">${flight.departureDate}</div>
+                    </div>
+                    <div class="flight-route">
+                        <i class="fas fa-plane"></i>
+                        <div class="duration">${flight.duration}</div>
+                    </div>
+                    <div class="flight-destination">
+                        <div class="city">${flight.destination}</div>
+                        <div class="code">${flight.destinationCode}</div>
+                        <div class="time">${formatTime(flight.arrivalTime)}</div>
+                        <div class="date">${flight.arrivalDate}</div>
+                    </div>
+                </div>
+                <div class="flight-price">
+                    <div class="original-price">${formatPrice(flight.originalPrice)}</div>
+                    <div class="discount-price">${formatPrice(discountedPrice)}</div>
+                    <div class="discount-tag">40% DE DESCUENTO</div>
+                    <button class="btn btn-book" onclick="bookFlight(${flight.id})">
+                        <i class="fas fa-shopping-cart"></i> Reservar Ahora
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// Función para buscar vuelos
+function searchFlights() {
+    const origin = document.getElementById('origin').value;
+    const destination = document.getElementById('destination').value;
+    const onlyDirect = document.querySelector('input[type="checkbox"]:checked');
+    const withBaggage = document.querySelectorAll('input[type="checkbox"]')[1].checked;
+    
+    let filtered = flightsData;
+    
+    if (origin) {
+        filtered = filtered.filter(f => f.originCode === origin);
+    }
+    
+    if (destination) {
+        filtered = filtered.filter(f => f.destinationCode === destination);
+    }
+    
+    if (onlyDirect) {
+        filtered = filtered.filter(f => f.direct);
+    }
+    
+    if (withBaggage) {
+        filtered = filtered.filter(f => f.baggage);
+    }
+    
+    renderFlights(filtered);
+    return filtered;
+}
+
+// Función para cargar más vuelos
+function loadMoreFlights() {
+    currentPage++;
+    const filteredFlights = searchFlights();
+    const totalPages = Math.ceil(filteredFlights.length / flightsPerPage);
+    
+    if (currentPage <= totalPages) {
+        renderFlights(filteredFlights, currentPage);
+    } else {
+        document.querySelector('.btn-load').disabled = true;
+        document.querySelector('.btn-load').innerHTML = '<i class="fas fa-check"></i> No hay más vuelos';
+    }
+}
+
+// Función para simular actualizaciones en tiempo real
+function simulateRealTimeUpdates() {
+    if (!isUpdating) return;
+    
+    // Actualizar precios aleatoriamente
+    flightsData.forEach(flight => {
+        if (Math.random() > 0.7) {
+            const change = (Math.random() * 0.1) - 0.05; // -5% a +5%
+            flight.originalPrice = Math.round(flight.originalPrice * (1 + change));
+        }
+        
+        if (Math.random() > 0.8) {
+            const statuses = ['Disponible', 'Últimos asientos'];
+            const currentIndex = statuses.indexOf(flight.status);
+            if (currentIndex !== -1) {
+                flight.status = statuses[(currentIndex + 1) % statuses.length];
+            }
+        }
+    });
+    
+    // Actualizar tiempo
+    lastUpdateTime = new Date();
+    const timeString = lastUpdateTime.toLocaleTimeString('es-CO', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+    
+    document.getElementById('updateTime').textContent = `Actualizado: ${timeString}`;
+    
+    // Volver a renderizar
+    renderFlights();
+}
+
+// Función para alternar actualizaciones
+function toggleUpdates() {
+    const toggleBtn = document.getElementById('toggleUpdates');
+    isUpdating = !isUpdating;
+    
+    if (isUpdating) {
+        toggleBtn.innerHTML = '<i class="fas fa-pause"></i> Pausar';
+        toggleBtn.style.backgroundColor = '#dc3545';
+        startUpdates();
+    } else {
+        toggleBtn.innerHTML = '<i class="fas fa-play"></i> Reanudar';
+        toggleBtn.style.backgroundColor = '#28a745';
+        stopUpdates();
+    }
+}
+
+// Función para iniciar actualizaciones
+function startUpdates() {
+    if (updateInterval) clearInterval(updateInterval);
+    updateInterval = setInterval(simulateRealTimeUpdates, 8000);
+}
+
+// Función para detener actualizaciones
+function stopUpdates() {
+    if (updateInterval) {
+        clearInterval(updateInterval);
+        updateInterval = null;
+    }
+}
+
+// Función para reservar vuelo
+function bookFlight(flightId) {
+    const flight = flightsData.find(f => f.id === flightId);
+    if (!flight) return;
+    
+    const discountedPrice = applyDiscount(flight.originalPrice);
+    
+    // Crear modal de reserva
+    const modalHTML = `
+        <div class="modal-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 2000;">
+            <div class="modal" style="background: white; border-radius: 12px; width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+                <div class="modal-header" style="background: linear-gradient(135deg, var(--secondary-color), #0044aa); color: white; padding: 1.5rem; border-radius: 12px 12px 0 0; display: flex; justify-content: space-between; align-items: center;">
+                    <h3 style="margin: 0; font-size: 1.5rem;">
+                        <i class="fas fa-plane"></i> Confirmar Reserva
+                    </h3>
+                    <button onclick="closeModal()" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">&times;</button>
+                </div>
+                <div class="modal-body" style="padding: 1.5rem;">
+                    <div class="flight-details" style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                        <h4 style="color: var(--secondary-color); margin-bottom: 0.5rem;">Vuelo ${flight.flightNumber}</h4>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span><i class="fas fa-plane-departure"></i> ${flight.origin}</span>
+                            <span><i class="fas fa-plane-arrival"></i> ${flight.destination}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span><i class="fas fa-clock"></i> ${flight.departureTime}</span>
+                            <span><i class="fas fa-calendar"></i> ${flight.departureDate}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="price-summary" style="background: #e8f5e9; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                        <h4 style="color: var(--success-color); margin-bottom: 1rem;">
+                            <i class="fas fa-tag"></i> Resumen de Precios
+                        </h4>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>Precio original:</span>
+                            <span style="text-decoration: line-through; color: var(--gray-color);">
+                                ${formatPrice(flight.originalPrice)}
+                            </span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>Descuento 40%:</span>
+                            <span style="color: var(--discount-color); font-weight: bold;">
+                                -${formatPrice(flight.originalPrice * 0.4)}
+                            </span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: bold; padding-top: 0.5rem; border-top: 2px solid var(--success-color);">
+                            <span>TOTAL A PAGAR:</span>
+                            <span style="color: var(--primary-color);">
+                                ${formatPrice(discountedPrice)}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <form id="bookingForm" onsubmit="confirmBooking(event, ${flightId})">
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: var(--secondary-color);">
+                                <i class="fas fa-user"></i> Nombre completo
+                            </label>
+                            <input type="text" required style="width: 100%; padding: 0.75rem; border: 2px solid #e1e5eb; border-radius: 6px; font-size: 1rem;" 
+                                   placeholder="Ingresa tu nombre completo">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: var(--secondary-color);">
+                                <i class="fas fa-envelope"></i> Correo electrónico
+                            </label>
+                            <input type="email" required style="width: 100%; padding: 0.75rem; border: 2px solid #e1e5eb; border-radius: 6px; font-size: 1rem;" 
+                                   placeholder="tucorreo@ejemplo.com">
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: var(--secondary-color);">
+                                <i class="fas fa-credit-card"></i> Método de pago
+                            </label>
+                            <select style="width: 100%; padding: 0.75rem; border: 2px solid #e1e5eb; border-radius: 6px; font-size: 1rem;">
+                                <option>Tarjeta de crédito</option>
+                                <option>Tarjeta débito</option>
+                                <option>PSE</option>
+                                <option>PayPal</option>
+                            </select>
+                        </div>
+                        <button type="submit" style="width: 100%; padding: 1rem; background: linear-gradient(135deg, var(--primary-color), #ff3366); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: all 0.3s;">
+                            <i class="fas fa-check-circle"></i> Confirmar y Pagar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    const modal = document.createElement('div');
+    modal.innerHTML = modalHTML;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+}
+
+// Función para cerrar modal
+function closeModal() {
+    const modal = document.querySelector('.modal-overlay');
+    if (modal) {
+        modal.remove();
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Función para confirmar reserva
+function confirmBooking(event, flightId) {
+    event.preventDefault();
+    
+    const flight = flightsData.find(f => f.id === flightId);
+    if (flight) {
+        flight.status = 'Reservado';
+        
+        // Mostrar notificación
+        showNotification('¡Reserva confirmada! Se ha enviado el itinerario a tu correo.', 'success');
+        
+        // Actualizar lista de vuelos
+        renderFlights();
+        
+        // Cerrar modal
+        closeModal();
+        
+        // Simular envío de correo
+        setTimeout(() => {
+            showNotification('✈️ ¡Tu itinerario ha sido enviado a tu correo!', 'info');
+        }, 1000);
+    }
+}
+
+// Función para mostrar notificaciones
+function showNotification(message, type = 'info') {
+    // Remover notificaciones existentes
+    const existing = document.querySelector('.notification');
+    if (existing) existing.remove();
+    
+    const colors = {
+        success: '#28a745',
+        error: '#dc3545',
+        info: '#17a2b8',
+        warning: '#ffc107'
+    };
+    
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}" 
+               style="font-size: 1.5rem;"></i>
+            <span>${message}</span>
+        </div>
+        <button onclick="this.parentElement.remove()" style="background: none; border: none; color: white; font-size: 1.25rem; cursor: pointer;">&times;</button>
+    `;
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${colors[type] || colors.info};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        z-index: 3000;
+        animation: slideIn 0.3s ease;
+        max-width: 400px;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto-remover después de 5 segundos
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 5000);
+}
+
+// Función para cambiar número de pasajeros
+function changePassengers(delta) {
+    const input = document.getElementById('passengers');
+    let value = parseInt(input.value) + delta;
+    value = Math.max(1, Math.min(8, value));
+    input.value = value;
+}
+
+// Función para inicializar todo
+function init() {
+    // Renderizar vuelos iniciales
+    renderFlights();
+    
+    // Configurar eventos
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        currentPage = 1;
+        searchFlights();
+        showNotification('Búsqueda completada. ' + flightsData.length + ' vuelos encontrados.', 'success');
+    });
+    
+    // Configurar botón de actualizaciones
+    document.getElementById('toggleUpdates').addEventListener('click', toggleUpdates);
+    
+    // Configurar botones de login/register
+    document.querySelector('.btn-login').addEventListener('click', () => {
+        showNotification('🔐 Funcionalidad de inicio de sesión en desarrollo', 'info');
+    });
+    
+    document.querySelector('.btn-register').addEventListener('click', () => {
+        showNotification('📝 Funcionalidad de registro en desarrollo', 'info');
+    });
+    
+    // Configurar newsletter
+    document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = this.querySelector('input[type="email"]').value;
+        showNotification(`📧 ¡Gracias por suscribirte! Te enviaremos ofertas a ${email}`, 'success');
+        this.reset();
+    });
+    
+    // Iniciar actualizaciones en tiempo real
+    startUpdates();
+    
+    // Mostrar mensaje de bienvenida
+    setTimeout(() => {
+        showNotification('✈️ ¡Bienvenido a SkyWings! Todos los precios ya incluyen 40% de descuento.', 'info');
+    }, 1000);
+}
+
+// Cerrar modal al hacer clic fuera
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('modal-overlay')) {
+        closeModal();
+    }
+});
+
+// Cerrar modal con ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+});
+
+// Inicializar la aplicación cuando se cargue la página
+document.addEventListener('DOMContentLoaded', init);
+
+// Añadir animación CSS para notificaciones
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
